@@ -33,5 +33,21 @@ namespace Booking.System.Application.Identity
             var result = await _userManager.CreateAsync(user, userRetistrationDto.Password);
             return result;
         }
+
+        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+        {
+            var jwtSettings = _configuration.GetSection("JwtConfig");
+            var tokenOptions = new JwtSecurityToken
+            (
+                issuer: jwtSettings["validIssuer"],
+                audience: jwtSettings["validAudience"],
+
+                claims: claims,
+
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expiresIn"])),
+                signingCredentials: signingCredentials
+            );
+            return tokenOptions;
+        }
     }
 }
