@@ -1,6 +1,6 @@
-﻿using Booking.System.WebApi.Identity.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Booking.System.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Booking.System.WebApi.Data
 {
@@ -8,5 +8,10 @@ namespace Booking.System.WebApi.Data
     {
         public SecurityDbContext(DbContextOptions options)
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }
