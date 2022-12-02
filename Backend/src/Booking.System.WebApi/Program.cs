@@ -1,13 +1,16 @@
-using Booking.System.WebApi.Identity;
+using Booking.System.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-builder.Services.AddCustomIdentity();
-
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//Конфигурация идентити
+
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+
+//Конфигурация Cors
 
 builder.Services.AddCors(options =>
 {
@@ -18,6 +21,10 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
+
+//Shmagger
+
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
