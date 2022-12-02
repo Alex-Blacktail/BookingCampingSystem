@@ -4,14 +4,14 @@ namespace Booking.System.Application.Identity.DTO
 {
     public class UserRegistrationDto
     {
-        [Required(ErrorMessage = "Требуется ввести имя пользователя")]
+        [Required(ErrorMessage = "UserName is required")]
         public string? UserName { get; init; }
 
         public string? FirstName { get; init; }
         public string? LastName { get; init; }
         public string? ThirdName { get; init; }
 
-        [Required(ErrorMessage = "Требуется ввести пароль!")]
+        [Required(ErrorMessage = "Password is required")]
         public string? Password { get; init; }
 
         public string? Email { get; init; }
