@@ -10,21 +10,23 @@ using Booking.System.Domain.Identity;
 using Booking.System.Application.Identity.DTO;
 
 using AutoMapper;
+using Microsoft.Extensions.Options;
 
 namespace Booking.System.Application.Identity
 {
     public class UserAuthenticationRepository : IUserAuthenticationRepository
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly JWTSettings _settings;
+
         private readonly IMapper _mapper;
 
         private AppUser? _user;
 
-        public UserAuthenticationRepository(UserManager<AppUser> userManager, IConfiguration configuration, IMapper mapper)
+        public UserAuthenticationRepository(UserManager<AppUser> userManager, IOptions<JWTSettings> options, IMapper mapper)
         {
             _userManager = userManager;
-            _configuration = configuration;
+            _settings = options.Value;
             _mapper = mapper;
         }
 
@@ -54,9 +56,7 @@ namespace Booking.System.Application.Identity
 
         private SigningCredentials GetSigningCredentials()
         {
-            var jwtConfig = _configuration.GetSection("JwtConfig");
-
-            var key = Encoding.UTF8.GetBytes(jwtConfig["Secret"]);
+            var key = Encoding.UTF8.GetBytes(_settings.Secret);
             var secret = new SymmetricSecurityKey(key);
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
@@ -80,15 +80,14 @@ namespace Booking.System.Application.Identity
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = _configuration.GetSection("JwtConfig");
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: jwtSettings["validIssuer"],
-                audience: jwtSettings["validAudience"],
+                issuer: _settings.ValidIssuer,
+                audience: _settings.ValidAudience,
 
                 claims: claims,
 
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expiresIn"])),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_settings.ExpiresIn)),
                 signingCredentials: signingCredentials
             );
             return tokenOptions;
