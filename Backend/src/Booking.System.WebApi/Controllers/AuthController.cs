@@ -8,28 +8,35 @@ namespace Booking.System.WebApi.Controllers
 {
     [ApiController]
     [Route("api/authentication")]
-    public abstract class AuthController : ApiController
+    public class AuthController : ApiController
     {
         private readonly IUserAuthenticationRepository _repository;
 
-        protected AuthController(IMediator mediator, IUserAuthenticationRepository repository) 
+        public AuthController(IMediator mediator, IUserAuthenticationRepository repository) 
             : base(mediator)
         {
             _repository = repository;
         }
 
-        [HttpPost]
-
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(UserRegistrationDto userRegistration)
         {
             var userResult = await _repository.RegisterUserAsync(userRegistration);
 
             if(!userResult.Succeeded)
-            {
                 return StatusCode(201);
-            }
 
-            return  new BadRequestObjectResult(userResult);
+            return Ok(userResult);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Authenticate([FromBody] UserLoginDto user)
+        {
+            var isValid = await _repository.ValidateUserAsync(user);
+            if (!isValid)
+                return Unauthorized();
+
+            return Ok(new { Token = await _repository.CreateTokenAsync() });
         }
     }
 }

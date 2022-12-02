@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+using Booking.System.Application;
 using Booking.System.WebApi.Data;
-using Booking.System.WebApi.Settings;
 using Booking.System.Domain.Identity;
 using Booking.System.Application.Mappings;
-
 
 namespace Booking.System.WebApi
 {
