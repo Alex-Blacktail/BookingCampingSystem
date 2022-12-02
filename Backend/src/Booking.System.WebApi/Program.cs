@@ -1,29 +1,37 @@
+using Booking.System.Application;
+using Booking.System.Application.Identity;
+
 using Booking.System.WebApi;
+using Booking.System.WebApi.Data;
+
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOptions();
+builder.Services.Configure<JWTSettings>(config.GetSection("JwtConfig"));
 
-//Конфигурация идентити
+builder.Services.AddApplication();
+
+builder.Services.ConfigureResponseCaching();
+builder.Services.ConfigureMapping();
+
+var connectionString = config.GetConnectionString("Default");
+builder.Services.AddDbContext<SecurityDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(config.GetSection("JwtConfig").Get<JWTSettings>());
 
-//Конфигурация Cors
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
-    });
-});
+builder.Services.ConfigureControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 //Shmagger
 
+builder.Services.ConfigureSwagger();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -31,12 +39,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("v1.0/swagger.json", "Main API");
+    });
 }
 
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
+
+app.UseResponseCaching();
 
 app.UseAuthentication();
 app.UseAuthorization();
