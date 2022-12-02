@@ -1,4 +1,4 @@
-﻿namespace Booking.System.WebApi.Settings
+﻿namespace Booking.System.Application
 {
     public class JWTSettings
     {
