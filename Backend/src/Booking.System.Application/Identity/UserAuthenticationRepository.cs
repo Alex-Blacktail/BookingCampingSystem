@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Text;
+using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,49 @@ namespace Booking.System.Application.Identity
             var user = _mapper.Map<AppUser>(userRetistrationDto);
             var result = await _userManager.CreateAsync(user, userRetistrationDto.Password);
             return result;
+        }
+
+        public async Task<bool> ValidateUserAsync(UserLoginDto loginDto)
+        {
+            _user = await _userManager.FindByNameAsync(loginDto.UserName);
+            var result = _user != null && await _userManager.CheckPasswordAsync(_user, loginDto.Password);
+            return result;
+        }
+
+        public async Task<string> CreateTokenAsync()
+        {
+            var signingCredentials = GetSigningCredentials();
+            var claims = await GetClaims();
+
+            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+        }
+
+        private SigningCredentials GetSigningCredentials()
+        {
+            var jwtConfig = _configuration.GetSection("JwtConfig");
+
+            var key = Encoding.UTF8.GetBytes(jwtConfig["Secret"]);
+            var secret = new SymmetricSecurityKey(key);
+
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+        }
+
+        private async Task<List<Claim>> GetClaims()
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, _user.UserName)
+            };
+
+            var roles = await _userManager.GetRolesAsync(_user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            return claims;
         }
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
