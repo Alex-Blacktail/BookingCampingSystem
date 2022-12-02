@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booking.System.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
-        protected IMediator _mediator;
+        protected readonly IMediator _mediator;
 
         protected ApiController(IMediator mediator) 
         { 
