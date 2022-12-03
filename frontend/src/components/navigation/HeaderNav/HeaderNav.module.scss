@@ -1,0 +1,41 @@
+@import "src/assets/styles/variables";
+
+.navigation{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: $baseDarkColor;
+  height: 50px;
+  display: flex;
+
+
+  .navigation-list{
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+
+  .navigation-list__item{
+    color: $backgroundColor;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 33%;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+      color: $backgroundColor;
+      svg{
+        margin-left: 10px;
+      }
+    }
+  }
+}

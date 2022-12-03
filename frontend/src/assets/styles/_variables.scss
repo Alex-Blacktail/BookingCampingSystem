@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'Golos';
+  font-weight: bold;
+  src: url("../fonts/Golos Text_Bold.eot");
+  src: url("../fonts/Golos Text_Bold.ttf");
+  src: url("../fonts/Golos Text_Bold.woff");
+  src: url("../fonts/Golos Text_Bold.woff2");
+}
+
+@font-face {
+  font-family: 'Golos';
+  font-weight: 600;
+  src: url("../fonts/Golos Text_DemiBold.eot");
+  src: url("../fonts/Golos Text_DemiBold.ttf");
+  src: url("../fonts/Golos Text_DemiBold.woff");
+  src: url("../fonts/Golos Text_DemiBold.woff2");
+}
+
+@font-face {
+  font-family: 'Golos';
+  font-weight: 400;
+  src: url("../fonts/Golos Text_Regular.eot");
+  src: url("../fonts/Golos Text_Regular.ttf");
+  src: url("../fonts/Golos Text_Regular.woff");
+  src: url("../fonts/Golos Text_Regular.woff2");
+}
+
+@font-face {
+  font-family: 'Golos-UI';
+  font-weight: bold;
+  src: url("../fonts/Golos-UI_Bold.woff");
+  src: url("../fonts/Golos-UI_Bold.woff2");
+}
+
+@font-face {
+  font-family: 'Golos-UI';
+  font-weight: 500;
+  src: url("../fonts/Golos-UI_Medium.woff");
+  src: url("../fonts/Golos-UI_Medium.woff2");
+}
+
+@font-face {
+  font-family: 'Golos-UI';
+  font-weight: 500;
+  src: url("../fonts/Golos-UI_Regular.woff");
+  src: url("../fonts/Golos-UI_Regular.woff2");
+}
+
+$baseLightColor: rgb(0, 100, 250);
+$baseColor: rgb(6, 67, 146);
+$baseDarkColor: rgb(12, 34, 72);
+
+$backgroundColor: rgb(255, 255, 255);
+$textColor: #0c2248;
+$linkColor: #003ca0;
+$accentColor: #0064dc;
+$hoverColor: #006eff;
+$errorColor: rgb(180, 0, 60);
+$markColor: rgb(255, 230, 0);
+$surfaceColor: rgba(200, 220, 240, 0.3);
+

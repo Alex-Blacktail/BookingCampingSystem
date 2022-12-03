@@ -1,0 +1,29 @@
+@import "src/assets/styles/variables";
+
+.form-validate{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+
+  &__inputs{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    input{
+      margin-top: 20px;
+      width: 450px;
+    }
+  }
+
+  &__buttons{
+    margin-top: 40px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  &__links{
+    margin-top: 10px;
+  }
+}
