@@ -6,16 +6,24 @@ import {postData} from "../../../utils/fetch";
 import styles from "../BaseForm.module.scss";
 import Input from "../../controls/Input/Input";
 import Button from "../../controls/Button/Button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 const LoginForm = ({...props}) => {
 
 	const {register, handleSubmit, watch, formState:{errors}} = useForm()
+	const navigate = useNavigate()
 
-	const onSubmitFormHandler = async data => {
-		await postData('/api/authentication/login', data)
+	const onSubmitFormHandler = async value => {
+		await postData('/api/authentication/login', value)
 			.then((data) => {
-				console.log(data)
+				if (data?.token){
+					Cookies.set('token', data?.token)
+					Cookies.set('userId', data?.userId)
+					Cookies.set('role', data?.role)
+					console.log(data)
+					navigate('/profile')
+				}
 			})
 	}
 

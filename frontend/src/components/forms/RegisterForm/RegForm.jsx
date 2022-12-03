@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ROUTES} from "../../../constants/routes";
 import {useForm} from "react-hook-form";
 import {CONSTANTS} from "../../../constants/constants";
-import {postData} from "../../../utils/fetch";
+import {kladrGetAddres, postData} from "../../../utils/fetch";
 import styles from "../BaseForm.module.scss";
 import Input from "../../controls/Input/Input";
 import Button from "../../controls/Button/Button";
@@ -152,7 +152,7 @@ const RegForm = ({...props}) => {
 							/>
 							<Input
 								register={register(`country`, {required: true})}
-								placeholder={'Страна'}
+								placeholder={'Гражданство'}
 								name={'country'}
 								type={'text'}
 								id={'country'}
