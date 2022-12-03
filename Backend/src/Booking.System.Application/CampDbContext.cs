@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Booking.System.Domain;
 using Booking.System.Domain.Booking;
 using Booking.System.Domain.IdentityAspNet;
 using Microsoft.EntityFrameworkCore;
-using Booking.System.Domain;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Booking.System.Application
 {
     public partial class CampDbContext : DbContext
     {
+        public CampDbContext()
+        {
+        }
+
         public CampDbContext(DbContextOptions<CampDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
@@ -52,10 +54,6 @@ namespace Booking.System.Application
                 entity.Property(e => e.AddressContent)
                     .HasColumnType("character varying")
                     .HasColumnName("address_content");
-
-                entity.Property(e => e.Citizenship)
-                    .HasColumnType("character varying")
-                    .HasColumnName("citizenship");
             });
 
             modelBuilder.Entity<AspNetRole>(entity =>
@@ -193,6 +191,8 @@ namespace Booking.System.Application
             {
                 entity.ToTable("camp");
 
+                entity.HasIndex(e => e.AddressId, "IX_camp_address_id");
+
                 entity.HasIndex(e => e.WorkingModeId, "fki_working_mode_fkey");
 
                 entity.Property(e => e.CampId)
@@ -216,6 +216,8 @@ namespace Booking.System.Application
                 entity.Property(e => e.Food)
                     .HasColumnType("character varying")
                     .HasColumnName("food");
+
+                entity.Property(e => e.ImagePath).HasColumnName("image_path");
 
                 entity.Property(e => e.LegalEntity)
                     .HasColumnType("character varying")
@@ -258,6 +260,12 @@ namespace Booking.System.Application
             {
                 entity.ToTable("child");
 
+                entity.HasIndex(e => e.AddressId, "IX_child_address_id");
+
+                entity.HasIndex(e => e.PassportForeignId, "IX_child_passport_foreign_id");
+
+                entity.HasIndex(e => e.PassportRuId, "IX_child_passport_ru_id");
+
                 entity.HasIndex(e => e.BirthCertificateForeignId, "fki_birth_foreign_fkey");
 
                 entity.HasIndex(e => e.BirthCertificateRuId, "fki_birth_ru_fkey");
@@ -273,6 +281,10 @@ namespace Booking.System.Application
                 entity.Property(e => e.BirthCertificateRuId).HasColumnName("birth_certificate_ru_id");
 
                 entity.Property(e => e.Birthday).HasColumnName("birthday");
+
+                entity.Property(e => e.Citizenship)
+                    .HasColumnType("character varying")
+                    .HasColumnName("citizenship");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(256)
@@ -329,11 +341,15 @@ namespace Booking.System.Application
             {
                 entity.ToTable("feature");
 
+                entity.HasIndex(e => e.CampId, "IX_feature_camp_id");
+
                 entity.Property(e => e.FeatureId)
                     .HasColumnName("feature_id")
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.CampId).HasColumnName("camp_id");
+
+                entity.Property(e => e.ImagePath).HasColumnName("image_path");
 
                 entity.Property(e => e.Name)
                     .HasColumnType("character varying")
@@ -386,6 +402,8 @@ namespace Booking.System.Application
 
                             j.ToTable("local_administrator_camp");
 
+                            j.HasIndex(new[] { "IdCamp" }, "IX_local_administrator_camp_id_camp");
+
                             j.IndexerProperty<string>("IdLocalAdmin").HasColumnName("id_local_admin");
 
                             j.IndexerProperty<int>("IdCamp").HasColumnName("id_camp");
@@ -409,6 +427,10 @@ namespace Booking.System.Application
                 entity.Property(e => e.AddressId).HasColumnName("address_id");
 
                 entity.Property(e => e.Birthday).HasColumnName("birthday");
+
+                entity.Property(e => e.Citizenship)
+                    .HasColumnType("character varying")
+                    .HasColumnName("citizenship");
 
                 entity.Property(e => e.Email)
                     .HasColumnType("character varying")
@@ -479,6 +501,8 @@ namespace Booking.System.Application
                             j.HasKey("ParentId", "ChildId").HasName("parent_child_pkey");
 
                             j.ToTable("parent_child");
+
+                            j.HasIndex(new[] { "ChildId" }, "IX_parent_child_child_id");
 
                             j.IndexerProperty<string>("ParentId").HasColumnName("parent_id");
 
@@ -570,6 +594,10 @@ namespace Booking.System.Application
             modelBuilder.Entity<ShiftByShiftType>(entity =>
             {
                 entity.ToTable("shift_by_shift_type");
+
+                entity.HasIndex(e => e.ShiftId, "IX_shift_by_shift_type_shift_id");
+
+                entity.HasIndex(e => e.ShiftTypeId, "IX_shift_by_shift_type_shift_type_id");
 
                 entity.Property(e => e.ShiftByShiftTypeId)
                     .HasColumnName("shift_by_shift_type_id")

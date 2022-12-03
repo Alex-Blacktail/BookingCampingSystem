@@ -1,0 +1,19 @@
+@import "src/assets/styles/variables";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  &:hover{
+    background: $hoverColor;
+  }
+}
+
+.button-transparent{
+  background: transparent;
+  &:hover{
+    background: $surfaceColor;
+  }
+}

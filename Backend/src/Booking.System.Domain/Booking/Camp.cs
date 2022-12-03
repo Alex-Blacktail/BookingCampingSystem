@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Booking.System.Domain.Booking;
 
-namespace Booking.System.Domain
+namespace Booking.System.Domain.Booking
 {
     public partial class Camp
     {
@@ -30,6 +29,7 @@ namespace Booking.System.Domain
         public double ChildsAgeStart { get; set; }
         public double ChildsAgeEnd { get; set; }
         public bool ChildrensHolidayCertificate { get; set; }
+        public string? ImagePath { get; set; }
 
         public virtual Address Address { get; set; } = null!;
         public virtual WorkingMode WorkingMode { get; set; } = null!;

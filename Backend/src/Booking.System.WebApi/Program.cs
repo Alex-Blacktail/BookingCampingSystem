@@ -5,10 +5,10 @@ using Booking.System.Domain;
 using Booking.System.WebApi;
 using Booking.System.WebApi.Data;
 using Booking.System.WebApi.Extensions;
+using Booking.System.Application.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Host.ConfigureSerilogLogging();
 
 var config = builder.Configuration;
@@ -63,5 +63,4 @@ app.UseAuthorization();
 app.ConfigureExceptionHandler();
 
 app.MapControllers();
-
 app.Run();

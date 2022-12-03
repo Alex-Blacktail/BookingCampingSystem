@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Booking.System.Domain.Booking;
 
-namespace Booking.System.Domain
+namespace Booking.System.Domain.Booking
 {
     public partial class Child
     {
@@ -24,6 +23,7 @@ namespace Booking.System.Domain
         public int? PassportRuId { get; set; }
         public int? BirthCertificateRuId { get; set; }
         public int? BirthCertificateForeignId { get; set; }
+        public string? Citizenship { get; set; }
 
         public virtual Address Address { get; set; } = null!;
         public virtual BirthCertificateForeign? BirthCertificateForeign { get; set; }
