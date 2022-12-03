@@ -19,6 +19,7 @@ using Booking.System.Application.Shifts.DTO;
 using System.Linq;
 using Booking.System.Application.ShiftsTypes.DTO;
 using Booking.System.Application.Childs.DTO;
+using System.Data;
 
 namespace Booking.System.Application.Childs
 {
@@ -32,6 +33,23 @@ namespace Booking.System.Application.Childs
         {
             _mapper = mapper;
             _campDbContext = campDbContext;
+        }
+
+        public async Task<bool> RemoveChildInfo(RemoveChildInfoDto removeChildInfoDto)
+        {
+            try
+            {
+                var parent = _campDbContext.Parents.First(p=>p.ParentId== removeChildInfoDto.ParentId);
+                var child = _campDbContext.Children.First(c => c.Snils == removeChildInfoDto.SNILS);
+                parent.Children.Remove(child);
+                child.Parents.Remove(parent);
+                _campDbContext.Children.Remove(child);
+                _campDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            { throw ex; }
+
+            return true;
         }
         public async Task<bool> CreateChild(ChildDto childDto)
         {
