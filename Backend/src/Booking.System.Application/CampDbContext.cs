@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Booking.System.Domain;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Booking.System.WebApi
+namespace Booking.System.Application
 {
     public partial class CampDbContext : DbContext
     {

@@ -12,6 +12,8 @@ using Booking.System.Application;
 using Booking.System.WebApi.Data;
 using Booking.System.Domain.Identity;
 using Booking.System.Application.Mappings;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Booking.System.WebApi
 {
@@ -121,7 +123,7 @@ namespace Booking.System.WebApi
                 });
             });
         }
-
+       
         public static void ConfigureResponseCaching(this IServiceCollection services)
         {
             services.AddResponseCaching();

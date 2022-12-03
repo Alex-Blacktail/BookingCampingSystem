@@ -18,15 +18,25 @@ namespace Booking.System.WebApi.Controllers
             _repository = repository;
         }
 
-        [HttpPost("register")]
+        [HttpPost("register/superadmin")]
         public async Task<IActionResult> RegisterUser(UserRegistrationDto userRegistration)
         {
             var userResult = await _repository.RegisterUserAsync(userRegistration);
 
-            if(!userResult.Succeeded)
-                return StatusCode(201);
+            if (!userResult.Succeeded)
+                return new BadRequestObjectResult(userResult);
 
-            return Ok(userResult);
+            return StatusCode(201);
+        }
+        [HttpPost("register/parent")]
+        public async Task<IActionResult> RegisterParent(ParentRegistrationDto parentRegistrationDto)
+        {
+            var userResult = await _repository.RegisterParentAsync(parentRegistrationDto);
+
+            if (!userResult.Succeeded)
+                return new BadRequestObjectResult(userResult);
+
+            return StatusCode(201);
         }
 
         [HttpPost("login")]
