@@ -58,7 +58,7 @@ namespace Booking.System.Application.Identity
                     Name = "Родитель"
                 };
 
-                if (_campDbContext.Statuses.FirstOrDefault(x=>x.Name==status.Name) == null) 
+                if (_campDbContext.Statuses.FirstOrDefault(x =>x.Name==status.Name) == null) 
                     _campDbContext.Statuses.Add(status);
 
                 var status2 = new Status

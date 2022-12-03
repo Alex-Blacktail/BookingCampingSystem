@@ -14,6 +14,7 @@ namespace Booking.System.Application
         public CampDbContext(DbContextOptions<CampDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
