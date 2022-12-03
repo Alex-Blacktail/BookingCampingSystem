@@ -1,4 +1,4 @@
 export const CONSTANTS = {
-	baseUrl: ':',
+	baseUrl: 'https://localhost:',
 	basePort: '7001'
 }
