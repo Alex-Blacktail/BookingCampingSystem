@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Booking.System.Application.Parents.DTO
 {
-    public class ChildDto
+    public class ChildForParentDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }

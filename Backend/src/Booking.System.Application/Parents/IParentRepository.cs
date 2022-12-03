@@ -8,7 +8,7 @@ namespace Booking.System.Application.Parents
         /// Просмотр информации о родителе и его ребенке/детях
         /// </summary>
         /// <returns></returns>
-        Task<ParentDto> GetCampCards(string parentId);
+        Task<ParentDto> GetParentAndChildInfo(string parentId);
 
        
     }
