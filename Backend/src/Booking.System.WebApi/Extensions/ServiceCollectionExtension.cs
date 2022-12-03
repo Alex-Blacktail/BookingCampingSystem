@@ -12,10 +12,11 @@ using Booking.System.Application;
 using Booking.System.WebApi.Data;
 using Booking.System.Domain.Identity;
 using Booking.System.Application.Mappings;
+using Serilog;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-namespace Booking.System.WebApi
+namespace Booking.System.WebApi.Extensions
 {
     public static class ServiceCollectionExtension
     {
@@ -34,7 +35,7 @@ namespace Booking.System.WebApi
                 .AddDefaultTokenProviders();
         }
 
-        public static void ConfigureMapping(this IServiceCollection services) 
+        public static void ConfigureMapping(this IServiceCollection services)
         {
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
             var mappingConfig = new MapperConfiguration(map =>
@@ -45,7 +46,7 @@ namespace Booking.System.WebApi
             services.AddSingleton(mappingConfig.CreateMapper());
         }
 
-        public static void ConfigureJWT(this IServiceCollection services, JWTSettings settings) 
+        public static void ConfigureJWT(this IServiceCollection services, JWTSettings settings)
         {
             services
                 .AddAuthentication(options =>
@@ -127,6 +128,23 @@ namespace Booking.System.WebApi
         public static void ConfigureResponseCaching(this IServiceCollection services)
         {
             services.AddResponseCaching();
+        }
+
+        public static void ConfigureSerilogLogging(this IHostBuilder host)
+        {
+            host.ConfigureLogging((context, logBuilder) =>
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
+
+                logBuilder
+                    .AddSerilog(Log.Logger)
+                    .AddConfiguration(context.Configuration.GetSection("Serilog"))
+                    .AddConsole()
+                    .AddDebug();
+            });
         }
     }
 }
