@@ -9,7 +9,7 @@ const RegForm = ({...props}) => {
 	const {register, watch, handleSubmit, formState: {errors}} = useForm()
 
 	const postData = async (url, data = {}) => {
-		const response = await fetch(`${CONSTANTS.baseUrl}${CONSTANTS.basePort}`, {
+		const response = await fetch(`${CONSTANTS.baseUrl}${CONSTANTS.basePort}${url}`, {
 			method: 'POST',
 			mode: 'cors',
 			cache: 'no-cache',
@@ -25,7 +25,7 @@ const RegForm = ({...props}) => {
 	}
 
 	const onSubmitFormHandler = async data => {
-		await postData('/api/authentication/register/superadmin', data)
+		await postData('/api/authentication/login', data)
 			.then((data) => {
 				console.log(data)
 			})
@@ -33,9 +33,7 @@ const RegForm = ({...props}) => {
 
 	return (
 		<BaseForm
-			onSubmit={handleSubmit(data => {
-				console.log(data)
-			})}
+			onSubmit={handleSubmit(data => onSubmitFormHandler(data))}
 			register={register}
 			title={'Регистрация'}
 			inputs={[
