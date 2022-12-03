@@ -1,4 +1,4 @@
-@import "src/assets/styles/variables";
+@import "../../assets/styles/variables";
 
 .form-validate{
   display: flex;
@@ -10,9 +10,14 @@
     margin-top: 40px;
     display: flex;
     flex-direction: column;
-    input{
+    label{
       margin-top: 20px;
+    }
+    input{
       width: 450px;
+    }
+    select{
+      margin-top: 20px;
     }
   }
 
@@ -20,7 +25,11 @@
     margin-top: 40px;
     display: flex;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    button{
+      width: 100%;
+      margin: 0 5px;
+    }
   }
 
   &__links{
