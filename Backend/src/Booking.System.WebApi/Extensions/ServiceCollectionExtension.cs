@@ -41,6 +41,7 @@ namespace Booking.System.WebApi.Extensions
             var mappingConfig = new MapperConfiguration(map =>
             {
                 map.AddProfile<UserMappingProfile>();
+                map.AddProfile<CampMappingProfile>();
             });
 
             services.AddSingleton(mappingConfig.CreateMapper());

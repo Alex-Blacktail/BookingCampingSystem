@@ -786,6 +786,9 @@ namespace Booking.System.Application
                 entity.Property(e => e.WednesdayStart)
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("wednesday_start");
+                entity.Property(e => e.WorkingModeString)
+                    .HasColumnType("text")
+                    .HasColumnName("working_mode_string");
             });
 
             OnModelCreatingPartial(modelBuilder);
