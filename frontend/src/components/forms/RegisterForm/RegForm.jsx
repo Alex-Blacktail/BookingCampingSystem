@@ -25,7 +25,7 @@ const RegForm = ({...props}) => {
 	}
 
 	const onSubmitFormHandler = async data => {
-		await postData('/api/authentication/login', data)
+		await postData('/api/authentication/register/superadmin', data)
 			.then((data) => {
 				console.log(data)
 			})
