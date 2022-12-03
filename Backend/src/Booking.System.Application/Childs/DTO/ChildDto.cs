@@ -8,7 +8,7 @@ namespace Booking.System.Application.Childs.DTO
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? Patronomyc { get; set; }
-        public DateOnly Birthday { get; set; }
+        public string Birthday { get; set; }
         public string Address { get; set; }
         public string Country { get; set; }
         public string SNILS { get; set; }

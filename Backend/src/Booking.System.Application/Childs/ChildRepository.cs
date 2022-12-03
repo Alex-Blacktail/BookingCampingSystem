@@ -20,7 +20,7 @@ using System.Linq;
 using Booking.System.Application.ShiftsTypes.DTO;
 using Booking.System.Application.Childs.DTO;
 
-namespace Booking.System.Application.Identity
+namespace Booking.System.Application.Childs
 {
     public class ChildRepository : IChildRepository
     {
@@ -44,7 +44,7 @@ namespace Booking.System.Application.Identity
                 _campDbContext.Addresses.Add(adr);
                 _campDbContext.SaveChanges();
 
-                string[] birthdayDate = childDto.Birthday.ToString().Split("-");
+                string[] birthdayDate = childDto.Birthday.Split("-");
                 var child = new Child();
 
                 child.Name = childDto.Name;

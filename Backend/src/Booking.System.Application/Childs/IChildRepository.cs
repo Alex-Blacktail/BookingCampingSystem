@@ -1,6 +1,6 @@
 using Booking.System.Application.Childs.DTO;
 
-namespace Booking.System.Application.Camps
+namespace Booking.System.Application.Childs
 {
     public interface IChildRepository
     {
