@@ -2,16 +2,16 @@
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 
+using Booking.System.Domain;
+using Booking.System.Domain.Booking;
 using Booking.System.Domain.Identity;
 using Booking.System.Application.Identity.DTO;
 
 using AutoMapper;
-using Microsoft.Extensions.Options;
-using Booking.System.Domain.Booking;
 
 namespace Booking.System.Application.Identity
 {
@@ -57,12 +57,15 @@ namespace Booking.System.Application.Identity
                 {
                     Name = "Родитель"
                 };
+
                 if (_campDbContext.Statuses.FirstOrDefault(x=>x.Name==status.Name) == null) 
                     _campDbContext.Statuses.Add(status);
+
                 var status2 = new Status
                 {
                     Name = "Законный представитель ребенка"
                 };
+
                 if (_campDbContext.Statuses.FirstOrDefault(x => x.Name == status2.Name) == null)
                     _campDbContext.Statuses.Add(status2);
                 _campDbContext.SaveChanges();
