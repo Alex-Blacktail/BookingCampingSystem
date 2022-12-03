@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Booking.System.Domain
+namespace Booking.System.Domain.Booking
 {
     public partial class PassportForeign
     {
