@@ -4,19 +4,19 @@ namespace Booking.System.Application.WorkingMods.DTO
 {
     public class WorkingModeDto
     {
-        public DateTime? SundayStart { get; set; }
-        public DateTime? SundayEnd { get; set; }
-        public DateTime? MondayStart { get; set; }
-        public DateTime? MondayEnd { get; set; }
-        public DateTime? TuesdayStart { get; set; }
-        public DateTime? TuesdayEnd { get; set; }
-        public DateTime? WednesdayStart { get; set; }
-        public DateTime? WednesdayEnd { get; set; }
-        public DateTime? ThursdayStart { get; set; }
-        public DateTime? ThursdayEnd { get; set; }
-        public DateTime? FridayStart { get; set; }
-        public DateTime? FridayEnd { get; set; }
-        public DateTime? SaturdayStart { get; set; }
-        public DateTime? SaturdayEnd { get; set; }
+        public string SundayStart { get; set; }
+        public string SundayEnd { get; set; }
+        public string MondayStart { get; set; }
+        public string MondayEnd { get; set; }
+        public string TuesdayStart { get; set; }
+        public string TuesdayEnd { get; set; }
+        public string WednesdayStart { get; set; }
+        public string WednesdayEnd { get; set; }
+        public string ThursdayStart { get; set; }
+        public string ThursdayEnd { get; set; }
+        public string FridayStart { get; set; }
+        public string FridayEnd { get; set; }
+        public string SaturdayStart { get; set; }
+        public string SaturdayEnd { get; set; }
     }
 }
