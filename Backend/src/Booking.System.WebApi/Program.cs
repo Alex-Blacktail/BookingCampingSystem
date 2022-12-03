@@ -1,4 +1,8 @@
 using Booking.System.Application;
+using Booking.System.Application.Camps;
+using Booking.System.Application.Identity;
+using Booking.System.Domain;
+using Booking.System.WebApi;
 using Booking.System.WebApi.Data;
 using Booking.System.WebApi.Extensions;
 using Booking.System.Application.Identity;
@@ -22,6 +26,7 @@ builder.Services.AddDbContext<SecurityDbContext>(options => options.UseNpgsql(co
 builder.Services.AddDbContext<CampDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
+builder.Services.AddScoped<ICampCardRepository, CampCardRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
