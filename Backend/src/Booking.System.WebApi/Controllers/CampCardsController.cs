@@ -27,5 +27,15 @@ namespace Booking.System.WebApi.Controllers
 
             return Ok(cardsResult);
         }
+        [HttpPost("addcampcard")]
+        public async Task<IActionResult> AddCampCard(CapmCardDto capmCardDto)
+        {
+            var userResult = await _repository.CreateCampCard(capmCardDto);
+
+            if (!userResult)
+                return new BadRequestObjectResult(userResult);
+
+            return Ok(userResult);
+        }
     }
 }

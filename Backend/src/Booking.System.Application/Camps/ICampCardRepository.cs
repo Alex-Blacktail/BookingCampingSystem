@@ -13,5 +13,11 @@ namespace Booking.System.Application.Camps
         /// <returns></returns>
         Task<CampCardVm> GetCampCards();
 
+        /// <summary>
+        /// добавление карточки лагероя (для супер админа)
+        /// </summary>
+        /// <param name="capmCardDto">Объект данных для добавления карточки лагеря</param>
+        /// <returns></returns>
+        Task<bool> CreateCampCard(CapmCardDto capmCardDto);
     }
 }

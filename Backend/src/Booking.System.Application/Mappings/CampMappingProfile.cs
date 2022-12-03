@@ -15,6 +15,7 @@ namespace Booking.System.Application.Mappings
         {
             CreateMap<Feature, FeatureDto>();
             CreateMap<WorkingMode, WorkingModeDto>();
+            CreateMap<WorkingModeDto, WorkingMode>();
             CreateMap<ShiftType, ShiftTypeDto>();
         }
     }

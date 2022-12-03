@@ -62,7 +62,8 @@ namespace Booking.System.Application.Identity
                 dto.EducationalLicense = camp.EducationalLicense;
                 dto.MedicalLicense = camp.MedicalLicense;
 
-                if (_campDbContext.Features.Count() > 0) {
+                if (_campDbContext.Features.Count() > 0)
+                {
                     foreach (var feature in _campDbContext.Features.Where(f => f.CampId == camp.CampId))
                     {
                         dto.Features.Add(_mapper.Map<FeatureDto>(feature));
@@ -83,7 +84,16 @@ namespace Booking.System.Application.Identity
 
                     List<ShiftTypeDto> shiftTypeDtos = new List<ShiftTypeDto>();
                     foreach (var shiftType in shiftsTypes)
-                        shiftTypeDtos.Add(_mapper.Map<ShiftTypeDto>(shiftType));
+                    {
+                        ShiftByShiftType shiftByShiftType = _campDbContext.ShiftByShiftTypes
+                            .First(x => x.ShiftTypeId == shiftType.ShiftTypeId && x.ShiftId == shift.ShiftId);
+                        shiftTypeDtos.Add(new ShiftTypeDto
+                        {
+                            Name = shiftType.Name,
+                            Price = shiftByShiftType.Price
+                        });
+                    }
+                    //shiftTypeDtos.Add(_mapper.Map<ShiftTypeDto>(shiftType));
 
                     dto.Shifts.Add(new ShiftDto
                     {
@@ -96,6 +106,82 @@ namespace Booking.System.Application.Identity
                 CapmCardDtoList.Add(dto);
             }
             return new CampCardVm { capmCardDtos = CapmCardDtoList };
+        }
+
+        public async Task<bool> CreateCampCard(CapmCardDto CampDto)
+        {
+            try
+            {
+                Address adr = new Address
+                {
+                    //TODO: проспилить страну
+                    Citizenship = CampDto.Address,
+                    AddressContent = CampDto.Address
+                };
+                _campDbContext.Addresses.Add(adr);
+
+                var workingMode = _mapper.Map<WorkingMode>(CampDto.WorkingModeDto);
+                _campDbContext.WorkingModes.Add(workingMode);
+
+                _campDbContext.SaveChanges();
+
+                var camp = new Camp();
+                camp.Name = CampDto.Name;
+                camp.ShortName = CampDto.ShortName;
+                camp.Capacity = CampDto.Capacity;
+                camp.NumberOfBuildings = CampDto.NumberOfBuildings;
+                camp.About = CampDto.About;
+                camp.Food = CampDto.Food;
+                camp.WebsiteLink = CampDto.WebsiteLink;
+                camp.LegalEntity = CampDto.LegalEntity;
+                camp.TheAreaOfTheLand = CampDto.TheAreaOfTheLand;
+                camp.ChildsAgeStart = CampDto.ChildsAgeStart;
+                camp.ChildsAgeEnd = CampDto.ChildsAgeEnd;
+                camp.ChildrensHolidayCertificate = CampDto.ChildrensHolidayCertificate;
+                camp.EducationalLicense = CampDto.EducationalLicense;
+                camp.MedicalLicense = CampDto.MedicalLicense;
+
+                if (CampDto.Features.Count() > 0)
+                {
+                    foreach (var feature in CampDto.Features)
+                    {
+                        _campDbContext.Features.Add(new Feature
+                        {
+                            CampId = camp.CampId,
+                            Name = feature.Name
+                        });
+                    }
+                }
+
+                foreach (var shiftdto in CampDto.Shifts)
+                {
+                    var shift = new Shift
+                    {
+                        Name = shiftdto.Name,
+                        DateStart = shiftdto.DateStart,
+                        DateEnd = shiftdto.DateEnd,
+                        CampId = camp.CampId
+                    };
+                    _campDbContext.Shifts.Add(shift);
+                    _campDbContext.SaveChanges();
+                    foreach (var shiftTypeDto in shiftdto.ShiftTypeDtos)
+                    {
+                        var shiftType = await _campDbContext.ShiftTypes
+                            .FirstAsync(x => x.Name == shiftTypeDto.Name);
+
+                        var shiftByShiftType = new ShiftByShiftType
+                        {
+                            ShiftId = shift.ShiftId,
+                            ShiftTypeId = shiftType.ShiftTypeId,
+                            Price = shiftTypeDto.Price
+                        };
+                        _campDbContext.ShiftByShiftTypes.Add(shiftByShiftType);
+                    }
+                    _campDbContext.SaveChanges();
+                }
+            }
+            catch(Exception ex) { throw ex;  }
+            return true;
         }
     }
 }
