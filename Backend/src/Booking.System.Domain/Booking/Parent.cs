@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Booking.System.Domain.Booking;
 using Booking.System.Domain.IdentityAspNet;
 
-namespace Booking.System.Domain
+namespace Booking.System.Domain.Booking
 {
     public partial class Parent
     {
@@ -13,6 +12,7 @@ namespace Booking.System.Domain
             Children = new HashSet<Child>();
         }
 
+        public string ParentId { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
         public string? Patronymic { get; set; }
@@ -24,7 +24,7 @@ namespace Booking.System.Domain
         public string Email { get; set; } = null!;
         public int? PassportForeignId { get; set; }
         public int? PassportRuId { get; set; }
-        public string ParentId { get; set; } = null!;
+        public string? Citizenship { get; set; }
 
         public virtual Address Address { get; set; } = null!;
         public virtual AspNetUser ParentNavigation { get; set; } = null!;

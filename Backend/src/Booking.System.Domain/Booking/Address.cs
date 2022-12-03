@@ -14,7 +14,6 @@ namespace Booking.System.Domain.Booking
 
         public int AddressId { get; set; }
         public string AddressContent { get; set; } = null!;
-        public string Citizenship { get; set; } = null!;
 
         public virtual ICollection<Camp> Camps { get; set; }
         public virtual ICollection<Child> Children { get; set; }
