@@ -6,7 +6,7 @@ namespace Booking.System.WebApi.Data
 {
     public class SecurityDbContext : IdentityDbContext<AppUser>
     {
-        public SecurityDbContext(DbContextOptions options)
+        public SecurityDbContext(DbContextOptions<SecurityDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)

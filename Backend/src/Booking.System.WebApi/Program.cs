@@ -1,6 +1,6 @@
 using Booking.System.Application;
 using Booking.System.Application.Identity;
-
+using Booking.System.Domain;
 using Booking.System.WebApi;
 using Booking.System.WebApi.Data;
 
@@ -19,6 +19,7 @@ builder.Services.ConfigureMapping();
 
 var connectionString = config.GetConnectionString("Default");
 builder.Services.AddDbContext<SecurityDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<CampDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 
