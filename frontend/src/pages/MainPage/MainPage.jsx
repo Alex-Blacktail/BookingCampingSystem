@@ -12,6 +12,9 @@ const MainPage = () => {
 				<Search/>
 				<img style={{paddingTop: '30px', margin: '0 auto'}} src={plugImg} alt="plug"width={700}/>
 			</Container>
+			<Container>
+
+			</Container>
 		</MainContainer>
 	);
 };
