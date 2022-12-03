@@ -22,6 +22,7 @@ const LoginForm = ({...props}) => {
 			]}
 			buttons={[
 				{
+					type: 'submit',
 					text: 'Авторизоваться'
 				}
 			]}

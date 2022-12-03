@@ -5,19 +5,18 @@ import Input from "../../controls/Input/Input";
 import Button from "../../controls/Button/Button";
 import {Link} from "react-router-dom";
 
-const BaseForm = ({title, inputs, buttons, links, ...props}) => {
-
-	const { register, handleSubmit, watch, formState: {errors} } = useForm()
+const BaseForm = ({title, inputs, buttons, links, onSubmit, register, ...props}) => {
 
 	return (
-		<form className={styles['form-validate']} onSubmit={handleSubmit(data => {
-			console.log(data)
-		})}>
+		<form className={styles['form-validate']} onSubmit={onSubmit}>
 			<h3 className={styles['title']}>{title}</h3>
 			<div className={styles['form-validate__inputs']}>
 				{
 					inputs?.map(input =>
-						<Input {...input}/>
+						<Input
+							key={`input-${input.name}`}
+							register={register(`${input.name}`, {required: true})}
+							{...input}/>
 					)
 				}
 			</div>
