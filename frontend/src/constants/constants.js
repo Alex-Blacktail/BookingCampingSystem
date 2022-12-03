@@ -1,4 +1,4 @@
 export const CONSTANTS = {
-	baseUrl: 'http://178.44.219.98:',
+	baseUrl: ':',
 	basePort: '7001'
 }
