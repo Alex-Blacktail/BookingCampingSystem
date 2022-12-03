@@ -1,0 +1,27 @@
+@import "src/assets/styles/variables";
+
+
+.collapse-title{
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  justify-content: space-between;
+}
+
+.collapse-expand{
+  transition: transform 1s ease;
+}
+
+.collapse-expand__active{
+  transform: rotate(180deg);
+}
+
+.profile-buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  button{
+    margin: 0 5px;
+  }
+}
+

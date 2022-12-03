@@ -3,6 +3,7 @@ import styles from './HeaderNav.module.scss'
 import {Link} from "react-router-dom";
 import profileSVG from '../../../assets/images/orb-report/contacts_person.svg'
 import PersonSVG from "../../svg/personSVG";
+import {ROUTES} from "../../../constants/routes";
 
 const HeaderNav = () => {
 	return (
@@ -10,7 +11,7 @@ const HeaderNav = () => {
 			<ul className={styles['navigation-list']}>
 				<div className={styles['navigation-list__item']}>
 					<li>
-						<Link to={'/'}>Каталог</Link>
+						<Link to={ROUTES.catalog}>Каталог</Link>
 					</li>
 					<li>
 						<Link to={'/'}>О платформе</Link>

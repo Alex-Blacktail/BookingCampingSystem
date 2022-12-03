@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import closeSVG from '../../../assets/svg/close.svg'
 import searchSVG from '../../../assets/svg/search.svg'
 
-const Search = () => {
+const Search = ({...props}) => {
 
 	const [buttonsVisability, setButtonsVisability] = useState(false)
 	const inputRef = useRef(null)
@@ -35,7 +35,7 @@ const Search = () => {
 
 
 	return (
-		<div className={styles['input-container']}>
+		<div {...props} className={styles['input-container']}>
 			<input ref={inputRef} onInput={(e) => onInputHandler(e)} type="text" placeholder={'Поиск...'}/>
 			{
 				buttonsVisability ?

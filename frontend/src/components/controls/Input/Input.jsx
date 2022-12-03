@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Input.module.scss'
 
-const Input = ({register, ...props}) => {
+const Input = ({label, register, ...props}) => {
 	return (
-		<input {...props} {...register}/>
+		<label htmlFor={props.id} className={styles['label']}>{label}<input {...props} {...register}/></label>
 	);
 };
 

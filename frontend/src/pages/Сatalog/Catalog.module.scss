@@ -1,0 +1,44 @@
+@import "src/assets/styles/variables";
+
+$catalogSorterWidth: 250px;
+
+.catalog{
+  height: 100vh;
+}
+
+.camptype-img{
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  img{
+    margin-right: 5px;
+  }
+  p{
+    font-size: 14px;
+  }
+  &:last-child{
+    border-bottom: 1px solid $baseColor;
+    padding-bottom: 5px;
+  }
+}
+
+.catalog-sorter{
+  position: fixed;
+  width: $catalogSorterWidth;
+  height: 400px;
+  background: $surfaceColor;
+  border-radius: 6px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  &__title{
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    border-bottom: 1px solid $baseColor;
+  }
+}
+
+.catalog-content{
+  margin-left: calc($catalogSorterWidth + 20px);
+}
