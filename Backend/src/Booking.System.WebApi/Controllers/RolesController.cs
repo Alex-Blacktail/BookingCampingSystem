@@ -1,4 +1,5 @@
-﻿using Booking.System.Application.Identity.Models;
+﻿using Booking.System.Application;
+using Booking.System.Application.Identity.Models;
 using Booking.System.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,12 @@ namespace Booking.System.WebApi.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
 
-        public RolesController(IMediator mediator, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager) 
+        public RolesController(IMediator mediator, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, CampDbContext context) 
             : base(mediator)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            context.AspNetRoles.ToList();
         }
 
         [Authorize(Roles = "admin")]

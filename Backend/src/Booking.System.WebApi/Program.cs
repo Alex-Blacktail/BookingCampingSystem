@@ -30,6 +30,15 @@ builder.Services.ConfigureJWT(config.GetSection("JwtConfig").Get<JWTSettings>())
 builder.Services.ConfigureControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
 //Shmagger
 
 builder.Services.ConfigureSwagger();
