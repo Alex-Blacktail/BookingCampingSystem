@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Booking.System.Domain.Booking;
 
 namespace Booking.System.Domain.IdentityAspNet
 {

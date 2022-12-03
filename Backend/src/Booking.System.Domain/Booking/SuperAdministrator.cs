@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Booking.System.Domain.IdentityAspNet;
 
-namespace Booking.System.Domain
+namespace Booking.System.Domain.Booking
 {
     public partial class SuperAdministrator
     {

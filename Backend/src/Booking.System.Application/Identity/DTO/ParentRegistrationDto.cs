@@ -1,8 +1,3 @@
-using Booking.System.Domain.Booking;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Booking.System.Application.Identity.DTO
 {
     public class ParentRegistrationDto

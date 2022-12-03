@@ -11,7 +11,6 @@ using Booking.System.Application.Identity.DTO;
 
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Booking.System.Domain;
 using Booking.System.Domain.Booking;
 
 namespace Booking.System.Application.Identity
@@ -70,8 +69,7 @@ namespace Booking.System.Application.Identity
 
                 var address = new Address
                 {
-                    AddressContent = parentRegistrationDto.Address,
-                    Citizenship = parentRegistrationDto.Country
+                    AddressContent = parentRegistrationDto.Address
                 };
                 _campDbContext.Addresses.Add(address);
                 _campDbContext.SaveChanges();
