@@ -7,7 +7,7 @@ const Button = ({children, theme, click, text, ...props}) => {
 	if ( theme === 'transparent' ) rootClasses.push(styles['button-transparent'])
 
 	return (
-		<button {...props} className={rootClasses.join(' ')} onClick={(e) => click(e)}>
+		<button {...props} className={rootClasses.join(' ')} onClick={(e) => click ? click(e) : {}}>
 			{children}{text}
 		</button>
 	);

@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Input.module.scss'
 
-const Input = ({...props}) => {
+const Input = ({register, ...props}) => {
 	return (
-		<input {...props}/>
+		<input {...props} {...register}/>
 	);
 };
 
