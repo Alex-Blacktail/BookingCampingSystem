@@ -5,7 +5,7 @@ const MainContainer = ({children, ...props}) => {
 	return (
 		<>
 			<HeaderNav/>
-			<main className={styles['main-container']}>
+			<main className={styles['main-container']} style={{marginTop: '50px'}}>
 				{children}
 			</main>
 		</>

@@ -26,7 +26,7 @@ const HeaderNav = () => {
 				</div>
 				<div className={styles['navigation-list__item']}>
 					<li>
-						<Link to={'/'}><PersonSVG fill={'#fff'}/></Link>
+						<Link to={'/login'}>Войти <PersonSVG fill={'#fff'}/></Link>
 					</li>
 				</div>
 			</ul>

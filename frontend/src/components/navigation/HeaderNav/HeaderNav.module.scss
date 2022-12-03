@@ -1,6 +1,9 @@
 @import "src/assets/styles/variables";
 
 .navigation{
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   background: $baseDarkColor;
   height: 50px;
@@ -25,8 +28,14 @@
     justify-content: center;
     width: 33%;
     a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 10px;
       color: $backgroundColor;
+      svg{
+        margin-left: 10px;
+      }
     }
   }
 }

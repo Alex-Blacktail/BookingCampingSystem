@@ -3,7 +3,7 @@ import styles from './Container.module.scss'
 
 const Container = ({children, ...props}) => {
 	return (
-		<section className={styles['container']}>
+		<section {...props} className={styles['container']}>
 			<div className={styles['container-content']}>
 				{children}
 			</div>

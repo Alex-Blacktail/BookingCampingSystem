@@ -6,6 +6,7 @@
   background: $surfaceColor;
   border-radius: 6px;
   outline: solid $accentColor 2px;
+  padding: 5px;
   input{
     display: flex;
     width: 100%;
@@ -13,6 +14,5 @@
     outline: none;
     background: transparent;
     height: 64px;
-    margin: 5px 0;
   }
 }

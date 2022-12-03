@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, input, textarea, button, select, opti
 
 a {
   text-decoration: none;
+  color: $linkColor;
+  &:hover{
+    color:$hoverColor;
+  }
 }
 
 p {
@@ -72,6 +76,8 @@ input {
   border-radius: 6px;
   color: $textColor;
   background: $surfaceColor;
+  outline: none;
+  border: none;
 }
 
 aside {

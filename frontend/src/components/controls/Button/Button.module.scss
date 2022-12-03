@@ -1,12 +1,9 @@
 @import "src/assets/styles/variables";
 
 .button {
-  margin: 5px 5px 5px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
   border: none;
   cursor: pointer;
   &:hover{
