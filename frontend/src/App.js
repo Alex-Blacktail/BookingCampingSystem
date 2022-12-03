@@ -7,6 +7,7 @@ import {AuthContext} from "./context";
 import {useEffect, useState} from "react";
 import Cookies from 'js-cookie'
 import ParentProfile from "./pages/profile/ParentProfile/ParentProfile";
+import Catalog from "./pages/Сatalog/Catalog";
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
 
              </>
          }
+         <Route path={ROUTES.catalog} element={<Catalog/>}/>
          <Route path={ROUTES.login} element={<LoginPage/>}/>
          <Route path={ROUTES.register} element={<RegPage/>}/>
          <Route path={ROUTES.parentProfile} element={<ParentProfile/>}/>

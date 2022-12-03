@@ -1,18 +1,24 @@
 @import "src/assets/styles/variables";
 
 .camp-card{
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 2px solid $baseLightColor;
-  width: 300px;
+  width: 250px;
   padding: 20px;
   border-radius: 6px;
-
+  margin-bottom: 20px;
   &__badges{
     margin-top: 20px;
     img{
       margin: 0 3px;
     }
   }
+}
+.check{
+  position: absolute;
+  top: 0;
+  right: 0;
 }

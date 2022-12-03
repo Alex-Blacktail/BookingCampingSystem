@@ -104,3 +104,19 @@ mark {
 li{
   list-style: none;
 }
+
+.Collapsible{
+  background: $backgroundColor;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  span{
+    border-radius: 6px;
+    color: $backgroundColor;
+    background: $baseLightColor;
+    width: 100%;
+    font-size: 20px;
+    line-height: 26px;
+    cursor: pointer;
+  }
+}

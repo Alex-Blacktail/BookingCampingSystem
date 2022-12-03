@@ -1,5 +1,12 @@
+@import "src/assets/styles/variables";
 
 .grid-container{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.box{
+  background: $surfaceColor;
+  padding: 20px;
+  border-radius: 6px;
 }

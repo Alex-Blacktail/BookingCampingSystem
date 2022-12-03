@@ -11,7 +11,7 @@ const MainPage = () => {
 		<MainContainer>
 			<Container>
 				<h1>Все что нужно для активного отдыха...</h1>
-				<Search/>
+				<Search style={{marginTop: '100px'}}/>
 				<img style={{paddingTop: '30px', margin: '0 auto'}} src={plugImg} alt="plug"width={700}/>
 			</Container>
 			<Container>
