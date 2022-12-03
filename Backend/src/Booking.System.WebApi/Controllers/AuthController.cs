@@ -2,6 +2,7 @@
 using Booking.System.Application.Identity;
 using Booking.System.Application.Identity.DTO;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Booking.System.WebApi.Controllers
@@ -12,7 +13,7 @@ namespace Booking.System.WebApi.Controllers
     {
         private readonly IUserAuthenticationRepository _repository;
 
-        public AuthController(IMediator mediator, IUserAuthenticationRepository repository) 
+        public AuthController(IMediator mediator, IUserAuthenticationRepository repository)
             : base(mediator)
         {
             _repository = repository;
@@ -23,10 +24,10 @@ namespace Booking.System.WebApi.Controllers
         {
             var userResult = await _repository.RegisterUserAsync(userRegistration);
 
-            if(!userResult.Succeeded)
-                return StatusCode(201);
+            if (!userResult.Succeeded)
+                return new BadRequestObjectResult(userResult);
 
-            return Ok(userResult);
+            return StatusCode(201);
         }
 
         [HttpPost("login")]
