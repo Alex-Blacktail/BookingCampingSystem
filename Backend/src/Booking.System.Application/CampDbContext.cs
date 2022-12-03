@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Booking.System.Domain;
 using Booking.System.Domain.Booking;
 using Booking.System.Domain.IdentityAspNet;
+
 using Microsoft.EntityFrameworkCore;
-using Booking.System.Domain;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Booking.System.Application
 {
@@ -13,6 +11,7 @@ namespace Booking.System.Application
         public CampDbContext(DbContextOptions<CampDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
