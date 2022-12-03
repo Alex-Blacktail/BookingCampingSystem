@@ -11,7 +11,8 @@ namespace Booking.System.Application.Camps.DTO
         public string Name { get; set; }
         public string? LegalEntity { get; set; }
         public string Address { get; set; }
-        public WorkingModeDto WorkingModeDto { get; set; }
+        //public WorkingModeDto WorkingModeDto { get; set; }
+        public string WorkingModeDto { get; set; }
         public int Capacity { get; set; }
         public string? WebsiteLink { get; set; }
         public bool? MedicalLicense { get; set; }

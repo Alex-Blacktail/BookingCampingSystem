@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Booking.System.Domain.Booking;
+using System;
 using System.Collections.Generic;
 
 namespace Booking.System.Domain.Booking
@@ -25,6 +26,7 @@ namespace Booking.System.Domain.Booking
         public DateTime? FridayEnd { get; set; }
         public DateTime? SaturdayStart { get; set; }
         public DateTime? SaturdayEnd { get; set; }
+        public string? WorkingModeString { get; set; }
 
         public virtual ICollection<Camp> Camps { get; set; }
     }

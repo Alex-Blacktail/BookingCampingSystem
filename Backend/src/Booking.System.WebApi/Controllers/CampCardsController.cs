@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booking.System.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/authentication")]
+    [Route("api/camp")]
     public class CampCardsController : ApiController
     {
         private readonly ICampCardRepository _repository;
@@ -25,7 +25,7 @@ namespace Booking.System.WebApi.Controllers
             return Ok(cardsResult);
         }
         [HttpPost("addcampcard")]
-        public async Task<IActionResult> AddCampCard(CapmCardDto capmCardDto)
+        public async Task<IActionResult> AddCampCard([FromBody] CapmCardDto capmCardDto)
         {
             var userResult = await _repository.CreateCampCard(capmCardDto);
 

@@ -5,8 +5,10 @@ namespace Booking.System.Application.Shifts.DTO
 {
     public class ShiftDto
     {
-        public DateOnly DateStart { get; set; }
-        public DateOnly DateEnd { get; set; }
+        //DateOnly --> string
+        public string DateStart { get; set; }
+        //DateOnly --> string
+        public string DateEnd { get; set; }
         public string? Name { get; set; }
         public List<ShiftTypeDto> ShiftTypeDtos { get; set; }
     }
