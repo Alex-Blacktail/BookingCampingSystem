@@ -115,7 +115,6 @@ namespace Booking.System.Application.Identity
                 Address adr = new Address
                 {
                     //TODO: проспилить страну
-                    Citizenship = CampDto.Address,
                     AddressContent = CampDto.Address
                 };
                 _campDbContext.Addresses.Add(adr);

@@ -1,8 +1,5 @@
-using System.Net;
 using Booking.System.Application.Camps;
 using Booking.System.Application.Camps.DTO;
-using Booking.System.Application.Identity;
-using Booking.System.Application.Identity.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
