@@ -17,7 +17,9 @@ namespace Booking.System.Application.Identity
 {
     public class UserAuthenticationRepository : IUserAuthenticationRepository
     {
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
+
         private readonly JWTSettings _settings;
 
         private readonly IMapper _mapper;
@@ -26,9 +28,11 @@ namespace Booking.System.Application.Identity
 
         private AppUser? _user;
 
-        public UserAuthenticationRepository(UserManager<AppUser> userManager, IOptions<JWTSettings> options, IMapper mapper, CampDbContext campDbContext)
+        public UserAuthenticationRepository(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWTSettings> options, IMapper mapper, CampDbContext campDbContext)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
+
             _settings = options.Value;
             _mapper = mapper;
             _campDbContext = campDbContext;
@@ -38,6 +42,10 @@ namespace Booking.System.Application.Identity
         {
             var user = _mapper.Map<AppUser>(userRetistrationDto);
             var result = await _userManager.CreateAsync(user, userRetistrationDto.Password);
+
+            var userData = await _userManager.FindByNameAsync(user.UserName);
+            await _userManager.AddToRoleAsync(userData, "admin");
+
             return result;
         }
 
@@ -124,6 +132,10 @@ namespace Booking.System.Application.Identity
                 _campDbContext.Parents.Add(parent);
                 _campDbContext.SaveChanges();
             }
+
+            var userData = await _userManager.FindByNameAsync(user.UserName);
+            await _userManager.AddToRoleAsync(userData, "parent");
+
             return result;
         }
 
