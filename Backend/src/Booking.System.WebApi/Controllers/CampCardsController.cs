@@ -1,6 +1,7 @@
 using Booking.System.Application.Camps;
 using Booking.System.Application.Camps.DTO;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Booking.System.WebApi.Controllers
@@ -35,6 +36,7 @@ namespace Booking.System.WebApi.Controllers
         /// <param name="capmCardDto"></param>
         /// <returns></returns>
         [HttpPost("addcampcard")]
+        [Authorize(Roles = "localadmin")]
         public async Task<IActionResult> AddCampCard([FromBody] CapmCardDto capmCardDto)
         {
             var userResult = await _repository.CreateCampCard(capmCardDto);

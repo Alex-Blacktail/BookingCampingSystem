@@ -32,6 +32,7 @@ namespace Booking.System.WebApi.Controllers
         /// <param name="userRegistration"></param>
         /// <returns>Идентификатор зарегистрированного администратора</returns>
         [HttpPost("register/superadmin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> RegisterAdmin(UserRegistrationDto userRegistration)
         {
             var userResult = await _repository.RegisterAdminAsync(userRegistration);
@@ -49,6 +50,7 @@ namespace Booking.System.WebApi.Controllers
         /// <param name="userRegistration"></param>
         /// <returns>Идентификатор зарегистрированного локального администратора</returns>
         [HttpPost("register/localadmin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> RegisterLocalAdmin(LocalAdminRegistrationDto localAdminRegistrationDto)
         {
             var userResult = await _repository.RegisterLocalAdminAsync(localAdminRegistrationDto);

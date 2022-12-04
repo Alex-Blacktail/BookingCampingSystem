@@ -135,6 +135,7 @@ namespace Booking.System.WebApi.Controllers
         /// Проинициализировать стартовые роли
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "admin")]
         [HttpGet("Initialize")]
         public async Task<IActionResult> InitializeRoles()
         {
