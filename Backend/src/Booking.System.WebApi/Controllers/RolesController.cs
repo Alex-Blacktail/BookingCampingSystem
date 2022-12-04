@@ -114,7 +114,13 @@ namespace Booking.System.WebApi.Controllers
         private static async Task InitializeRolesAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             string adminEmail = "admin@test.com";
-            string password = "Admin123";
+            string adminPassword = "Admin123";
+
+            string localEmail = "local@test.com";
+            string localPassword = "Local123";
+
+            string parentEmail = "parent@test.com";
+            string parentPassword = "Parent123";
 
             if (await roleManager.FindByNameAsync(adminEmail) == null)
             {
@@ -134,11 +140,33 @@ namespace Booking.System.WebApi.Controllers
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
                 var admin = new AppUser { Email = adminEmail, UserName = adminEmail };
-                IdentityResult result = await userManager.CreateAsync(admin, password);
+                IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
 
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "admin");
+                }
+            }
+
+            if (await userManager.FindByNameAsync(localEmail) == null)
+            {
+                var local= new AppUser { Email = localEmail, UserName = localEmail };
+                IdentityResult result = await userManager.CreateAsync(local, localPassword);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(local, "localadmin");
+                }
+            }
+
+            if (await userManager.FindByNameAsync(parentEmail) == null)
+            {
+                var parent = new AppUser { Email = parentEmail, UserName = parentEmail };
+                IdentityResult result = await userManager.CreateAsync(parent, parentPassword);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(parent, "parent");
                 }
             }
         }
