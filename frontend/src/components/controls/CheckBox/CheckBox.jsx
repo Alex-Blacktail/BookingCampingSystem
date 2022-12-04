@@ -1,12 +1,13 @@
 import React from 'react';
 import {Checkbox} from "@mui/material";
 
-const CheckBox = ({...props}) => {
+const CheckBox = ({text, ...props}) => {
 	return (
-		<div>
-			<Checkbox size={'medium'}/>
-		</div>
-	);
+    <div {...props}>
+      <Checkbox size={"medium"} />
+      <span>{text}</span>
+    </div>
+  );
 };
 
 export default CheckBox;

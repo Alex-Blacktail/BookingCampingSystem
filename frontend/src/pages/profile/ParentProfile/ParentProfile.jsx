@@ -16,6 +16,7 @@ import {Tab} from "@mui/material";
 import Input from "../../../components/controls/Input/Input";
 import {useForm} from "react-hook-form";
 import Select from "../../../components/controls/Select/Select";
+import {useSnackbar} from "notistack";
 
 const ParentProfile = () => {
 
@@ -24,18 +25,18 @@ const ParentProfile = () => {
     handleSubmit,
     watch,
     formState: { errors },
+		reset
   } = useForm();
 
   const [tab, setTab] = useState("1");
 
   const [profile, setProfile] = useState(null)
-
+	const { enqueueSnackbar } = useSnackbar();
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
   };
 
   const {userInfo, setUserInfo} = useContext(AuthContext)
-  console.log(userInfo)
 
   useEffect(() => {
       if (Cookies.get('token')){
@@ -47,7 +48,25 @@ const ParentProfile = () => {
             console.log(profile)
           })
       }
-  },[])
+  },[userInfo])
+
+  const onAddChildrenHandler = async (data) => {
+		if (!Cookies.get('userId')){
+			return
+		}
+
+		{
+		}
+		data.parentId = Cookies.get('userId')
+		data.passportValidity = data.passportValidity ? data.passportValidity : null
+
+    await postData(apiRoutes.post.addChildrenInfo, data).then(res => {
+			if(res){
+				enqueueSnackbar('Успешно добавлен!', {variant: 'success'})
+				reset()
+			}
+		})
+  }
 
   return (
     <MainContainer>
@@ -130,7 +149,7 @@ const ParentProfile = () => {
               <h3 className={styles["tab-content__title"]}>
                 Форма добавления ребенка
               </h3>
-              <form onSubmit={handleSubmit(data=>console.log(data))} className={styles["tab-content__form"]}>
+              <form onSubmit={handleSubmit(data => onAddChildrenHandler(data))} className={styles["tab-content__form"]}>
                 <Input
                   register={register(`name`, {
                     required: "Обязательное поле.",
@@ -190,6 +209,16 @@ const ParentProfile = () => {
                   id={"birthday"}
                   errMsg={errors?.birthday?.message}
                 />
+								<Input
+									register={register(`phoneNumber`, {
+										required: "Обязательное поле.",
+									})}
+									placeholder={"Телефон"}
+									name={"phoneNumber"}
+									type={"tel"}
+									id={"phoneNumber"}
+									errMsg={errors?.phoneNumber?.message}
+								/>
                 <Input
                   register={register(`address`, { required: "Обязательное поле." })}
                   placeholder={"Адрес"}
@@ -499,7 +528,7 @@ const ParentProfile = () => {
                 ) : (
                   <></>
                 )}
-              <div className={styles["form-validate__buttons"]}>
+              <div style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
                 <Button text={"Зарегистрировать ребёнка"} type={"submit"} />
               </div>
               </form>
