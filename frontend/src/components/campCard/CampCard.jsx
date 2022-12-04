@@ -8,8 +8,12 @@ import childCampBadgeImg from "../../assets/images/badges/childCamp.png";
 import checkBadgeSvg from "../../assets/svg/check.svg";
 
 import { Tooltip } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const CampCard = ({ img, title, ...props }) => {
+
+  const navigate = useNavigate()
+
   return (
     <div className={styles["camp-card"]}>
       <Tooltip arrow className={styles['check']} title={'Сертификат подтвержден'}>
@@ -36,7 +40,7 @@ const CampCard = ({ img, title, ...props }) => {
           <img src={childCampBadgeImg} alt="" width={40} height={40} />
         </Tooltip>
       </div>
-      <Button style={{ marginTop: "10px" }} text={"Подробнее"} />
+      <Button click={() => navigate('/camp/123')} style={{ marginTop: "10px" }} text={"Подробнее"} />
     </div>
   );
 };

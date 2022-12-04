@@ -1,5 +1,10 @@
+@import "src/assets/styles/variables";
 
 .select{
   display: flex;
   width: 450px;
+}
+
+.error{
+  color: $errorColor;
 }
