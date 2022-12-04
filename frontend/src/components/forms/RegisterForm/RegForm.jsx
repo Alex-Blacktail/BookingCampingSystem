@@ -12,6 +12,7 @@ import { apiRoutes } from "../../../constants/apiRoutes";
 import {useSnackbar} from "notistack";
 import {AuthContext} from "../../../context";
 import Cookies from "js-cookie";
+import CheckBox from "../../controls/CheckBox/CheckBox";
 
 const RegForm = ({ ...props }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -42,6 +43,7 @@ const RegForm = ({ ...props }) => {
       passportDateOfIssue: "",
       passportIssuedBy: "",
       passportValidity: "",
+      check:"",
     },
   });
 
@@ -406,6 +408,7 @@ const RegForm = ({ ...props }) => {
               errMsg={errors?.passportIssuedBy?.message}
             />
           </div>
+          <CheckBox register={register('checkBox')} className={styles['check']} text={'«В соответствии со статьей 9 Федерального закона от 27 июля 2006 года № 152-ФЗ «О персональных данных» даю согласие на обработку персональных данных»'}/>
           <div className={styles["form-validate__buttons"]}>
             <Button text={"Зарегистрироваться"} type={"submit"} />
             <Button text={"Назад"} click={() => setPageState(1)} />

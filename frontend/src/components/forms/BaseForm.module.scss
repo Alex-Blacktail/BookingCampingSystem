@@ -8,6 +8,7 @@
 
   &__inputs{
     margin-top: 40px;
+
     display: flex;
     flex-direction: column;
     label{
@@ -22,7 +23,9 @@
     select{
       margin-top: 20px;
     }
+
   }
+
 
   &__buttons{
     margin-top: 40px;
@@ -38,4 +41,10 @@
   &__links{
     margin-top: 10px;
   }
+}
+
+.check{
+  display: flex;
+  align-items: center;
+  width: 450px;
 }

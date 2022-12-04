@@ -5,5 +5,6 @@ export const ROUTES = {
 	profile: '/profile',
 	catalog: '/catalog',
 	campPage: '/camp/:id',
-	admin: '/organization'
+	admin: '/organization',
+	minAdmin: '/ministr',
 }

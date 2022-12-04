@@ -6,6 +6,7 @@ import plugImg from "../../assets/images/orb-report/RNIC.jpg"
 import CampCard from "../../components/campCard/CampCard";
 import Grid from "../../components/layouts/Grid/Grid";
 
+
 const MainPage = () => {
 	return (
 		<MainContainer>
