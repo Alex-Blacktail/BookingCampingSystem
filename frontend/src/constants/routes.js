@@ -4,6 +4,6 @@ export const ROUTES = {
 	index: '/',
 	profile: '/profile',
 	catalog: '/catalog',
-	campPage: '/camp/:id'
-
+	campPage: '/camp/:id',
+	admin: '/organization'
 }

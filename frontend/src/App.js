@@ -10,6 +10,7 @@ import ParentProfile from "./pages/profile/ParentProfile/ParentProfile";
 import Catalog from "./pages/Сatalog/Catalog";
 import CampCardPage from "./pages/CampCardPage/CampCardPage";
 import {SnackbarProvider} from "notistack";
+import LocalAdminProfile from "./pages/profile/LocalAdminProfile/LocalAdminProfile";
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
           <Route path={ROUTES.profile} element={<ParentProfile/>}/>
           <Route path={ROUTES.index} element={<MainPage/>}/>
           <Route path={ROUTES.campPage} element={<CampCardPage/>}/>
+          <Route path={ROUTES.admin} element={<LocalAdminProfile/>}/>
         </Routes>
       </BrowserRouter>
     </SnackbarProvider>

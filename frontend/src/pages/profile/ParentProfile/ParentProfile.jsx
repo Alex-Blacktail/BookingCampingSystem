@@ -19,12 +19,15 @@ const ParentProfile = () => {
 
   const {userInfo, setUserInfo} = useContext(AuthContext)
   console.log(userInfo)
-  if (userInfo?.userId){
-    getData(apiRoutes.get.parentInfo, {id: userInfo.userId, token: userInfo.token})
-      .then(data => {
-        console.log(data)
-      })
-  }
+
+  useEffect(() => {
+    if (userInfo?.userId){
+      getData(apiRoutes.get.parentInfo, {id: userInfo.userId, token: userInfo.token})
+        .then(data => {
+          console.log(data)
+        })
+    }
+  },[])
 
   return (
     <MainContainer>

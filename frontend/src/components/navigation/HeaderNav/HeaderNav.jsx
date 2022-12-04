@@ -5,6 +5,7 @@ import profileSVG from '../../../assets/images/orb-report/contacts_person.svg'
 import PersonSVG from "../../svg/personSVG";
 import {ROUTES} from "../../../constants/routes";
 import {AuthContext} from "../../../context";
+import Cookies from 'js-cookie'
 
 const HeaderNav = () => {
 
@@ -33,9 +34,9 @@ const HeaderNav = () => {
 				</div>
 				<div className={styles['navigation-list__item']}>
 					{
-						userInfo?.name ?
+						Cookies.get('name') ?
 							<li>
-								<Link to={ROUTES.profile}>{userInfo.name}<PersonSVG fill={'#fff'}/></Link>
+								<Link to={ROUTES.profile}>{Cookies.get('name')}<PersonSVG fill={'#fff'}/></Link>
 							</li>
 							:
 							<li>

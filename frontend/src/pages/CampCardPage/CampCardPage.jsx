@@ -9,7 +9,7 @@ import campBadgeImg from "../../assets/images/badges/camp.png";
 import armyBadgeImg from "../../assets/images/badges/army.png";
 import childCampBadgeImg from "../../assets/images/badges/childCamp.png";
 import checkBadgeSvg from "../../assets/svg/check.svg";
-import {Tooltip} from "@mui/material";
+import {Autocomplete, TextField, Tooltip} from "@mui/material";
 
 const CampCardPage = ({...peops}) => {
 
@@ -86,6 +86,25 @@ const CampCardPage = ({...peops}) => {
 							<Tooltip arrow title={"Сертификат подтвержден"}>
 								<img src={checkBadgeSvg} alt="" width={40} height={40} />
 							</Tooltip>
+						</Grid>
+						<Grid style={{gridTemplateColumns: 'repeat(2,1fr)', height: '40px'}}>
+							<p style={{display: 'flex', alignItems: 'center'}}>Смены:</p>
+							<Autocomplete
+								disablePortal
+								id="combo-box-demo"
+								options={[
+									{
+										label: 'тест',
+										id: 1
+									},
+									{
+										label: 'тест 2',
+										id: 2
+									},
+								]}
+								sx={{ width: 300 }}
+								renderInput={(params) => <TextField {...params} />}
+							/>
 						</Grid>
 					</div>
 				</Grid>

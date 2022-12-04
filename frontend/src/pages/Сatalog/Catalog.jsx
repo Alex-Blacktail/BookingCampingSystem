@@ -11,7 +11,6 @@ import Grid from "../../components/layouts/Grid/Grid";
 import CampCard from "../../components/campCard/CampCard";
 import CheckBox from "../../components/controls/CheckBox/CheckBox";
 import {Autocomplete} from "@mui/material";
-import Input from "../../components/controls/Input/Input";
 
 const Catalog = ({...props}) => {
 	const test = [
