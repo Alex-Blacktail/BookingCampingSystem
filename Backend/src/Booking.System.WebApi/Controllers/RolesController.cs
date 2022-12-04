@@ -27,6 +27,11 @@ namespace Booking.System.WebApi.Controllers
             context.AspNetRoles.ToList();
         }
 
+        /// <summary>
+        /// Создать новую роль
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpPost("AddRole")]
         public async Task<IActionResult> Create(string name)
@@ -44,6 +49,11 @@ namespace Booking.System.WebApi.Controllers
 
         }
 
+        /// <summary>
+        /// Удалить роль
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpDelete("DeleteRole")]
         public async Task<IActionResult> Delete(string id)
@@ -62,6 +72,11 @@ namespace Booking.System.WebApi.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Получить роли пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpGet("GetUserRoles")]
         public async Task<IActionResult> Edit(string userName)
@@ -86,6 +101,12 @@ namespace Booking.System.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Редактировать роль пользователя
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpPost("EditUserRole")]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
@@ -110,6 +131,10 @@ namespace Booking.System.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Проинициализировать стартовые роли
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Initialize")]
         public async Task<IActionResult> InitializeRoles()
         {

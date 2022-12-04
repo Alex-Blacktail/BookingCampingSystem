@@ -17,6 +17,11 @@ namespace Booking.System.WebApi.Controllers
             _repository = repository;
         }
 
+        /// <summary>
+        /// Создать заявку в лагерь
+        /// </summary>
+        /// <param name="createRequestDto"></param>
+        /// <returns></returns>
         [HttpPost("createrequest")]
         public async Task<ActionResult<GetShiftRequestDto>> CreateRequest(CreateRequestDto createRequestDto)
         {
@@ -24,6 +29,17 @@ namespace Booking.System.WebApi.Controllers
 
             return Ok(cardsResult);
         }
+
+        //[HttpGet("all")]
+        //public async Task<ActionResult> GetAllShiftRequests()
+        //{
+        //}
+
+        //[HttpGet]
+        //public async Task<ActionResult> GetFreeShifts()
+        //{
+
+        //}
 
     }
 }

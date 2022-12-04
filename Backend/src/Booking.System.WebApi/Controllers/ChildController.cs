@@ -19,6 +19,11 @@ namespace Booking.System.WebApi.Controllers
         {
             _repository = repository;
         }
+        /// <summary>
+        /// Добавить информацию о ребенке
+        /// </summary>
+        /// <param name="childDto"></param>
+        /// <returns></returns>
         // [Authorize(Roles = "parent")]
         [HttpPost("addchildinfo")]
         public async Task<IActionResult> AddChildInfo([FromBody] ChildDto childDto)
@@ -30,6 +35,11 @@ namespace Booking.System.WebApi.Controllers
 
             return Ok(userResult);
         }
+        /// <summary>
+        /// Удалить данные о ребенке
+        /// </summary>
+        /// <param name="removeChildInfoDto"></param>
+        /// <returns></returns>
        // [Authorize(Roles = "parent")]
         [HttpDelete("removechildinfo")]
         public async Task<IActionResult> RemoveChildInfo([FromBody] RemoveChildInfoDto removeChildInfoDto)

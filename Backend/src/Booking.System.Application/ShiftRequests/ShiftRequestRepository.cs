@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Booking.System.Application.ShiftsRequests.DTO;
 using Booking.System.Domain.Booking;
+using Booking.System.Application.Exceptions;
+using Booking.System.Application.ShiftRequests.DTO;
 
 namespace Booking.System.Application.ShiftsRequests
 {
@@ -28,11 +30,12 @@ namespace Booking.System.Application.ShiftsRequests
             _mapper = mapper;
             _campDbContext = campDbContext;
         }
+
         public async Task<GetShiftRequestDto> GetRequestInfo()
         {
-
             return new GetShiftRequestDto { };
         }
+
         public async Task<GetShiftRequestDto> CreateRequest(CreateRequestDto createRequestDto)
         {
 
@@ -70,5 +73,30 @@ namespace Booking.System.Application.ShiftsRequests
 
             return shiftRequestDto;
         }
+
+        public async Task<ShortShiftRequestDto> GetAll()
+        {
+            var shifts = await _campDbContext.ShiftRequests
+                .Include(x => x.ShiftByShiftType)
+                .Include(x => x.ShiftByShiftType.Shift)
+                .Include(x => x.ShiftByShiftType.Shift.Camp)
+                .ToListAsync();
+
+            var result = new ShortShiftRequestDto();
+            return result;
+        }
+        public async Task GetShiftsByDate(GetShiftByDateDto getShiftByDateDto)
+        {
+            try
+            {
+                var date = DateOnly.Parse(getShiftByDateDto.Date);
+            }
+            catch(Exception ex)
+            {
+                throw new ParseException("Ошибка парсинга даты");
+            }
+        }
+
+        public class GetShiftByDateDto { public string Date { get; set; } }
     }
 }

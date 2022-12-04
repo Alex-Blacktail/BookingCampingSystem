@@ -17,6 +17,10 @@ namespace Booking.System.WebApi.Controllers
             _repository = repository;
         }
 
+        /// <summary>
+        /// Получить все карточки лагерей
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("campcards")]
         public async Task<ActionResult<CampCardVm>> GetCampCards()
         {
@@ -24,6 +28,12 @@ namespace Booking.System.WebApi.Controllers
 
             return Ok(cardsResult);
         }
+
+        /// <summary>
+        /// Добавить новый лагерь
+        /// </summary>
+        /// <param name="capmCardDto"></param>
+        /// <returns></returns>
         [HttpPost("addcampcard")]
         public async Task<IActionResult> AddCampCard([FromBody] CapmCardDto capmCardDto)
         {
