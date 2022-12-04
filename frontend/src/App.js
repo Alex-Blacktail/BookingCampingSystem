@@ -11,6 +11,7 @@ import Catalog from "./pages/Сatalog/Catalog";
 import CampCardPage from "./pages/CampCardPage/CampCardPage";
 import {SnackbarProvider} from "notistack";
 import LocalAdminProfile from "./pages/profile/LocalAdminProfile/LocalAdminProfile";
+import MinAdmin from "./pages/profile/MinAdmin/MinAdmin";
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
 
               </>
           }
+          <Route path={ROUTES.minAdmin} element={<MinAdmin/>}/>
           <Route path={ROUTES.catalog} element={<Catalog/>}/>
           <Route path={ROUTES.login} element={<LoginPage/>}/>
           <Route path={ROUTES.register} element={<RegPage/>}/>

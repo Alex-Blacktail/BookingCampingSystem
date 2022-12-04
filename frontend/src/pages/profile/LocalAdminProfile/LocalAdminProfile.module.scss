@@ -26,6 +26,14 @@
     label{
       margin-top: 20px;
     }
+    &__buttons{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      button{
+        width: 300px;
+      }
+    }
   }
 }
 

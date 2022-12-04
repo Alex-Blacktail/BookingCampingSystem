@@ -26,14 +26,17 @@
     color: $backgroundColor;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
     width: 33%;
+
     a {
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 10px;
       color: $backgroundColor;
+      white-space: nowrap;
       svg{
         margin-left: 10px;
       }

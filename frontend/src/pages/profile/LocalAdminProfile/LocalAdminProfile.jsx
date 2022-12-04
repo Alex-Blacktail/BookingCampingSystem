@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./LocalAdminProfile.module.scss";
 import MainContainer from "../../../components/layouts/MainContainer/MainContainer";
 import Container from "../../../components/layouts/Container/Container";
@@ -9,15 +9,24 @@ import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Input from "../../../components/controls/Input/Input";
 import { useForm } from "react-hook-form";
+import plusSVG from "../../../assets/svg/plus.svg";
 
 const LocalAdminProfile = ({ ...props }) => {
   const [tab, setTab] = useState("1");
-  const [shifts, setShifts] = useState([])
+  const [shifts, setShifts] = useState([
+    {
+      dateStart: "",
+      dateEnd: "",
+      name: "",
+      typeName: "",
+      price: 0,
+    },
+  ]);
 
   const handleAddShift = () => {
-    const shiftsLen = [...shifts, shifts.length + 1]
-    setShifts(shiftsLen)
-  }
+    const shiftsLen = [...shifts, shifts.length + 1];
+    setShifts(shiftsLen);
+  };
 
   const {
     register,
@@ -43,14 +52,7 @@ const LocalAdminProfile = ({ ...props }) => {
       childsAgeStart: 6.4,
       childsAgeEnd: 15.4,
       childrensHolidayCertificate: true,
-      shifts: [
-        {
-          dateStart: "2022-10-10",
-          dateEnd: "2022-10-10",
-          name: "Смена",
-          shiftTypeDtos: [],
-        },
-      ],
+
       features: [
         {
           name: "Для инвалидов",
@@ -113,7 +115,7 @@ const LocalAdminProfile = ({ ...props }) => {
               <h3 className={styles["tab-content__title"]}>
                 Форма добавления лагеря
               </h3>
-              <form className={styles["tab-content__form"]}>
+              <form onSubmit={handleSubmit(data=>console.log(data))} className={styles["tab-content__form"]}>
                 <Input
                   register={register("name", {
                     required: "Обязательное поле.",
@@ -145,7 +147,7 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("address", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Адрес"}
                   type={"text"}
                   value={watch("address")}
                   errMsg={errors?.address?.message}
@@ -154,7 +156,7 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("workingModeDto", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Режим работы"}
                   type={"text"}
                   value={watch("workingModeDto")}
                   errMsg={errors?.workingModeDto?.message}
@@ -162,103 +164,180 @@ const LocalAdminProfile = ({ ...props }) => {
                 <Input
                   register={register("capacity", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Вместимость"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("capacity")}
                   errMsg={errors?.capacity?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("websiteLink", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Веб-сайт"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("websiteLink")}
+                  errMsg={errors?.websiteLink?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("medicalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={
+                    "Наличие лицензии на осуществлении медицинской деятельности"
+                  }
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("medicalLicense")}
+                  errMsg={errors?.medicalLicense?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("educationalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={
+                    "Наличие лицензии на осуществление образовательной деятельности"
+                  }
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("educationalLicense")}
+                  errMsg={errors?.educationalLicense?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("about", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"О лагере"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("about")}
+                  errMsg={errors?.about?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("numberOfBuildings", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
-                  placeholder={"Название лагеря"}
-                  type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  placeholder={"Колличество зданий"}
+                  type={"number"}
+                  value={watch("numberOfBuildings")}
+                  errMsg={errors?.numberOfBuildings?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("theAreaOfTheLand", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
-                  placeholder={"Название лагеря"}
-                  type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  placeholder={"Площадь"}
+                  type={"number"}
+                  value={watch("theAreaOfTheLand")}
+                  errMsg={errors?.theAreaOfTheLand?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("food", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Рацион питания"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("food")}
+                  errMsg={errors?.food?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childsAgeStart", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
-                  placeholder={"Название лагеря"}
-                  type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  placeholder={"Минимальный возраст"}
+                  type={"number"}
+                  value={watch("childsAgeStart")}
+                  errMsg={errors?.childsAgeStart?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childsAgeEnd", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
-                  placeholder={"Название лагеря"}
-                  type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  placeholder={"Максимальный возраст"}
+                  type={"number"}
+                  value={watch("childsAgeEnd")}
+                  errMsg={errors?.childsAgeEnd?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childrensHolidayCertificate", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Сертификат на отдых детей"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("childrensHolidayCertificate")}
+                  errMsg={errors?.childrensHolidayCertificate?.message}
                 />
-                <h5 style={{marginTop: '20px'}}>Смены:</h5>
+                <h5 style={{ marginTop: "20px" }}>Смены:</h5>
+                {
+                  shifts.map((shift, index) =>
+                    <>
+                      <h6 style={{marginTop: '20px'}}>Смена {index + 1}</h6>
+                      <Input
+                        register={register("dateStart", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Дата начала"}
+                        type={"text"}
+                        value={watch("dateStart")}
+                        errMsg={errors?.dateStart?.message}
+                      />
+                      <Input
+                        register={register("dateEnd", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Дата окончания"}
+                        type={"text"}
+                        value={watch("dateEnd")}
+                        errMsg={errors?.dateEnd?.message}
+                      />
+                      <Input
+                        register={register("name", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Название смены"}
+                        type={"text"}
+                        value={watch("name")}
+                        errMsg={errors?.name?.message}
+                      />
+                      <Input
+                        register={register("typeName", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Тип смены"}
+                        type={"text"}
+                        value={watch("typeName")}
+                        errMsg={errors?.typeName?.message}
+                      />
+                      <Input
+                        register={register("price", {
+                          required: "Обязательное поле.",
+                          validate: value => value>0? true: "Только положительные числа"
+                        })}
+                        placeholder={"Цена"}
+                        type={"number"}
+                        value={watch("price")}
+                        errMsg={errors?.price?.message}
+                      />
+                    </>
+                  )
+                }
+                <div className={styles["shifts"]}>
+                  <Button style={{marginTop: '20px'}} type={'button'} click={() => {
+                    setShifts(prevState => ([...prevState, {
+                      dateStart: "",
+                      dateEnd: "",
+                      name: "",
+                      typeName: "",
+                      price: 0,
+                    }]))
+                    console.log(shifts)
+                  }} theme={'transparent'}><img src={plusSVG} alt="plus" width={35} height={35}/></Button>
+                </div>
+                <div className={styles["tab-content__form__buttons"]}>
+                  <Button type={'submit'} text={"Добавить лагерь"} />
+                </div>
               </form>
             </div>
           </TabPanel>
