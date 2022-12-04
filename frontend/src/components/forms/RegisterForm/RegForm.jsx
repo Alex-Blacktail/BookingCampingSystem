@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { ROUTES } from "../../../constants/routes";
 import { useForm } from "react-hook-form";
 import { CONSTANTS } from "../../../constants/constants";
@@ -6,11 +6,18 @@ import { kladrGetAddres, postData } from "../../../utils/fetch";
 import styles from "../BaseForm.module.scss";
 import Input from "../../controls/Input/Input";
 import Button from "../../controls/Button/Button";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Select from "../../controls/Select/Select";
+import { apiRoutes } from "../../../constants/apiRoutes";
+import {useSnackbar} from "notistack";
+import {AuthContext} from "../../../context";
+import Cookies from "js-cookie";
 
 const RegForm = ({ ...props }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [pageState, setPageState] = useState(1);
+  const { userInfo, setUserInfo } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     watch,
@@ -43,11 +50,43 @@ const RegForm = ({ ...props }) => {
       setPageState(2);
       return;
     }
-    // await postData('/api/authentication/register/superadmin', data)
-    // 	.then((data) => {
-    // 		console.log(data)
-    // 	})
-    console.log(data);
+    const body = {
+      userRegistration: {
+        userName: data.userName,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        thirdName: data.thirdName,
+        password: data.password,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      },
+      statusId: data.statusId,
+      address: data.address,
+      country: data.country,
+      snils: data.snils,
+      birthday: data.birthday,
+      passportType: data.passportType,
+      passportSerial: data.passportSerial,
+      passportNumber: data.passportNumber,
+      passportDateOfIssue: data.passportDateOfIssue,
+      passportIssuedBy: data.passportIssuedBy,
+      passportValidity: data.passportValidity,
+    };
+    await postData(apiRoutes.post.registerParent, body).then((data) => {
+      console.log(data);
+      if(data.userId){
+        enqueueSnackbar('Регистрация успешна!', {variant: 'success'})
+        enqueueSnackbar('Войдите в аккаунт', {variant: 'info'})
+        navigate("/login");
+      }
+      else {
+        enqueueSnackbar('Пользователь с таким логином или email уже существует', {variant: 'warning'})
+      }
+    })
+      .catch((err) => {
+        enqueueSnackbar('Произошла ошибка', {variant: 'error'})
+      })
+    console.log(body);
   };
 
   const onSelectValidateHandler = (value) => {
@@ -106,8 +145,7 @@ const RegForm = ({ ...props }) => {
               register={register(`firstName`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /[а-яА-ЯЁё]/,
+                  value: /[а-яА-ЯЁё]/,
                   message: "Имя должно содержать только символы кириллицы",
                 },
               })}
@@ -122,8 +160,7 @@ const RegForm = ({ ...props }) => {
               register={register(`lastName`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /[а-яА-ЯЁё]/,
+                  value: /[а-яА-ЯЁё]/,
                   message: "Фамилия должна содержать только символы кириллицы",
                 },
               })}
@@ -138,8 +175,7 @@ const RegForm = ({ ...props }) => {
               register={register(`thirdName`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /[а-яА-ЯЁё]/,
+                  value: /[а-яА-ЯЁё]/,
                   message: "Отчество должно содержать только символы кириллицы",
                 },
               })}
@@ -172,7 +208,8 @@ const RegForm = ({ ...props }) => {
                 pattern: {
                   value:
                     /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/,
-                  message: "Латинские буквы + цифры + символ + больше 8 символов",
+                  message:
+                    "Латинские буквы + цифры + символ + больше 8 символов",
                 },
               })}
               placeholder={"Пароль"}
@@ -188,7 +225,8 @@ const RegForm = ({ ...props }) => {
                 pattern: {
                   value:
                     /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/,
-                  message: "Латинские буквы + цифры + символ + больше 8 символов",
+                  message:
+                    "Латинские буквы + цифры + символ + больше 8 символов",
                 },
               })}
               placeholder={"Пароль (ещё раз)"}
@@ -315,8 +353,7 @@ const RegForm = ({ ...props }) => {
               register={register(`passportSerial`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /^[0-9]{4}$/,
+                  value: /^[0-9]{4}$/,
                   message: "Некорректная серия паспорта",
                 },
               })}
@@ -331,8 +368,7 @@ const RegForm = ({ ...props }) => {
               register={register(`passportNumber`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /^[0-9]{6}$/,
+                  value: /^[0-9]{6}$/,
                   message: "Некорректный номер паспорта",
                 },
               })}
@@ -358,8 +394,7 @@ const RegForm = ({ ...props }) => {
               register={register(`passportIssuedBy`, {
                 required: "Обязательное поле.",
                 pattern: {
-                  value:
-                    /^\D+$/,
+                  value: /^\D+$/,
                   message: "Некорректный ввод",
                 },
               })}
