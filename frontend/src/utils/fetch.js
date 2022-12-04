@@ -1,5 +1,5 @@
 import {CONSTANTS} from "../constants/constants";
-
+import Cookie from 'js-cookie'
 export const postData = async (url, data = {}) => {
 	const response = await fetch(`${CONSTANTS.baseUrl}${CONSTANTS.basePort}${url}`, {
 		method: 'POST',
@@ -7,7 +7,8 @@ export const postData = async (url, data = {}) => {
 		cache: 'no-cache',
 		credentials: 'same-origin',
 		headers: {
-			'Content-type': 'application/json'
+			'Content-type': 'application/json',
+			'authorization': `Bearer ${data.token}`,
 		},
 		redirect: 'follow',
 		referrerPolicy: 'no-referrer',
@@ -22,12 +23,9 @@ export const getData = async (url, data = {}) => {
 		mode: 'cors',
 		// cache: 'no-cache',
 		// credentials: 'same-origin',
-		// headers: {
-		// 	'authorization': `Bearer ${data.token}`,
-		// 	'cache-control': 'no-cache,no-store',
-		// 	'content-type': 'application/json',
-		// 	'pragma': 'no-cache'
-		// }
+		headers: {
+			'authorization': `Bearer ${data.token}`,
+		}
 	})
 	return await response.json();
 }

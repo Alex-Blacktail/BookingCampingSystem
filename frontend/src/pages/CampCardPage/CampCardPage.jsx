@@ -94,11 +94,11 @@ const CampCardPage = ({...peops}) => {
 								id="combo-box-demo"
 								options={[
 									{
-										label: 'тест',
+										label: 'Летняя смена 1/2',
 										id: 1
 									},
 									{
-										label: 'тест 2',
+										label: 'Летняя смена 2/2',
 										id: 2
 									},
 								]}
