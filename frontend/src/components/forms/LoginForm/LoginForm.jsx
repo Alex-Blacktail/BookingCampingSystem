@@ -37,8 +37,9 @@ const LoginForm = ({ ...props }) => {
           });
           navigate("/profile");
           enqueueSnackbar("Авторизация прошла успешно", { variant: "success" });
+        } else {
+          enqueueSnackbar('Не правильный логин или пароль', {variant: 'warning'})
         }
-        enqueueSnackbar('Не правильный логин или пароль', {variant: 'warning'})
       })
       .catch((err) => {
         enqueueSnackbar("Произошла ошибка", { variant: "error" });

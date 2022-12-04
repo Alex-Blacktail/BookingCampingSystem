@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./LocalAdminProfile.module.scss";
 import MainContainer from "../../../components/layouts/MainContainer/MainContainer";
 import Container from "../../../components/layouts/Container/Container";
@@ -11,7 +11,13 @@ import Input from "../../../components/controls/Input/Input";
 import { useForm } from "react-hook-form";
 
 const LocalAdminProfile = ({ ...props }) => {
-  const [tab, setTab] = React.useState("1");
+  const [tab, setTab] = useState("1");
+  const [shifts, setShifts] = useState([])
+
+  const handleAddShift = () => {
+    const shiftsLen = [...shifts, shifts.length + 1]
+    setShifts(shiftsLen)
+  }
 
   const {
     register,
