@@ -1,5 +1,32 @@
 @import "src/assets/styles/variables";
 
+.tabs{
+  margin-bottom: 0;
+  margin-top: auto;
+  button{
+    font-family: Golos;
+    color: $linkColor;
+    font-size: 16px;
+    &:hover{
+      color: $hoverColor;
+      background: $surfaceColor;
+    }
+  }
+}
+
+.tab-content{
+  display: flex;
+  flex-direction: column;
+  &__title{
+    width: 100%;
+    text-align: center;
+  }
+  &__form{
+    label{
+      margin-top: 20px;
+    }
+  }
+}
 
 .collapse-title{
   display: flex;
