@@ -46,6 +46,13 @@ namespace Booking.System.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("datacharts")]
+        public async Task<ActionResult<VisualDataVm>> GetMonthData()
+        {
+            var result = await _repository.GetMonthsShifts();
+            return Ok(result);
+        }
+
         [HttpGet("all/excel")]
         public async Task<ActionResult> ExportExcel()
         {
