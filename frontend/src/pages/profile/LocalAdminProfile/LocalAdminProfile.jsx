@@ -115,7 +115,7 @@ const LocalAdminProfile = ({ ...props }) => {
               <h3 className={styles["tab-content__title"]}>
                 Форма добавления лагеря
               </h3>
-              <form className={styles["tab-content__form"]}>
+              <form onSubmit={handleSubmit(data=>console.log(data))} className={styles["tab-content__form"]}>
                 <Input
                   register={register("name", {
                     required: "Обязательное поле.",
@@ -164,9 +164,10 @@ const LocalAdminProfile = ({ ...props }) => {
                 <Input
                   register={register("capacity", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Вместимость"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("capacity")}
                   errMsg={errors?.capacity?.message}
                 />
@@ -213,18 +214,20 @@ const LocalAdminProfile = ({ ...props }) => {
                 <Input
                   register={register("numberOfBuildings", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Колличество зданий"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("numberOfBuildings")}
                   errMsg={errors?.numberOfBuildings?.message}
                 />
                 <Input
                   register={register("theAreaOfTheLand", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Площадь"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("theAreaOfTheLand")}
                   errMsg={errors?.theAreaOfTheLand?.message}
                 />
@@ -240,18 +243,20 @@ const LocalAdminProfile = ({ ...props }) => {
                 <Input
                   register={register("childsAgeStart", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Минимальный возраст"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("childsAgeStart")}
                   errMsg={errors?.childsAgeStart?.message}
                 />
                 <Input
                   register={register("childsAgeEnd", {
                     required: "Обязательное поле.",
+                    validate: value => value>0? true: "Только положительные числа"
                   })}
                   placeholder={"Максимальный возраст"}
-                  type={"text"}
+                  type={"number"}
                   value={watch("childsAgeEnd")}
                   errMsg={errors?.childsAgeEnd?.message}
                 />
@@ -308,9 +313,10 @@ const LocalAdminProfile = ({ ...props }) => {
                       <Input
                         register={register("price", {
                           required: "Обязательное поле.",
+                          validate: value => value>0? true: "Только положительные числа"
                         })}
                         placeholder={"Цена"}
-                        type={"text"}
+                        type={"number"}
                         value={watch("price")}
                         errMsg={errors?.price?.message}
                       />
