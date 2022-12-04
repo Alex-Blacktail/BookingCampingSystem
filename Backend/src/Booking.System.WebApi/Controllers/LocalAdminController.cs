@@ -19,6 +19,7 @@ namespace Booking.System.WebApi.Controllers
             _repository = repository;
         }
         [HttpGet("getcampsinfolocal/{id}")]
+        [Authorize(Roles = "localadmin")]
         public async Task<ActionResult<List<CampInfoDto>>> GetCampsInfoLocal(string id)
         {
             var cardsResult = await _repository.LookRequest(id);

@@ -5,6 +5,7 @@ using Booking.System.Application.ShiftsRequests.DTO;
 using Booking.System.Application.ShiftRequests.DTO;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Booking.System.WebApi.Controllers
 {
@@ -28,6 +29,7 @@ namespace Booking.System.WebApi.Controllers
         /// <param name="createRequestDto"></param>
         /// <returns></returns>
         [HttpPost("createrequest")]
+        [Authorize(Roles = "parent")]
         public async Task<ActionResult<GetShiftRequestDto>> CreateRequest(CreateRequestDto createRequestDto)
         {
             var cardsResult = await _repository.CreateRequest(createRequestDto);
@@ -40,6 +42,7 @@ namespace Booking.System.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("all")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<AllShiftRequestsDto>> GetAllShiftRequests()
         {
             var result = await _repository.GetAllShiftRequests();
@@ -51,6 +54,7 @@ namespace Booking.System.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("current")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<AllShiftRequestsDto>> GetCurrentShiftRequests()
         {
             var result = await _repository.GetShiftsTodayDate();
@@ -58,6 +62,7 @@ namespace Booking.System.WebApi.Controllers
         }
 
         [HttpGet("datacharts")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<VisualDataVm>> GetMonthData()
         {
             var result = await _repository.GetMonthsShifts();
@@ -65,6 +70,7 @@ namespace Booking.System.WebApi.Controllers
         }
 
         [HttpGet("all/excel")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> ExportExcel()
         {
             string sWebRootFolder = _hostingEnvironment.ContentRootPath;
@@ -144,6 +150,7 @@ namespace Booking.System.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("excel/today")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ExportToday()
         {
             string sWebRootFolder = _hostingEnvironment.ContentRootPath;

@@ -3,6 +3,7 @@ using Booking.System.Application.Parents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Booking.System.Application.Camps.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Booking.System.WebApi.Controllers
 {
@@ -24,6 +25,7 @@ namespace Booking.System.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("parentlookupinfo/{id}")]
+        [Authorize(Roles = "parent")]
         public async Task<ActionResult<ParentDto>> GetParentInfo(string id)
         {
             var cardsResult = await _repository.GetParentAndChildInfo(id);
