@@ -2,21 +2,14 @@ using Booking.System.Application.LocalAdmins.DTO;
 
 namespace Booking.System.Application.LocalAdmins
 {
-    public interface IChildRepository
+    public interface ILocalAdminRepository
     {
         /// <summary>
-        /// Заполнить данные ребенка 
+        /// 
         /// </summary>
-        /// <param name="сhildDto">Объект данных ребенка</param>
+        /// <param name="CampInfoDto">Объект данных </param>
         /// <returns></returns>
-      //  Task<bool> CreateChild(ChildDto сhildDto);
-
-        /// <summary>
-        /// Удалить данные ребенка (по снилсу)
-        /// </summary>
-        /// <param name="removeChildInfoDto">Объект данных для удаления информации о ребенке</param>
-        /// <returns></returns>
-     //   Task<bool> RemoveChildInfo(RemoveChildInfoDto removeChildInfoDto);
+        Task<List<CampInfoDto>> LookRequest(string id);
 
     }
 }

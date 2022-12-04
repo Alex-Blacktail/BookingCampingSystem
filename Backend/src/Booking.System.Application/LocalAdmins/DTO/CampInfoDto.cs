@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Booking.System.Application.LocalAdmins.DTO
 {
-    public class CapmCardDto
+    public class CampInfoDto
     {
         public int RequestId { get; set; }
         public string ParentName { get; set; }
@@ -17,7 +17,7 @@ namespace Booking.System.Application.LocalAdmins.DTO
         public string ParentPhone { get; set; }
         public string ChildPhone { get; set; }
         public string ShiftInfo { get; set; }
-        public string ShiftType { get; set; }
+     //   public string ShiftType { get; set; }
         public string Price { get; set; }
 
     }
