@@ -91,6 +91,12 @@ namespace Booking.System.Application.Identity
             var result = await _userManager.CreateAsync(user, parentRegistrationDto.UserRegistration.Password);
             var addedUser = await _userManager.FindByNameAsync(parentRegistrationDto.UserRegistration.UserName);
 
+            if(result.Succeeded)
+            {
+                var userData = await _userManager.FindByNameAsync(user.UserName);
+                await _userManager.AddToRoleAsync(userData, "parent");
+            }
+
             if (addedUser != null)
             {
                 string[] ValidityDates = new string[2];
@@ -172,9 +178,6 @@ namespace Booking.System.Application.Identity
                 };
                 _campDbContext.Parents.Add(parent);
                 _campDbContext.SaveChanges();
-
-                var userData = await _userManager.FindByNameAsync(user.UserName);
-                await _userManager.AddToRoleAsync(userData, "parent");
             }
        
             return result;
