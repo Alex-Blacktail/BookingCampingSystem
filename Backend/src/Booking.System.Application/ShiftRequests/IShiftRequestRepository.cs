@@ -1,4 +1,6 @@
+using Booking.System.Application.ShiftRequests.DTO;
 using Booking.System.Application.ShiftsRequests.DTO;
+using static Booking.System.Application.ShiftsRequests.ShiftRequestRepository;
 
 namespace Booking.System.Application.ShiftsRequests
 {
@@ -18,6 +20,17 @@ namespace Booking.System.Application.ShiftsRequests
         /// <returns></returns>
         /// 
         Task<GetShiftRequestDto> CreateRequest(CreateRequestDto createRequestDto);
-        //string ParentId, string ChildSnils, int ShiftByShiftId
+
+        /// <summary>
+        /// Получить все смены с занятостью
+        /// </summary>
+        /// <returns></returns>
+        Task<AllShiftRequestsDto> GetAllShiftRequests();
+
+        /// <summary>
+        /// Получить действущие смены
+        /// </summary>
+        /// <returns></returns>
+        Task<AllShiftRequestsDto> GetShiftsTodayDate();
     }
 }

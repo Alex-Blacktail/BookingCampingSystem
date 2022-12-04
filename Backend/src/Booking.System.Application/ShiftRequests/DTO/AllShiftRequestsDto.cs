@@ -2,6 +2,6 @@
 {
     public class AllShiftRequestsDto
     {
-        public List<ShortShiftRequestDto> ShortShiftRequests { get; set; }
+        public List<ShortShiftDto> ShortShiftRequests { get; set; }
     }
 }
