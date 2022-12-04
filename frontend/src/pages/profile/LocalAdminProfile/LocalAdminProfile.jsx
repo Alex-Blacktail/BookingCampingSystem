@@ -145,7 +145,7 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("address", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Адрес"}
                   type={"text"}
                   value={watch("address")}
                   errMsg={errors?.address?.message}
@@ -154,7 +154,7 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("workingModeDto", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Режим работы"}
                   type={"text"}
                   value={watch("workingModeDto")}
                   errMsg={errors?.workingModeDto?.message}
@@ -169,94 +169,94 @@ const LocalAdminProfile = ({ ...props }) => {
                   errMsg={errors?.capacity?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("websiteLink", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Веб-сайт"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("websiteLink")}
+                  errMsg={errors?.websiteLink?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("medicalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Наличие лицензии на осуществлении медицинской деятельности"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("medicalLicense")}
+                  errMsg={errors?.medicalLicense?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("educationalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Наличие лицензии на осуществление образовательной деятельности"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("educationalLicense")}
+                  errMsg={errors?.educationalLicense?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("about", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"О лагере"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("about")}
+                  errMsg={errors?.about?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("numberOfBuildings", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Колличество зданий"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("numberOfBuildings")}
+                  errMsg={errors?.numberOfBuildings?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("theAreaOfTheLand", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Площадь"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("theAreaOfTheLand")}
+                  errMsg={errors?.theAreaOfTheLand?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("food", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Рацион питания"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("food")}
+                  errMsg={errors?.food?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childsAgeStart", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Минимальный возраст"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("childsAgeStart")}
+                  errMsg={errors?.childsAgeStart?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childsAgeEnd", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Максимальный возраст"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("childsAgeEnd")}
+                  errMsg={errors?.childsAgeEnd?.message}
                 />
                 <Input
-                  register={register("name", {
+                  register={register("childrensHolidayCertificate", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Название лагеря"}
+                  placeholder={"Сертификат на отдых детей"}
                   type={"text"}
-                  value={watch("name")}
-                  errMsg={errors?.name?.message}
+                  value={watch("childrensHolidayCertificate")}
+                  errMsg={errors?.childrensHolidayCertificate?.message}
                 />
                 <h5 style={{marginTop: '20px'}}>Смены:</h5>
               </form>
