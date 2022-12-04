@@ -62,7 +62,7 @@ namespace Booking.System.Application.Identity
                 dto.EducationalLicense = camp.EducationalLicense;
                 dto.MedicalLicense = camp.MedicalLicense;
 
-                if (_campDbContext.Features.Count() > 0)
+                if (_campDbContext.Features.Where(f => f.CampId == camp.CampId).Count() > 0)
                 {
                     foreach (var feature in _campDbContext.Features.Where(f => f.CampId == camp.CampId))
                     {
@@ -72,25 +72,28 @@ namespace Booking.System.Application.Identity
                 // var workingMode = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId);
                 // dto.WorkingModeDto = _mapper.Map<WorkingModeDto>(workingMode);
                 dto.WorkingModeDto = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId).WorkingModeString;
-                var shifts = await _campDbContext.Shifts.ToListAsync();
+                var shifts = await _campDbContext.Shifts.Where(x=>x.CampId==camp.CampId).ToListAsync();
                 foreach (var shift in shifts)
                 {
                     var shiftsTypes = new List<ShiftType>();
-                    foreach (var shiftType in _campDbContext.ShiftByShiftTypes.ToList())
+                    foreach (var shiftbyshiftType in _campDbContext.ShiftByShiftTypes.Where(x=>x.ShiftId==shift.ShiftId).ToList())
                     {
                         shiftsTypes.Add(_campDbContext.ShiftTypes
-                            .First(x => x.ShiftTypeId == shiftType.ShiftTypeId));
+                            .First(x => x.ShiftTypeId == shiftbyshiftType.ShiftTypeId));
                     }
 
                     List<ShiftTypeDto> shiftTypeDtos = new List<ShiftTypeDto>();
                     foreach (var shiftType in shiftsTypes)
                     {
+
                         ShiftByShiftType shiftByShiftType = _campDbContext.ShiftByShiftTypes
                             .First(x => x.ShiftTypeId == shiftType.ShiftTypeId && x.ShiftId == shift.ShiftId);
+
                         shiftTypeDtos.Add(new ShiftTypeDto
                         {
                             Name = shiftType.Name,
-                            Price = shiftByShiftType.Price
+                            Price = shiftByShiftType.Price,
+                            ShiftByShiftTypeId = shiftByShiftType.ShiftByShiftTypeId
                         });
                     }
                     //shiftTypeDtos.Add(_mapper.Map<ShiftTypeDto>(shiftType));
@@ -202,7 +205,10 @@ namespace Booking.System.Application.Identity
                                         Price = shiftTypeDto.Price
                                     };
                                     _campDbContext.ShiftByShiftTypes.Add(shiftByShiftType);
+
+                                    _campDbContext.SaveChanges();
                                 }
+                                
                             }
                         }
                         _campDbContext.SaveChanges();
