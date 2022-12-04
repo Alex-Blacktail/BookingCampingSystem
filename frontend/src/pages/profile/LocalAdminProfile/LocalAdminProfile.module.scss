@@ -1,0 +1,63 @@
+@import "src/assets/styles/variables";
+
+.tabs{
+  margin-bottom: 0;
+  margin-top: auto;
+  button{
+    font-family: Golos;
+    color: $linkColor;
+    font-size: 16px;
+    &:hover{
+      color: $hoverColor;
+      background: $surfaceColor;
+    }
+
+  }
+}
+
+.tab-content{
+  display: flex;
+  flex-direction: column;
+  &__title{
+    width: 100%;
+    text-align: center;
+  }
+  &__form{
+    label{
+      margin-top: 20px;
+    }
+    &__buttons{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      button{
+        width: 300px;
+      }
+    }
+  }
+}
+
+.collapse-title{
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  justify-content: space-between;
+}
+
+.collapse-expand{
+  transition: transform 1s ease;
+}
+
+.collapse-expand__active{
+  transform: rotate(180deg);
+}
+
+.profile-buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  button{
+    margin: 0 5px;
+  }
+}
+

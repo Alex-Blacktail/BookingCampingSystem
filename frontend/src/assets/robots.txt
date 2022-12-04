@@ -1,0 +1,36 @@
+User-agent: *
+Disallow:
+
+{
+  "shortName": "string",    zzz
+  "name": "string",         zzz
+  "legalEntity": "string",      яяя
+  "address": "string",          яяя
+  "workingModeDto": "string",  яяя
+  "capacity": 0,            яяя
+  "websiteLink": "string", zzz
+  "medicalLicense": true,
+  "educationalLicense": true,
+  "about": "string",   яяя
+  "numberOfBuildings": 0,
+  "theAreaOfTheLand": 0,
+  "food": "string",
+  "childsAgeStart": 0,
+  "childsAgeEnd": 0,
+  "childrensHolidayCertificate": true,
+  "shifts": [
+    {
+      "dateStart": "string",
+      "dateEnd": "string",
+      "name": "string",
+      "typeName": "string",
+      "price": 0,
+      "shiftByShiftTypeId": null
+    }
+  ],
+  "features": [
+    {
+      "name": "string"
+    }
+  ]
+}

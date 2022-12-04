@@ -1,0 +1,9 @@
+@import "src/assets/styles/variables";
+.label{
+  display: flex;
+  flex-direction: column;
+}
+
+.error{
+  color: $errorColor;
+}

@@ -1,0 +1,122 @@
+@import "variables";
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, label, input, textarea, button, select, option, code, aside, ol, li, ul {
+  color: $textColor;
+  font-family: Golos, Golos-UI;
+}
+
+a {
+  text-decoration: none;
+  color: $linkColor;
+  &:hover{
+    color:$hoverColor;
+  }
+}
+
+p {
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 84px;
+  font-weight: bold;
+  line-height: 84px;
+}
+
+h2 {
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 66px;
+}
+
+h3 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+}
+
+h4 {
+  font-size: 26px;
+  line-height: 33.8px;
+}
+
+h5 {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+h6 {
+  font-size: 16px;
+  line-height: 20.8px;
+  letter-spacing: 1.6px;
+}
+
+code{
+  font-size: 26px;
+  line-height: 33.8px;
+}
+
+button {
+  font-size: 20px;
+  background: $accentColor;
+  color: $backgroundColor;
+  border-radius: 6px;
+  padding: 6px 20px 8px 20px;
+}
+
+input {
+  font-size: 20px;
+  padding: 8px 8px 9px 8px;
+  border-radius: 6px;
+  color: $textColor;
+  background: $surfaceColor;
+  outline: none;
+  border: none;
+}
+
+select {
+  font-size: 20px;
+  padding: 8px 8px 9px 8px;
+  border-radius: 6px;
+  color: $textColor;
+  background: $surfaceColor;
+  border: 0;
+}
+
+aside {
+  font-size: 20px;
+  line-height: 26px;
+  background: $backgroundColor;
+  border-radius: 4px;
+  padding: 15px 50px 20px 20px;
+}
+
+mark {
+  background: $markColor;
+}
+
+li{
+  list-style: none;
+}
+
+.Collapsible{
+  background: $backgroundColor;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  span{
+    border-radius: 6px;
+    color: $backgroundColor;
+    background: $baseLightColor;
+    width: 100%;
+    font-size: 20px;
+    line-height: 26px;
+    cursor: pointer;
+  }
+}

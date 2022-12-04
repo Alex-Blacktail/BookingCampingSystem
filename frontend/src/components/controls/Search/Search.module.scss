@@ -1,0 +1,17 @@
+@import "src/assets/styles/variables";
+
+.input-container{
+  display: flex;
+  background: $surfaceColor;
+  border-radius: 6px;
+  outline: solid $accentColor 2px;
+  padding: 5px;
+  input{
+    display: flex;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    height: 64px;
+  }
+}
