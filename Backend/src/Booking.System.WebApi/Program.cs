@@ -9,6 +9,7 @@ using Booking.System.Application.Identity;
 using Microsoft.EntityFrameworkCore;
 using Booking.System.Application.Childs;
 using Booking.System.Application.Parents;
+using Booking.System.Application.ShiftsRequests;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.ConfigureSerilogLogging();
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepo
 builder.Services.AddScoped<ICampCardRepository, CampCardRepository>();
 builder.Services.AddScoped<IChildRepository, ChildRepository>();
 builder.Services.AddScoped<IParentRepository, ParentRepository>();
+builder.Services.AddScoped<IShiftRequestRepository, ShiftRequestRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();

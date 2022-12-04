@@ -9,6 +9,7 @@ namespace Booking.System.Application.Mappings
         public UserMappingProfile() 
         {
             CreateMap<UserRegistrationDto, AppUser>();
+            CreateMap<ParentRegistrationDto, AppUser>();
         }
     }
 }

@@ -17,6 +17,12 @@ namespace Booking.System.WebApi.Controllers
         {
             _repository = repository;
         }
+
+        /// <summary>
+        /// Получить данные о родителе
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("parentlookupinfo/{id}")]
         public async Task<ActionResult<ParentDto>> GetParentInfo(string id)
         {

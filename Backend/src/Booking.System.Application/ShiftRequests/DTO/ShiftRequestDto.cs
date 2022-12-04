@@ -2,7 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Booking.System.Application.ShiftsRequests.DTO
 {
-    public class ShiftRequestDto
+    /// <summary>
+    /// Получить заявку
+    /// </summary>
+    public class GetShiftRequestDto
     {
         public int RequestId { get; set; }
         public string ParentName { get; set; }

@@ -15,6 +15,8 @@ using Booking.System.Application.Mappings;
 using Serilog;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 namespace Booking.System.WebApi.Extensions
 {
@@ -111,7 +113,8 @@ namespace Booking.System.WebApi.Extensions
                         new string[] { }
                     }
                 });
-
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
         }
 

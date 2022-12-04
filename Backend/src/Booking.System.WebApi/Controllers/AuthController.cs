@@ -26,10 +26,15 @@ namespace Booking.System.WebApi.Controllers
             _roleManager = roleManager;
         }
 
+        /// <summary>
+        /// Регистрация главного администратора
+        /// </summary>
+        /// <param name="userRegistration"></param>
+        /// <returns>Идентификатор зарегистрированного администратора</returns>
         [HttpPost("register/superadmin")]
-        public async Task<IActionResult> RegisterUser(UserRegistrationDto userRegistration)
+        public async Task<IActionResult> RegisterAdmin(UserRegistrationDto userRegistration)
         {
-            var userResult = await _repository.RegisterUserAsync(userRegistration);
+            var userResult = await _repository.RegisterAdminAsync(userRegistration);
 
             if (!userResult.Succeeded)
                 return new BadRequestObjectResult(userResult);
@@ -37,6 +42,29 @@ namespace Booking.System.WebApi.Controllers
             var user = await _userManager.FindByEmailAsync(userRegistration.Email);
             return Ok(new { userId = user.Id });
         }
+
+        /// <summary>
+        /// Регистрация локального администратора
+        /// </summary>
+        /// <param name="userRegistration"></param>
+        /// <returns>Идентификатор зарегистрированного локального администратора</returns>
+        [HttpPost("register/localadmin")]
+        public async Task<IActionResult> RegisterLocalAdmin(LocalAdminRegistrationDto localAdminRegistrationDto)
+        {
+            var userResult = await _repository.RegisterLocalAdminAsync(localAdminRegistrationDto);
+
+            if (!userResult.Succeeded)
+                return new BadRequestObjectResult(userResult);
+
+            var user = await _userManager.FindByEmailAsync(localAdminRegistrationDto.Email);
+            return Ok(new { userId = user.Id });
+        }
+
+        /// <summary>
+        /// Регистрация родительской учетной записи
+        /// </summary>
+        /// <param name="parentRegistrationDto"></param>
+        /// <returns>Идентификатор пользователя</returns>
         [HttpPost("register/parent")]
         public async Task<IActionResult> RegisterParent(ParentRegistrationDto parentRegistrationDto)
         {
@@ -44,10 +72,16 @@ namespace Booking.System.WebApi.Controllers
 
             if (!userResult.Succeeded)
                 return new BadRequestObjectResult(userResult);
-            
-            return StatusCode(201);
+
+            var user = await _userManager.FindByEmailAsync(parentRegistrationDto.UserRegistration.Email);
+            return Ok(new { userId = user.Id });
         }
 
+        /// <summary>
+        /// Аутентификация и авторизация в системе
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>Токен авторизации, роль, идентификатор пользователя</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Authenticate([FromBody] UserLoginDto user)
         {

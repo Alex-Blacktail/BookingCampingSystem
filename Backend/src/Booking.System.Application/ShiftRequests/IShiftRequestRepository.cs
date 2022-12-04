@@ -1,4 +1,6 @@
+using Booking.System.Application.ShiftRequests.DTO;
 using Booking.System.Application.ShiftsRequests.DTO;
+using static Booking.System.Application.ShiftsRequests.ShiftRequestRepository;
 
 namespace Booking.System.Application.ShiftsRequests
 {
@@ -9,12 +11,26 @@ namespace Booking.System.Application.ShiftsRequests
         /// </summary>
         /// <param name="CampCardVm">Объект данных для просмотра карточки</param>
         /// <returns></returns>
-        Task<ShiftRequestDto> GetRequestInfo();
+        Task<GetShiftRequestDto> GetRequestInfo();
 
         /// <summary>
         /// добавление карточки лагероя (для супер админа)
         /// </summary>
         /// <param name="capmCardDto">Объект данных для добавления карточки лагеря</param>
         /// <returns></returns>
+        /// 
+        Task<GetShiftRequestDto> CreateRequest(CreateRequestDto createRequestDto);
+
+        /// <summary>
+        /// Получить все смены с занятостью
+        /// </summary>
+        /// <returns></returns>
+        Task<AllShiftRequestsDto> GetAllShiftRequests();
+
+        /// <summary>
+        /// Получить действущие смены
+        /// </summary>
+        /// <returns></returns>
+        Task<AllShiftRequestsDto> GetShiftsTodayDate();
     }
 }

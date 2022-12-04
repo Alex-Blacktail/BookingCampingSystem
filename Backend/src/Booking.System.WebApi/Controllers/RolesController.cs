@@ -1,4 +1,6 @@
 ﻿using Booking.System.Application;
+using Booking.System.Application.Identity;
+using Booking.System.Application.Identity.DTO;
 using Booking.System.Application.Identity.Models;
 using Booking.System.Domain.Identity;
 using MediatR;
@@ -10,17 +12,26 @@ namespace Booking.System.WebApi.Controllers
 {
     public class RolesController : ApiController
     {
+        private readonly IUserAuthenticationRepository _repository;
+
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
 
-        public RolesController(IMediator mediator, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, CampDbContext context) 
+        public RolesController(IMediator mediator, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, CampDbContext context, IUserAuthenticationRepository repository) 
             : base(mediator)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _repository = repository;
+
             context.AspNetRoles.ToList();
         }
 
+        /// <summary>
+        /// Создать новую роль
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpPost("AddRole")]
         public async Task<IActionResult> Create(string name)
@@ -38,6 +49,11 @@ namespace Booking.System.WebApi.Controllers
 
         }
 
+        /// <summary>
+        /// Удалить роль
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpDelete("DeleteRole")]
         public async Task<IActionResult> Delete(string id)
@@ -56,6 +72,11 @@ namespace Booking.System.WebApi.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Получить роли пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpGet("GetUserRoles")]
         public async Task<IActionResult> Edit(string userName)
@@ -80,6 +101,12 @@ namespace Booking.System.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Редактировать роль пользователя
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpPost("EditUserRole")]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
@@ -104,6 +131,10 @@ namespace Booking.System.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Проинициализировать стартовые роли
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Initialize")]
         public async Task<IActionResult> InitializeRoles()
         {
@@ -111,10 +142,16 @@ namespace Booking.System.WebApi.Controllers
             return Ok("Roles are added");
         }
 
-        private static async Task InitializeRolesAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        private async Task InitializeRolesAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             string adminEmail = "admin@test.com";
-            string password = "Admin123";
+            string adminPassword = "Admin123";
+
+            string localEmail = "local@test.com";
+            string localPassword = "Local123";
+
+            string parentEmail = "parent@test.com";
+            string parentPassword = "Parent123";
 
             if (await roleManager.FindByNameAsync(adminEmail) == null)
             {
@@ -133,13 +170,54 @@ namespace Booking.System.WebApi.Controllers
 
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
-                var admin = new AppUser { Email = adminEmail, UserName = adminEmail };
-                IdentityResult result = await userManager.CreateAsync(admin, password);
+                await _repository.RegisterAdminAsync(new UserRegistrationDto
+                {
+                    Email = adminEmail,
+                    FirstName = "admin",
+                    LastName = "admin",
+                    ThirdName = "admin",
+                    Password = adminPassword,
+                    UserName = adminEmail,
+                });
+            }
+
+            if (await userManager.FindByNameAsync(localEmail) == null)
+            {
+                //TODO прокинуть регистрацию норм сюда
+                var local= new AppUser { Email = localEmail, UserName = localEmail };
+                IdentityResult result = await userManager.CreateAsync(local, localPassword);
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, "admin");
+                    await userManager.AddToRoleAsync(local, "localadmin");
                 }
+            }
+
+            if (await userManager.FindByNameAsync(parentEmail) == null)
+            {
+                await _repository.RegisterParentAsync(new ParentRegistrationDto
+                {
+                    UserRegistration = new UserRegistrationDto
+                    {
+                        Email = parentEmail,
+                        FirstName = "parent",
+                        LastName = "parent",
+                        ThirdName = "parent",
+                        Password = parentPassword,
+                        UserName = parentEmail,
+                    },
+                    Address = "Оренбургская область, г. Оренбург, ул. Советская 1",
+                    Birthday = DateTime.Now.AddYears(-30).ToString("yyyy-MM-dd"),
+                    Country = "Российская Федерация",
+                    StatusId = 1,
+                    SNILS = "1234567890",
+                    PassportType = "ru",
+                    PassportNumber = "666666",
+                    PassportSerial = "4444",
+                    PassportDateOfIssue = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd"),
+                    PassportIssuedBy = "pass",
+                    PassportValidity = "pass"
+                }); 
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Booking.System.Application.Identity
         /// </summary>
         /// <param name="userRetistrationDto">Объект данных для регистрации супер админа</param>
         /// <returns></returns>
-        Task<IdentityResult> RegisterUserAsync(UserRegistrationDto userRetistrationDto);
+        Task<IdentityResult> RegisterAdminAsync(UserRegistrationDto userRetistrationDto);
 
         /// <summary>
         /// Регистрация родителя
@@ -18,6 +18,13 @@ namespace Booking.System.Application.Identity
         /// <param name="parentRegistrationDto">Объект данных для регистрации родителя </param>
         /// <returns></returns>
         Task<IdentityResult> RegisterParentAsync(ParentRegistrationDto parentRegistrationDto);
+
+        /// <summary>
+        /// Регистрация локального админа
+        /// </summary>
+        /// <param name="localAdminRetistrationDto"></param>
+        /// <returns></returns>
+        Task<IdentityResult> RegisterLocalAdminAsync(LocalAdminRegistrationDto localAdminRetistrationDto);
 
         /// <summary>
         /// Проверка валидности данных для входа
