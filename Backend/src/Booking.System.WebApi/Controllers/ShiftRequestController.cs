@@ -115,7 +115,15 @@ namespace Booking.System.WebApi.Controllers
                     row.CreateCell(8)
                         .SetCellValue(result.ShortShiftRequests[i].PlacesCount - result.ShortShiftRequests[i].BusyPlacesCount);
                 }
-
+                excelSheet.AutoSizeColumn(0);
+                excelSheet.AutoSizeColumn(1);
+                excelSheet.AutoSizeColumn(2);
+                excelSheet.AutoSizeColumn(3);
+                excelSheet.AutoSizeColumn(4);
+                excelSheet.AutoSizeColumn(5);
+                excelSheet.AutoSizeColumn(6);
+                excelSheet.AutoSizeColumn(7);
+                excelSheet.AutoSizeColumn(8);
                 workbook.Write(fs, false);
             }
 
