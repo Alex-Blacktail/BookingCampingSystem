@@ -38,15 +38,48 @@ namespace Booking.System.Application.Identity
             _campDbContext = campDbContext;
         }
 
-        public async Task<IdentityResult> RegisterUserAsync(UserRegistrationDto userRetistrationDto)
+        public async Task<IdentityResult> RegisterAdminAsync(UserRegistrationDto userRetistrationDto)
         {
             var user = _mapper.Map<AppUser>(userRetistrationDto);
             var result = await _userManager.CreateAsync(user, userRetistrationDto.Password);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var userData = await _userManager.FindByNameAsync(user.UserName);
                 await _userManager.AddToRoleAsync(userData, "admin");
+            }
+
+            return result;
+        }
+
+        public async Task<IdentityResult> RegisterLocalAdminAsync(LocalAdminRegistrationDto localAdminRetistrationDto)
+        {
+            var user = new AppUser
+            {
+                FirstName = localAdminRetistrationDto.FirstName,
+                LastName = localAdminRetistrationDto.LastName,
+                Email = localAdminRetistrationDto.Email,
+                PhoneNumber = localAdminRetistrationDto?.PhoneNumber,
+                ThirdName = localAdminRetistrationDto?.ThirdName,
+                UserName = localAdminRetistrationDto.UserName
+            };
+
+            var result = await _userManager.CreateAsync(user, localAdminRetistrationDto.Password);
+
+            if (result.Succeeded)
+            {
+                var userData = await _userManager.FindByNameAsync(user.UserName);
+                await _userManager.AddToRoleAsync(userData, "localadmin");
+
+                var localData = new LocalAdministrator
+                {
+                    LocalAdministratorId = userData.Id,
+                    Name = localAdminRetistrationDto.FirstName,
+                    Patronomyc = localAdminRetistrationDto?.ThirdName,
+                    Surname = localAdminRetistrationDto.LastName,
+                };
+                await _campDbContext.LocalAdministrators.AddAsync(localData);
+                await _campDbContext.SaveChangesAsync();
             }
 
             return result;
@@ -57,6 +90,7 @@ namespace Booking.System.Application.Identity
             var user = _mapper.Map<AppUser>(parentRegistrationDto.UserRegistration);
             var result = await _userManager.CreateAsync(user, parentRegistrationDto.UserRegistration.Password);
             var addedUser = await _userManager.FindByNameAsync(parentRegistrationDto.UserRegistration.UserName);
+
             if (addedUser != null)
             {
 

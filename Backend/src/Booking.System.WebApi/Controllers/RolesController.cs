@@ -145,7 +145,7 @@ namespace Booking.System.WebApi.Controllers
 
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
-                await _repository.RegisterUserAsync(new UserRegistrationDto
+                await _repository.RegisterAdminAsync(new UserRegistrationDto
                 {
                     Email = adminEmail,
                     FirstName = "admin",
