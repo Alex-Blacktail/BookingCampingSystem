@@ -91,7 +91,7 @@ namespace Booking.System.Application.Identity
             var result = await _userManager.CreateAsync(user, parentRegistrationDto.UserRegistration.Password);
             var addedUser = await _userManager.FindByNameAsync(parentRegistrationDto.UserRegistration.UserName);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var userData = await _userManager.FindByNameAsync(user.UserName);
                 await _userManager.AddToRoleAsync(userData, "parent");
@@ -105,7 +105,7 @@ namespace Booking.System.Application.Identity
                 {
                     ValidityDates = parentRegistrationDto.PassportValidity.Split("-");
                 }
-               
+
                 string[] BirthdayDates = parentRegistrationDto.Birthday.Split("-");
 
                 var status = new Status
@@ -113,7 +113,7 @@ namespace Booking.System.Application.Identity
                     Name = "Родитель"
                 };
 
-                if (_campDbContext.Statuses.FirstOrDefault(x =>x.Name==status.Name) == null) 
+                if (_campDbContext.Statuses.FirstOrDefault(x => x.Name == status.Name) == null)
                     _campDbContext.Statuses.Add(status);
 
                 var status2 = new Status
@@ -133,7 +133,7 @@ namespace Booking.System.Application.Identity
                 _campDbContext.SaveChanges();
                 int? passportRuId = null;
                 int? passportForeignId = null;
-                
+
                 if (parentRegistrationDto.PassportType == "ru")
                 {
                     var passportRu = new PassportRu
@@ -155,7 +155,7 @@ namespace Booking.System.Application.Identity
                         Series = parentRegistrationDto.PassportSerial,
                         IssuedBy = parentRegistrationDto.PassportIssuedBy,
                         DateOfIssue = new DateOnly(int.Parse(PassportDates[0]), int.Parse(PassportDates[1]), int.Parse(PassportDates[2])),
-                        Validity  = new DateOnly(int.Parse(ValidityDates[0]), int.Parse(ValidityDates[1]), int.Parse(ValidityDates[2]))
+                        Validity = new DateOnly(int.Parse(ValidityDates[0]), int.Parse(ValidityDates[1]), int.Parse(ValidityDates[2]))
                     };
                     _campDbContext.PassportForeigns.Add(passportForeign);
                     _campDbContext.SaveChanges();
@@ -179,7 +179,7 @@ namespace Booking.System.Application.Identity
                 _campDbContext.Parents.Add(parent);
                 _campDbContext.SaveChanges();
             }
-       
+
             return result;
         }
 
