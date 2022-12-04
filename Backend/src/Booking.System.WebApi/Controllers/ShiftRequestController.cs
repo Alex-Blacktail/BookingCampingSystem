@@ -57,12 +57,15 @@ namespace Booking.System.WebApi.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Экспорт в excel данных о всех сменах и их заполненности
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("excel/all")]
-        public async Task<IActionResult> ExportAll()
+        [HttpGet("datacharts")]
+        public async Task<ActionResult<VisualDataVm>> GetMonthData()
+        {
+            var result = await _repository.GetMonthsShifts();
+            return Ok(result);
+        }
+
+        [HttpGet("all/excel")]
+        public async Task<ActionResult> ExportExcel()
         {
             string sWebRootFolder = _hostingEnvironment.ContentRootPath;
 
