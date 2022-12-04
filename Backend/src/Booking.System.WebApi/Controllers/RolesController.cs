@@ -182,14 +182,14 @@ namespace Booking.System.WebApi.Controllers
                         UserName = parentEmail,
                     },
                     Address = "Оренбургская область, г. Оренбург, ул. Советская 1",
-                    Birthday = DateTime.Now.AddYears(-30).ToString("dd-MM-yy"),
+                    Birthday = DateTime.Now.AddYears(-30).ToString("yyyy-MM-dd"),
                     Country = "Российская Федерация",
                     StatusId = 1,
                     SNILS = "1234567890",
                     PassportType = "ru",
                     PassportNumber = "666666",
                     PassportSerial = "4444",
-                    PassportDateOfIssue = DateTime.Now.AddYears(-10).ToString("dd-MM-yy"),
+                    PassportDateOfIssue = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd"),
                     PassportIssuedBy = "pass",
                     PassportValidity = "pass"
                 }); 
