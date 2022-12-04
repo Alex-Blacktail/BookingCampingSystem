@@ -83,29 +83,31 @@ namespace Booking.System.Application.Identity
                             .First(x => x.ShiftTypeId == shiftbyshiftType.ShiftTypeId));
                     }
 
-                    List<ShiftTypeDto> shiftTypeDtos = new List<ShiftTypeDto>();
+                    //List<ShiftTypeDto> shiftTypeDtos = new List<ShiftTypeDto>();
                     foreach (var shiftType in shiftsTypes)
                     {
 
                         ShiftByShiftType shiftByShiftType = _campDbContext.ShiftByShiftTypes
                             .First(x => x.ShiftTypeId == shiftType.ShiftTypeId && x.ShiftId == shift.ShiftId);
 
-                        shiftTypeDtos.Add(new ShiftTypeDto
+                        dto.Shifts.Add(new ShiftDto
                         {
-                            Name = shiftType.Name,
+                            DateStart = shift.DateStart.Year.ToString() + "-" + shift.DateStart.Month.ToString() + "-" + shift.DateStart.Day.ToString(),
+                            DateEnd = shift.DateEnd.Year.ToString() + "-" + shift.DateEnd.Month.ToString() + "-" + shift.DateEnd.Day.ToString(),
+                            ShiftName = shift.Name,
+                            // ShiftTypeDtos = shiftTypeDtos
+                            ShiftTypeName = shiftType.Name,
                             Price = shiftByShiftType.Price,
                             ShiftByShiftTypeId = shiftByShiftType.ShiftByShiftTypeId
                         });
+                      // shiftTypeDtos.Add(new ShiftTypeDto
+                      // {
+                      //    
+                      // });
                     }
                     //shiftTypeDtos.Add(_mapper.Map<ShiftTypeDto>(shiftType));
                  
-                    dto.Shifts.Add(new ShiftDto
-                    {
-                        DateStart = shift.DateStart.Year.ToString() +"-"+shift.DateStart.Month.ToString() +"-"+ shift.DateStart.Day.ToString(),
-                        DateEnd = shift.DateEnd.Year.ToString() + "-" + shift.DateEnd.Month.ToString() + "-" + shift.DateEnd.Day.ToString(),
-                        Name = shift.Name,
-                        ShiftTypeDtos = shiftTypeDtos
-                    });
+                    
                 }
                 CapmCardDtoList.Add(dto);
             }
@@ -183,35 +185,34 @@ namespace Booking.System.Application.Identity
 
                         var shift = new Shift
                         {
-                            Name = shiftdto.Name,
+                            Name = shiftdto.ShiftName,
                             DateStart = new DateOnly(int.Parse(StartDates[0]), int.Parse(StartDates[1]), int.Parse(StartDates[2])),
                             DateEnd = new DateOnly(int.Parse(EndDates[0]), int.Parse(EndDates[1]), int.Parse(EndDates[2])),
                             CampId = camp.CampId
                         };
                         _campDbContext.Shifts.Add(shift);
                         _campDbContext.SaveChanges();
-                        if (shiftdto.ShiftTypeDtos.Count > 0)
-                        {
-                            foreach (var shiftTypeDto in shiftdto.ShiftTypeDtos)
-                            {
+                        
+                           // foreach (var shiftTypeDto in shiftdto.ShiftTypeDtos)
+                           // {
                                 
                                 var shiftType =  _campDbContext.ShiftTypes
-                                    .FirstOrDefault(x => x.Name == shiftTypeDto.Name);
+                                    .FirstOrDefault(x => x.Name == shiftdto.ShiftTypeName);
                                 if (shiftType != null)
                                 {
                                     var shiftByShiftType = new ShiftByShiftType
                                     {
                                         ShiftId = shift.ShiftId,
                                         ShiftTypeId = shiftType.ShiftTypeId,
-                                        Price = shiftTypeDto.Price
+                                        Price = shiftdto.Price
                                     };
                                     _campDbContext.ShiftByShiftTypes.Add(shiftByShiftType);
 
                                     _campDbContext.SaveChanges();
                                 }
                                 
-                            }
-                        }
+                            //}
+                        
                         _campDbContext.SaveChanges();
                     }
                 }

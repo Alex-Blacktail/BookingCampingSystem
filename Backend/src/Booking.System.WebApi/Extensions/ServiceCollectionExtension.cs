@@ -27,9 +27,9 @@ namespace Booking.System.WebApi.Extensions
             var builder = services
                 .AddIdentity<AppUser, IdentityRole>(io =>
                 {
-                    io.Password.RequireDigit = true;
-                    io.Password.RequireLowercase = true;
-                    io.Password.RequireUppercase = true;
+                    io.Password.RequireDigit = false;
+                    io.Password.RequireLowercase = false;
+                    io.Password.RequireUppercase = false;
                     io.Password.RequireNonAlphanumeric = false;
                     io.User.RequireUniqueEmail = true;
                 })
