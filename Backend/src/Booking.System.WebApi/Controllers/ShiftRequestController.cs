@@ -49,10 +49,8 @@ namespace Booking.System.WebApi.Controllers
             return Ok(result);
         }
 
-   
-
-        [HttpGet("all/excel")]
-        public async Task<IActionResult> Export()
+        [HttpGet("excel/all")]
+        public async Task<IActionResult> ExportAll()
         {
             string sWebRootFolder = _hostingEnvironment.ContentRootPath;
 
@@ -118,5 +116,71 @@ namespace Booking.System.WebApi.Controllers
             return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sFileName);
         }
 
+        [HttpGet("excel/today")]
+        public async Task<IActionResult> ExportToday()
+        {
+            string sWebRootFolder = _hostingEnvironment.ContentRootPath;
+
+            var date = DateTime.Now.ToString("YYYYMMddhhmmss");
+            string sFileName = @$"documentsExport\shifts_statistics{date}.xlsx";
+
+            string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
+
+            var path = sWebRootFolder + sFileName;
+
+            Directory.CreateDirectory(sWebRootFolder + "documentsExport");
+
+            FileInfo file = new FileInfo(path);
+
+            var memory = new MemoryStream();
+
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                IWorkbook workbook;
+                workbook = new XSSFWorkbook();
+
+                ISheet excelSheet = workbook.CreateSheet("Статистика");
+
+                var result = await _repository.GetShiftsTodayDate();
+
+                IRow row = excelSheet.CreateRow(0);
+
+                row.CreateCell(0).SetCellValue("Номер");
+                row.CreateCell(1).SetCellValue("Наименование лагеря");
+                row.CreateCell(2).SetCellValue("Название смены");
+                row.CreateCell(3).SetCellValue("Тип смены");
+                row.CreateCell(4).SetCellValue("Дата начала");
+                row.CreateCell(5).SetCellValue("Дата окончания");
+                row.CreateCell(6).SetCellValue("Количество мест");
+                row.CreateCell(7).SetCellValue("Количество занятых мест");
+                row.CreateCell(8).SetCellValue("Количество свободных мест");
+
+                for (int i = 0; i < result.ShortShiftRequests.Count; i++)
+                {
+                    row = excelSheet.CreateRow(i + 1);
+
+                    row.CreateCell(0).SetCellValue(i + 1);
+                    row.CreateCell(1).SetCellValue(result.ShortShiftRequests[i].CampName);
+                    row.CreateCell(2).SetCellValue(result.ShortShiftRequests[i].ShiftName);
+                    row.CreateCell(3).SetCellValue(result.ShortShiftRequests[i].ShiftType);
+                    row.CreateCell(4).SetCellValue(result.ShortShiftRequests[i].DateStart);
+                    row.CreateCell(5).SetCellValue(result.ShortShiftRequests[i].DateEnd);
+                    row.CreateCell(6).SetCellValue(result.ShortShiftRequests[i].PlacesCount);
+                    row.CreateCell(7).SetCellValue(result.ShortShiftRequests[i].BusyPlacesCount);
+                    row.CreateCell(8)
+                        .SetCellValue(result.ShortShiftRequests[i].PlacesCount - result.ShortShiftRequests[i].BusyPlacesCount);
+                }
+
+                workbook.Write(fs, false);
+            }
+
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sFileName);
+        }
     }
 }
