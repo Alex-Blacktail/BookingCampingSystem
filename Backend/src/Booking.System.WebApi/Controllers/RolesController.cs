@@ -135,6 +135,7 @@ namespace Booking.System.WebApi.Controllers
         /// Проинициализировать стартовые роли
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "admin")]
         [HttpGet("Initialize")]
         public async Task<IActionResult> InitializeRoles()
         {
@@ -183,41 +184,50 @@ namespace Booking.System.WebApi.Controllers
 
             if (await userManager.FindByNameAsync(localEmail) == null)
             {
-                //TODO прокинуть регистрацию норм сюда
-                var local= new AppUser { Email = localEmail, UserName = localEmail };
-                IdentityResult result = await userManager.CreateAsync(local, localPassword);
-
-                if (result.Succeeded)
+                await _repository.RegisterLocalAdminAsync(new LocalAdminRegistrationDto
                 {
-                    await userManager.AddToRoleAsync(local, "localadmin");
-                }
+                    FirstName = "localadmin",
+                    Email = localEmail,
+                    LastName = "localadmin",
+                    ThirdName = "localadmin",
+                    Password = localPassword,
+                    UserName = localEmail,
+                });
             }
 
             if (await userManager.FindByNameAsync(parentEmail) == null)
             {
-                await _repository.RegisterParentAsync(new ParentRegistrationDto
+                try
                 {
-                    UserRegistration = new UserRegistrationDto
+                    await _repository.RegisterParentAsync(new ParentRegistrationDto
                     {
-                        Email = parentEmail,
-                        FirstName = "parent",
-                        LastName = "parent",
-                        ThirdName = "parent",
-                        Password = parentPassword,
-                        UserName = parentEmail,
-                    },
-                    Address = "Оренбургская область, г. Оренбург, ул. Советская 1",
-                    Birthday = DateTime.Now.AddYears(-30).ToString("yyyy-MM-dd"),
-                    Country = "Российская Федерация",
-                    StatusId = 1,
-                    SNILS = "1234567890",
-                    PassportType = "ru",
-                    PassportNumber = "666666",
-                    PassportSerial = "4444",
-                    PassportDateOfIssue = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd"),
-                    PassportIssuedBy = "pass",
-                    PassportValidity = "pass"
-                }); 
+                        UserRegistration = new UserRegistrationDto
+                        {
+                            Email = parentEmail,
+                            FirstName = "parent",
+                            LastName = "parent",
+                            ThirdName = "parent",
+                            Password = parentPassword,
+                            UserName = parentEmail,
+                        },
+                        Address = "Оренбургская область, г. Оренбург, ул. Советская 1",
+                        Birthday = DateTime.Now.AddYears(-30).ToString("yyyy-MM-dd"),
+                        Country = "Российская Федерация",
+                        StatusId = 1,
+                        SNILS = "1234567890",
+                        PassportType = "ru",
+                        PassportNumber = "666666",
+                        PassportSerial = "4444",
+                        PassportDateOfIssue = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd"),
+                        PassportIssuedBy = "pass",
+                        PassportValidity = "pass"
+                    });
+                }
+                catch(Exception ex)
+                {
+
+                }
+               
             }
         }
     }

@@ -32,5 +32,10 @@ namespace Booking.System.Application.ShiftsRequests
         /// </summary>
         /// <returns></returns>
         Task<AllShiftRequestsDto> GetShiftsTodayDate();
+        /// <summary>
+        /// Получить данные по месяцам для супер админа
+        /// </summary>
+        /// <returns></returns>
+        Task<VisualDataVm> GetMonthsShifts();
     }
 }

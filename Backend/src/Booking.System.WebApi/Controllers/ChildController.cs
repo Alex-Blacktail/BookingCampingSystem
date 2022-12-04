@@ -26,6 +26,7 @@ namespace Booking.System.WebApi.Controllers
         /// <returns></returns>
         // [Authorize(Roles = "parent")]
         [HttpPost("addchildinfo")]
+        [Authorize(Roles = "parent")]
         public async Task<IActionResult> AddChildInfo([FromBody] ChildDto childDto)
         {
             var userResult = await _repository.CreateChild(childDto);
@@ -40,8 +41,8 @@ namespace Booking.System.WebApi.Controllers
         /// </summary>
         /// <param name="removeChildInfoDto"></param>
         /// <returns></returns>
-       // [Authorize(Roles = "parent")]
         [HttpDelete("removechildinfo")]
+        [Authorize(Roles = "parent")]
         public async Task<IActionResult> RemoveChildInfo([FromBody] RemoveChildInfoDto removeChildInfoDto)
         {
             var userResult = await _repository.RemoveChildInfo(removeChildInfoDto);
