@@ -5,13 +5,13 @@ import Search from "../../components/controls/Search/Search";
 import plugImg from "../../assets/images/orb-report/RNIC.jpg"
 import CampCard from "../../components/campCard/CampCard";
 import Grid from "../../components/layouts/Grid/Grid";
-
+import img from './img.png'
 
 const MainPage = () => {
 	return (
 		<MainContainer>
 			<Container>
-				<h1>Все что нужно для активного отдыха...</h1>
+				<img src={img} alt=""/>
 				<Search style={{marginTop: '100px'}}/>
 				<img style={{paddingTop: '30px', margin: '0 auto'}} src={plugImg} alt="plug"width={700}/>
 			</Container>
