@@ -44,34 +44,32 @@ namespace Booking.System.Application.Identity
             {
                 var dto = new CapmCardDto();
                 dto.Name = camp.Name;
-                dto.ShortName = camp.ShortName;
+              //  dto.ShortName = camp.ShortName;
                 Address adr = await _campDbContext.Addresses.FirstAsync(x => x.AddressId == camp.AddressId);
                 dto.Address = adr.AddressContent;
                 dto.Capacity = camp.Capacity;
-                dto.NumberOfBuildings = camp.NumberOfBuildings;
-                dto.About = camp.About;
-                dto.Food = camp.Food;
-                dto.WebsiteLink = camp.WebsiteLink;
-                dto.LegalEntity = camp.LegalEntity;
-                dto.TheAreaOfTheLand = camp.TheAreaOfTheLand;
+              //  dto.NumberOfBuildings = camp.NumberOfBuildings;
+              //  dto.About = camp.About;
+               // dto.Food = camp.Food;
+              //  dto.WebsiteLink = camp.WebsiteLink;
+              //  dto.LegalEntity = camp.LegalEntity;
+             //   dto.TheAreaOfTheLand = camp.TheAreaOfTheLand;
 
-                dto.ChildsAgeStart = camp.ChildsAgeStart;
-                dto.ChildsAgeEnd = camp.ChildsAgeEnd;
+              //  dto.ChildsAgeStart = camp.ChildsAgeStart;
+             //   dto.ChildsAgeEnd = camp.ChildsAgeEnd;
 
                 dto.ChildrensHolidayCertificate = camp.ChildrensHolidayCertificate;
                 dto.EducationalLicense = camp.EducationalLicense;
                 dto.MedicalLicense = camp.MedicalLicense;
-                dto.Features = new List<FeatureDto>();
-                if (_campDbContext.Features.Where(f => f.CampId == camp.CampId).Count() > 0)
-                {
-                    foreach (var feature in _campDbContext.Features.Where(f => f.CampId == camp.CampId))
-                    {
-                        dto.Features.Add(_mapper.Map<FeatureDto>(feature));
-                    }
-                }
-                // var workingMode = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId);
-                // dto.WorkingModeDto = _mapper.Map<WorkingModeDto>(workingMode);
-                dto.WorkingModeDto = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId).WorkingModeString;
+              //  dto.Features = new List<FeatureDto>();
+               // if (_campDbContext.Features.Where(f => f.CampId == camp.CampId).Count() > 0)
+               // {
+               //     foreach (var feature in _campDbContext.Features.Where(f => f.CampId == camp.CampId))
+               //     {
+               //         dto.Features.Add(_mapper.Map<FeatureDto>(feature));
+               //     }
+               //
+              //  dto.WorkingModeDto = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId).WorkingModeString;
                 var shifts = await _campDbContext.Shifts.Where(x=>x.CampId==camp.CampId).ToListAsync();
                 dto.Shifts = new List<ShiftDto>();
                 foreach (var shift in shifts)
@@ -129,24 +127,24 @@ namespace Booking.System.Application.Identity
 
                 var workingMode = new WorkingMode
                 {
-                    WorkingModeString = CampDto.WorkingModeDto
-                };
-                _campDbContext.WorkingModes.Add(workingMode);
+                    WorkingModeString = "с 8:00 до 14:00 каждый день"
+               };
+               _campDbContext.WorkingModes.Add(workingMode);
              
-                _campDbContext.SaveChanges();
+               _campDbContext.SaveChanges();
 
                 var camp = new Camp();
                 camp.Name = CampDto.Name;
-                camp.ShortName = CampDto.ShortName;
+                camp.ShortName = "";
                 camp.Capacity = CampDto.Capacity;
-                camp.NumberOfBuildings = CampDto.NumberOfBuildings;
-                camp.About = CampDto.About;
-                camp.Food = CampDto.Food;
-                camp.WebsiteLink = CampDto.WebsiteLink;
-                camp.LegalEntity = CampDto.LegalEntity;
-                camp.TheAreaOfTheLand = CampDto.TheAreaOfTheLand;
-                camp.ChildsAgeStart = CampDto.ChildsAgeStart;
-                camp.ChildsAgeEnd = CampDto.ChildsAgeEnd;
+                camp.NumberOfBuildings = 5;//CampDto.NumberOfBuildings;
+                camp.About = "О нас";//CampDto.About;
+                camp.Food = "3-х разовое питание и полдник"; //CampDto.Food;
+                camp.WebsiteLink = "";// CampDto.WebsiteLink;
+                camp.LegalEntity = "Юр лицо";// CampDto.LegalEntity;
+                camp.TheAreaOfTheLand = 100;// CampDto.TheAreaOfTheLand;
+                camp.ChildsAgeStart = 7; // = CampDto.ChildsAgeStart;
+                camp.ChildsAgeEnd = 15; //CampDto.ChildsAgeEnd;
                 camp.ChildrensHolidayCertificate = CampDto.ChildrensHolidayCertificate;
                 camp.EducationalLicense = CampDto.EducationalLicense;
                 camp.MedicalLicense = CampDto.MedicalLicense;
@@ -155,17 +153,17 @@ namespace Booking.System.Application.Identity
                
                 _campDbContext.Camps.Add(camp);
                 _campDbContext.SaveChanges();
-                if (CampDto.Features.Count() > 0)
-                {
-                    foreach (var feature in CampDto.Features)
-                    {
-                        _campDbContext.Features.Add(new Feature
-                        {
-                            CampId = camp.CampId,
-                            Name = feature.Name
-                        });
-                    }
-                }
+              // if (CampDto.Features.Count() > 0)
+              // {
+              //     foreach (var feature in CampDto.Features)
+              //     {
+              //         _campDbContext.Features.Add(new Feature
+              //         {
+              //             CampId = camp.CampId,
+              //             Name = feature.Name
+              //         });
+              //     }
+              // }
 
                 if (_campDbContext.ShiftTypes.Count() == 0)
                 {
