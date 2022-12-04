@@ -7,6 +7,8 @@ using Booking.System.WebApi.Data;
 using Booking.System.WebApi.Extensions;
 using Booking.System.Application.Identity;
 using Microsoft.EntityFrameworkCore;
+using Booking.System.Application.Childs;
+using Booking.System.Application.Parents;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.ConfigureSerilogLogging();
@@ -27,6 +29,8 @@ builder.Services.AddDbContext<CampDbContext>(options => options.UseNpgsql(connec
 
 builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 builder.Services.AddScoped<ICampCardRepository, CampCardRepository>();
+builder.Services.AddScoped<IChildRepository, ChildRepository>();
+builder.Services.AddScoped<IParentRepository, ParentRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
