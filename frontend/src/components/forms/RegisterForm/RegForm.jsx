@@ -105,6 +105,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`firstName`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /[а-яА-ЯЁё]/,
+                  message: "Имя должно содержать только символы кириллицы",
+                },
               })}
               placeholder={"Имя"}
               name={"firstName"}
@@ -116,6 +121,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`lastName`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /[а-яА-ЯЁё]/,
+                  message: "Фамилия должна содержать только символы кириллицы",
+                },
               })}
               placeholder={"Фамилия"}
               name={"lastName"}
@@ -127,6 +137,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`thirdName`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /[а-яА-ЯЁё]/,
+                  message: "Отчество должно содержать только символы кириллицы",
+                },
               })}
               placeholder={"Отчество"}
               name={"thirdName"}
@@ -138,6 +153,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`phoneNumber`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^(\+?7-?)?(\([0-9]([0-9]\d[0-9])\)|[0-9]([0-9][0-9]))-?[0-9]([0-9][0-9])-?\d{4}$/,
+                  message: "Некорректный номер телефона",
+                },
               })}
               placeholder={"Телефон"}
               name={"phoneNumber"}
@@ -149,6 +169,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`password`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/,
+                  message: "Латинские буквы + цифры + символ + больше 8 символов",
+                },
               })}
               placeholder={"Пароль"}
               name={"password"}
@@ -160,6 +185,11 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`passwordRepeat`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/,
+                  message: "Латинские буквы + цифры + символ + больше 8 символов",
+                },
               })}
               placeholder={"Пароль (ещё раз)"}
               name={"passwordRepeat"}
@@ -244,7 +274,7 @@ const RegForm = ({ ...props }) => {
               name={"birthday"}
               type={"date"}
               id={"birthday"}
-              value={watch("birthda")}
+              value={watch("birthday")}
               errMsg={errors?.birthday?.message}
             />
             <Select
@@ -284,21 +314,33 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`passportSerial`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^[0-9]{4}$/,
+                  message: "Некорректная серия паспорта",
+                },
               })}
               placeholder={"Серия паспорта"}
               name={"passportSerial"}
               type={"text"}
               id={"passportSerial"}
+              value={watch("passportSerial")}
               errMsg={errors?.passportSerial?.message}
             />
             <Input
               register={register(`passportNumber`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^[0-9]{6}$/,
+                  message: "Некорректный номер паспорта",
+                },
               })}
               placeholder={"Номер паспорта"}
               name={"passportNumber"}
               type={"text"}
               id={"passportNumber"}
+              value={watch("passportNumber")}
               errMsg={errors?.passportNumber?.message}
             />
             <Input
@@ -315,11 +357,17 @@ const RegForm = ({ ...props }) => {
             <Input
               register={register(`passportIssuedBy`, {
                 required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^\D+$/,
+                  message: "Некорректный ввод",
+                },
               })}
               placeholder={"Кем выдан"}
               name={"passportIssuedBy"}
               type={"text"}
               id={"passportIssuedBy"}
+              value={watch("passportIssuedBy")}
               errMsg={errors?.passportIssuedBy?.message}
             />
           </div>
