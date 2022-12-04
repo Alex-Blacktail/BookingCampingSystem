@@ -15,6 +15,7 @@ import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {Tab} from "@mui/material";
 import Input from "../../../components/controls/Input/Input";
 import {useForm} from "react-hook-form";
+import Select from "../../../components/controls/Select/Select";
 
 const ParentProfile = () => {
 
@@ -129,10 +130,378 @@ const ParentProfile = () => {
               <h3 className={styles["tab-content__title"]}>
                 Форма добавления ребенка
               </h3>
-              <form className={styles["tab-content__form"]}>
-                <Input/>
-                <Input/>
-                <Input/>
+              <form onSubmit={handleSubmit(data=>console.log(data))} className={styles["tab-content__form"]}>
+                <Input
+                  register={register(`name`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /[а-яА-ЯЁё]/,
+                      message: "Только символы кириллицы",
+                    },
+                  })}
+                  placeholder={"Имя"}
+                  name={"name"}
+                  type={"text"}
+                  id={"name"}
+                  value={watch("name")}
+                  errMsg={errors?.name?.message}
+                />
+                <Input
+                  register={register(`surname`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /[а-яА-ЯЁё]/,
+                      message: "Только символы кириллицы",
+                    },
+                  })}
+                  placeholder={"Фамилия"}
+                  surname={"surname"}
+                  type={"text"}
+                  id={"surname"}
+                  value={watch("surname")}
+                  errMsg={errors?.surname?.message}
+                />
+                <Input
+                  register={register(`patronomyc`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /[а-яА-ЯЁё]/,
+                      message: "Только символы кириллицы",
+                    },
+                  })}
+                  placeholder={"Отчество"}
+                  patronomyc={"patronomyc"}
+                  type={"text"}
+                  id={"patronomyc"}
+                  value={watch("patronomyc")}
+                  errMsg={errors?.patronomyc?.message}
+                />
+                <Input
+                  label={"Дата рождения"}
+                  register={register(`birthday`, {
+                    required: "Обязательное поле.",
+                  })}
+                  placeholder={"Дата рождения"}
+                  name={"birthday"}
+                  type={"date"}
+                  id={"birthday"}
+                  errMsg={errors?.birthday?.message}
+                />
+                <Input
+                  register={register(`address`, { required: "Обязательное поле." })}
+                  placeholder={"Адрес"}
+                  name={"address"}
+                  type={"text"}
+                  id={"address"}
+                  value={watch("address")}
+                  errMsg={errors?.address?.message}
+                />
+                <Input
+                  register={register(`country`, { required: "Обязательное поле." })}
+                  placeholder={"Страна"}
+                  name={"country"}
+                  type={"text"}
+                  id={"country"}
+                  value={watch("country")}
+                  errMsg={errors?.country?.message}
+                />
+                <Input
+                  register={register(`snils`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value: /^\d{3}-\d{3}-\d{3}-\d{2}$/,
+                      message: "Снилс в формате 132-155-455-45",
+                    },
+                  })}
+                  placeholder={"Снилс"}
+                  name={"snils"}
+                  type={"text"}
+                  id={"snils"}
+                  value={watch("snils")}
+                  errMsg={errors?.snils?.message}
+                />
+                <Select
+                  register={register(`documentType`, {
+                    required: "Обязательное поле.",
+                  })}
+                  title={"Документ удостоверяющий личность"}
+                  value={[
+                    {
+                      value: "passportru",
+                      title: "Паспорт гражданина РФ",
+                    },
+                    {
+                      value: "passportforeign",
+                      title: "Паспорт гражданина другой страны",
+                    },
+                    {
+                      value: "birthru",
+                      title: "Свидетельсво о рождеднии гражданина РФ",
+                    },
+                    {
+                      value: "birthforeign",
+                      title: "Свидетельсво о рождеднии другой страны",
+                    },
+                  ]}
+                  errMsg={errors?.documentType?.message}
+                />
+                {watch("documentType") === "passportforeign" ? (
+                  <>
+                    <Input
+                      label={"Дата истечения паспорта:"}
+                      register={register(`passportValidity`, {
+                        required: "Обязательное поле.",
+                      })}
+                      placeholder={"Дата истечения паспорта"}
+                      name={"passportValidity"}
+                      type={"date"}
+                      id={"passportValidity"}
+                      errMsg={errors?.passportValidity?.message}
+                    />
+                                    <Input
+                  register={register(`passportSerial`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /^[0-9]{4}$/,
+                      message: "Некорректная серия паспорта",
+                    },
+                  })}
+                  placeholder={"Серия паспорта"}
+                  name={"passportSerial"}
+                  type={"text"}
+                  id={"passportSerial"}
+                  value={watch("passportSerial")}
+                  errMsg={errors?.passportSerial?.message}
+                />
+                <Input
+                  register={register(`passportNumber`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /^[0-9]{6}$/,
+                      message: "Некорректный номер паспорта",
+                    },
+                  })}
+                  placeholder={"Номер паспорта"}
+                  name={"passportNumber"}
+                  type={"text"}
+                  id={"passportNumber"}
+                  value={watch("passportNumber")}
+                  errMsg={errors?.passportNumber?.message}
+                />
+                <Input
+                  label={"Дата выдачи документа:"}
+                  register={register(`passportDateOfIssue`, {
+                    required: "Обязательное поле.",
+                  })}
+                  placeholder={""}
+                  name={"passportDateOfIssue"}
+                  type={"date"}
+                  id={"passportDateOfIssue"}
+                  errMsg={errors?.passportDateOfIssue?.message}
+                />
+                <Input
+                  register={register(`passportIssuedBy`, {
+                    required: "Обязательное поле.",
+                    pattern: {
+                      value:
+                        /^\D+$/,
+                      message: "Некорректный ввод",
+                    },
+                  })}
+                  placeholder={"Кем выдан"}
+                  name={"passportIssuedBy"}
+                  type={"text"}
+                  id={"passportIssuedBy"}
+                  value={watch("passportIssuedBy")}
+                  errMsg={errors?.passportIssuedBy?.message}
+                />
+                  </>
+                ) : (
+                  <></>
+                )}
+              {watch("documentType") === "passportru" ? (
+                  <>
+                    <Input
+                      register={register(`passportSerial`, {
+                        required: "Обязательное поле.",
+                        pattern: {
+                          value:
+                            /^[0-9]{4}$/,
+                          message: "Некорректная серия паспорта",
+                        },
+                      })}
+                      placeholder={"Серия паспорта"}
+                      name={"passportSerial"}
+                      type={"text"}
+                      id={"passportSerial"}
+                      value={watch("passportSerial")}
+                      errMsg={errors?.passportSerial?.message}
+                    />
+                    <Input
+                      register={register(`passportNumber`, {
+                        required: "Обязательное поле.",
+                        pattern: {
+                          value:
+                            /^[0-9]{6}$/,
+                          message: "Некорректный номер паспорта",
+                        },
+                      })}
+                      placeholder={"Номер паспорта"}
+                      name={"passportNumber"}
+                      type={"text"}
+                      id={"passportNumber"}
+                      value={watch("passportNumber")}
+                      errMsg={errors?.passportNumber?.message}
+                    />
+                    <Input
+                      label={"Дата выдачи документа:"}
+                      register={register(`passportDateOfIssue`, {
+                        required: "Обязательное поле.",
+                      })}
+                      placeholder={""}
+                      name={"passportDateOfIssue"}
+                      type={"date"}
+                      id={"passportDateOfIssue"}
+                      errMsg={errors?.passportDateOfIssue?.message}
+                    />
+                    <Input
+                      register={register(`passportIssuedBy`, {
+                        required: "Обязательное поле.",
+                        pattern: {
+                          value:
+                            /^\D+$/,
+                          message: "Некорректный ввод",
+                        },
+                      })}
+                      placeholder={"Кем выдан"}
+                      name={"passportIssuedBy"}
+                      type={"text"}
+                      id={"passportIssuedBy"}
+                      value={watch("passportIssuedBy")}
+                      errMsg={errors?.passportIssuedBy?.message}
+                    />
+                  </>
+                ) : (
+                  <></>
+                )}
+              {watch("documentType") === "birthru" ? (
+                  <>
+                  <Input
+                    register={register(`birthSerial`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={"Серия свидетельства"}
+                    name={"birthSerial"}
+                    type={"text"}
+                    id={"birthSerial"}
+                    value={watch("birthSerial")}
+                    errMsg={errors?.birthSerial?.message}
+                  />
+                  <Input
+                    register={register(`birthNumber`, {
+                      required: "Обязательное поле.",
+                      pattern: {
+                        value:
+                          /^[0-9]{6}$/,
+                        message: "Некорректный номер свидетельства",
+                      },
+                    })}
+                    placeholder={"Номер свидетельства"}
+                    name={"birthNumber"}
+                    type={"text"}
+                    id={"birthNumber"}
+                    value={watch("birthNumber")}
+                    errMsg={errors?.birthNumber?.message}
+                  />
+                  <Input
+                    label={"Дата выдачи документа:"}
+                    register={register(`birthDateOfIssue`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={""}
+                    name={"birthDateOfIssue"}
+                    type={"date"}
+                    id={"birthDateOfIssue"}
+                    errMsg={errors?.birthDateOfIssue?.message}
+                  />
+                  <Input
+                    register={register(`birthIssuedBy`, {
+                      required: "Обязательное поле.",
+                      pattern: {
+                        value:
+                          /^\D+$/,
+                        message: "Некорректный ввод",
+                      },
+                    })}
+                    placeholder={"Кем выдан"}
+                    name={"birthIssuedBy"}
+                    type={"text"}
+                    id={"birthIssuedBy"}
+                    value={watch("birthIssuedBy")}
+                    errMsg={errors?.birthIssuedBy?.message}
+                  />
+                  </>
+                ) : (
+                  <></>
+                )}
+              {watch("documentType") === "birthforeign" ? (
+                  <>
+                  <Input
+                    register={register(`birthSerial`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={"Серия свидетельства"}
+                    name={"birthSerial"}
+                    type={"text"}
+                    id={"birthSerial"}
+                    value={watch("birthSerial")}
+                    errMsg={errors?.birthSerial?.message}
+                  />
+                  <Input
+                    register={register(`birthNumber`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={"Номер свидетельства"}
+                    name={"birthNumber"}
+                    type={"text"}
+                    id={"birthNumber"}
+                    value={watch("birthNumber")}
+                    errMsg={errors?.birthNumber?.message}
+                  />
+                  <Input
+                    label={"Дата выдачи документа:"}
+                    register={register(`birthDateOfIssue`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={""}
+                    name={"birthDateOfIssue"}
+                    type={"date"}
+                    id={"birthDateOfIssue"}
+                    errMsg={errors?.birthDateOfIssue?.message}
+                  />
+                  <Input
+                    register={register(`birthIssuedBy`, {
+                      required: "Обязательное поле.",
+                    })}
+                    placeholder={"Кем выдан"}
+                    name={"birthIssuedBy"}
+                    type={"text"}
+                    id={"birthIssuedBy"}
+                    value={watch("birthIssuedBy")}
+                    errMsg={errors?.birthIssuedBy?.message}
+                  />
+                  </>
+                ) : (
+                  <></>
+                )}
+              <div className={styles["form-validate__buttons"]}>
+                <Button text={"Зарегистрировать ребёнка"} type={"submit"} />
+              </div>
               </form>
             </div>
           </TabPanel>
