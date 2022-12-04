@@ -92,6 +92,8 @@ namespace Booking.System.Application.ShiftsRequests
                     Price = shiftEntity.Price.ToString(),
                     ShiftName = shiftEntity.Shift.Name,
                     ShiftType = shiftEntity.ShiftType.Name,
+                    DateStart = $"{shiftEntity.Shift.DateStart.Year}-{shiftEntity.Shift.DateStart.Month}-{shiftEntity.Shift.DateStart.Day}",
+                    DateEnd = $"{shiftEntity.Shift.DateEnd.Year}-{shiftEntity.Shift.DateEnd.Month}-{shiftEntity.Shift.DateEnd.Day}",
                     BusyPlacesCount = shiftRequests.Count(),
                     PlacesCount = camp.Capacity
                 });;
@@ -132,9 +134,11 @@ namespace Booking.System.Application.ShiftsRequests
                     Price = shiftEntity.Price.ToString(),
                     ShiftName = shiftEntity.Shift.Name,
                     ShiftType = shiftEntity.ShiftType.Name,
+                    DateStart = $"{shiftEntity.Shift.DateStart.Year}-{shiftEntity.Shift.DateStart.Month}-{shiftEntity.Shift.DateStart.Day}",
+                    DateEnd = $"{shiftEntity.Shift.DateEnd.Year}-{shiftEntity.Shift.DateEnd.Month}-{shiftEntity.Shift.DateEnd.Day}",
                     BusyPlacesCount = shiftRequests.Count(),
                     PlacesCount = camp.Capacity
-                }); ;
+                });
             }
 
             var result = new AllShiftRequestsDto

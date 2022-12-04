@@ -58,18 +58,22 @@ namespace Booking.System.WebApi.Controllers
                 worksheet.Cells[1, 1].Value = "Наименование лагеря";
                 worksheet.Cells[1, 2].Value = "Название смены";
                 worksheet.Cells[1, 3].Value = "Тип смены";
-                worksheet.Cells[1, 4].Value = "Количество мест";
-                worksheet.Cells[1, 5].Value = "Количество занятых мест";
-                worksheet.Cells[1, 6].Value = "Количество свободных мест";
+                worksheet.Cells[1, 4].Value = "Дата начала";
+                worksheet.Cells[1, 5].Value = "Дата окончания";
+                worksheet.Cells[1, 6].Value = "Количество мест";
+                worksheet.Cells[1, 7].Value = "Количество занятых мест";
+                worksheet.Cells[1, 8].Value = "Количество свободных мест";
 
                 for (int i = 0; i < result.ShortShiftRequests.Count; i++)
                 {
                     worksheet.Cells[i + 2, 1].Value = result.ShortShiftRequests[i].CampName;
                     worksheet.Cells[i + 2, 2].Value = result.ShortShiftRequests[i].ShiftName;
                     worksheet.Cells[i + 2, 3].Value = result.ShortShiftRequests[i].ShiftType;
-                    worksheet.Cells[i + 2, 4].Value = result.ShortShiftRequests[i].PlacesCount;
-                    worksheet.Cells[i + 2, 5].Value = result.ShortShiftRequests[i].BusyPlacesCount;
-                    worksheet.Cells[i + 2, 6].Value = 
+                    worksheet.Cells[i + 2, 4].Value = result.ShortShiftRequests[i].DateStart;
+                    worksheet.Cells[i + 2, 5].Value = result.ShortShiftRequests[i].DateEnd;
+                    worksheet.Cells[i + 2, 6].Value = result.ShortShiftRequests[i].PlacesCount;
+                    worksheet.Cells[i + 2, 7].Value = result.ShortShiftRequests[i].BusyPlacesCount;
+                    worksheet.Cells[i + 2, 8].Value = 
                         result.ShortShiftRequests[i].PlacesCount - result.ShortShiftRequests[i].BusyPlacesCount;
                 }
 
