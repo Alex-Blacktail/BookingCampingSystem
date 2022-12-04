@@ -43,8 +43,11 @@ namespace Booking.System.Application.Identity
             var user = _mapper.Map<AppUser>(userRetistrationDto);
             var result = await _userManager.CreateAsync(user, userRetistrationDto.Password);
 
-            var userData = await _userManager.FindByNameAsync(user.UserName);
-            await _userManager.AddToRoleAsync(userData, "admin");
+            if(result.Succeeded)
+            {
+                var userData = await _userManager.FindByNameAsync(user.UserName);
+                await _userManager.AddToRoleAsync(userData, "admin");
+            }
 
             return result;
         }
@@ -131,11 +134,11 @@ namespace Booking.System.Application.Identity
                 };
                 _campDbContext.Parents.Add(parent);
                 _campDbContext.SaveChanges();
+
+                var userData = await _userManager.FindByNameAsync(user.UserName);
+                await _userManager.AddToRoleAsync(userData, "parent");
             }
-
-            var userData = await _userManager.FindByNameAsync(user.UserName);
-            await _userManager.AddToRoleAsync(userData, "parent");
-
+       
             return result;
         }
 
