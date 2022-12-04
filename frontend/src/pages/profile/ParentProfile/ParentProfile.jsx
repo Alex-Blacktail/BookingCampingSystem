@@ -10,6 +10,7 @@ import Button from "../../../components/controls/Button/Button";
 import {AuthContext} from "../../../context";
 import {getData, postData} from "../../../utils/fetch";
 import {apiRoutes} from "../../../constants/apiRoutes";
+import Cookies from 'js-cookie'
 
 const ParentProfile = () => {
   const [collapseState, setCollapseState] = useState({
@@ -21,12 +22,13 @@ const ParentProfile = () => {
   console.log(userInfo)
 
   useEffect(() => {
-    if (userInfo?.userId){
-      getData(apiRoutes.get.parentInfo, {id: userInfo.userId, token: userInfo.token})
-        .then(data => {
-          console.log(data)
-        })
-    }
+      if (Cookies.get('token')){
+        getData(apiRoutes.get.parentInfo, {id: Cookies.get('userId'), token: Cookies.get('token')})
+          .then(data => {
+            console.log(data)
+            Cookies.set('name', data.firstName)
+          })
+      }
   },[])
 
   return (
