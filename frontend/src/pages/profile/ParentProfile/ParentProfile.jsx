@@ -145,19 +145,23 @@ const ParentProfile = () => {
               {
                 profile?.children?.map(elem =>
                   <Grid style={{gridTemplateColumns: '1fr 1fr', alignItems: 'center'}}>
-                    <h5>Фамилия: </h5><p>{elem?.lastName}</p>
-                    <h5>Имя: </h5><p>{elem?.firstName}</p>
-                    <h5>Отчетсво: </h5><p>{elem?.thirdName}</p>
+                    <h5>Фамилия: </h5><p>{elem?.name}</p>
+                    <h5>Имя: </h5><p>{elem?.surname}</p>
+                    <h5>Отчетсво: </h5><p>{elem?.patronomyc}</p>
                     <h5>Дата рождения: </h5><p>{elem?.birthday}</p>
                     <h5>Страна: </h5><p>{elem?.address}</p>
                     <h5>Снилс: </h5><p>{elem?.snils}</p>
-                    <h5>Номер телефона: </h5><p>{elem?.snils}</p>
-                    <h5>Тип документа: </h5><p>{elem?.passportType}</p>
+                    <h5>Номер телефона: </h5><p>{elem?.phoneNumber}</p>
+                    <h5>Тип документа: </h5><p>{elem?.documentType}</p>
                     <h5>Серия паспорта: </h5><p>{elem?.passportSerial}</p>
                     <h5>Номер паспорта: </h5><p>{elem?.passportNumber}</p>
                     <h5>Дата выдачи паспорта: </h5><p>{elem?.passportDateOfIssue}</p>
                     <h5>Кем выдан паспорта: </h5><p>{elem?.passportIssuedBy}</p>
-                    <h5>Срок истечения паспорта: </h5><p>{elem?.passportIssuedBy ? elem?.passportIssuedBy : '-'}</p>
+                    <h5>Срок истечения паспорта: </h5><p>{elem?.passportValidity}</p>
+                    <h5>Серия свидетельства о рождеднии: </h5><p>{elem?.birthSerial}</p>
+                    <h5>Номер свидетельства о рождеднии: </h5><p>{elem?.birthNumber}</p>
+                    <h5>Дата выдачи свидетельства о рождеднии: </h5><p>{elem?.birthDateOfIssue}</p>
+                    <h5>Свидетельство о рождеднии выдано: </h5><p>{elem?.birthIssuedBy}</p>  
                   </Grid>
                 )
               }
