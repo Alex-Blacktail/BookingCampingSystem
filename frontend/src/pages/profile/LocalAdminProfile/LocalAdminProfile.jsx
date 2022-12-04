@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./LocalAdminProfile.module.scss";
 import MainContainer from "../../../components/layouts/MainContainer/MainContainer";
 import Container from "../../../components/layouts/Container/Container";
@@ -9,15 +9,24 @@ import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Input from "../../../components/controls/Input/Input";
 import { useForm } from "react-hook-form";
+import plusSVG from "../../../assets/svg/plus.svg";
 
 const LocalAdminProfile = ({ ...props }) => {
   const [tab, setTab] = useState("1");
-  const [shifts, setShifts] = useState([])
+  const [shifts, setShifts] = useState([
+    {
+      dateStart: "",
+      dateEnd: "",
+      name: "",
+      typeName: "",
+      price: 0,
+    },
+  ]);
 
   const handleAddShift = () => {
-    const shiftsLen = [...shifts, shifts.length + 1]
-    setShifts(shiftsLen)
-  }
+    const shiftsLen = [...shifts, shifts.length + 1];
+    setShifts(shiftsLen);
+  };
 
   const {
     register,
@@ -43,14 +52,7 @@ const LocalAdminProfile = ({ ...props }) => {
       childsAgeStart: 6.4,
       childsAgeEnd: 15.4,
       childrensHolidayCertificate: true,
-      shifts: [
-        {
-          dateStart: "2022-10-10",
-          dateEnd: "2022-10-10",
-          name: "Смена",
-          shiftTypeDtos: [],
-        },
-      ],
+
       features: [
         {
           name: "Для инвалидов",
@@ -181,7 +183,9 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("medicalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Наличие лицензии на осуществлении медицинской деятельности"}
+                  placeholder={
+                    "Наличие лицензии на осуществлении медицинской деятельности"
+                  }
                   type={"text"}
                   value={watch("medicalLicense")}
                   errMsg={errors?.medicalLicense?.message}
@@ -190,7 +194,9 @@ const LocalAdminProfile = ({ ...props }) => {
                   register={register("educationalLicense", {
                     required: "Обязательное поле.",
                   })}
-                  placeholder={"Наличие лицензии на осуществление образовательной деятельности"}
+                  placeholder={
+                    "Наличие лицензии на осуществление образовательной деятельности"
+                  }
                   type={"text"}
                   value={watch("educationalLicense")}
                   errMsg={errors?.educationalLicense?.message}
@@ -258,7 +264,74 @@ const LocalAdminProfile = ({ ...props }) => {
                   value={watch("childrensHolidayCertificate")}
                   errMsg={errors?.childrensHolidayCertificate?.message}
                 />
-                <h5 style={{marginTop: '20px'}}>Смены:</h5>
+                <h5 style={{ marginTop: "20px" }}>Смены:</h5>
+                {
+                  shifts.map((shift, index) =>
+                    <>
+                      <h6 style={{marginTop: '20px'}}>Смена {index + 1}</h6>
+                      <Input
+                        register={register("dateStart", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Дата начала"}
+                        type={"text"}
+                        value={watch("dateStart")}
+                        errMsg={errors?.dateStart?.message}
+                      />
+                      <Input
+                        register={register("dateEnd", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Дата окончания"}
+                        type={"text"}
+                        value={watch("dateEnd")}
+                        errMsg={errors?.dateEnd?.message}
+                      />
+                      <Input
+                        register={register("name", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Название смены"}
+                        type={"text"}
+                        value={watch("name")}
+                        errMsg={errors?.name?.message}
+                      />
+                      <Input
+                        register={register("typeName", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Тип смены"}
+                        type={"text"}
+                        value={watch("typeName")}
+                        errMsg={errors?.typeName?.message}
+                      />
+                      <Input
+                        register={register("price", {
+                          required: "Обязательное поле.",
+                        })}
+                        placeholder={"Цена"}
+                        type={"text"}
+                        value={watch("price")}
+                        errMsg={errors?.price?.message}
+                      />
+                    </>
+                  )
+                }
+                <div className={styles["shifts"]}>
+                  <Button style={{marginTop: '20px'}} type={'button'} click={() => {
+                    setShifts(prevState => ([...prevState, {
+                      dateStart: "",
+                      dateEnd: "",
+                      name: "",
+                      typeName: "",
+                      price: 0,
+                    }]))
+                    console.log(shifts)
+                  }} theme={'transparent'}><img src={plusSVG} alt="plus" width={35} height={35}/></Button>
+                </div>
+                <div className={styles["tab-content__form__buttons"]}>
+                  <Button type={'submit'} text={"Добавить лагерь"} />
+                </div>
               </form>
             </div>
           </TabPanel>
