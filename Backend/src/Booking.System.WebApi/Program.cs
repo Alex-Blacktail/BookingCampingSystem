@@ -59,7 +59,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+bool isSwaggerShow = bool.Parse(config.GetSection("SwaggerShow").Value);
+if (isSwaggerShow)
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
