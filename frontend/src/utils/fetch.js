@@ -7,7 +7,8 @@ export const postData = async (url, data = {}) => {
 		cache: 'no-cache',
 		credentials: 'same-origin',
 		headers: {
-			'Content-type': 'application/json'
+			'Content-type': 'application/json',
+			'authorization': `Bearer ${data.token}`,
 		},
 		redirect: 'follow',
 		referrerPolicy: 'no-referrer',
