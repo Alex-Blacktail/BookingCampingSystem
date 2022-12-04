@@ -39,11 +39,20 @@ namespace Booking.System.Application.Childs
         {
             try
             {
+
                 var parent = _campDbContext.Parents.First(p=>p.ParentId== removeChildInfoDto.ParentId);
                 var child = _campDbContext.Children.First(c => c.Snils == removeChildInfoDto.SNILS);
+                //parent.Children.Remove(child);
+
+                var shiftRequest = _campDbContext.ShiftRequests.Where(c => c.ChildId == child.ChildId).ToList();
+
+
+
+
+                var children = _campDbContext.Children.Include(p => p.Parents).ToList();
                 parent.Children.Remove(child);
                 child.Parents.Remove(parent);
-                _campDbContext.Children.Remove(child);
+                _campDbContext.Children.Remove(children.First(x=>x.Snils==child.Snils));
                 _campDbContext.SaveChanges();
             }
             catch (Exception ex)
