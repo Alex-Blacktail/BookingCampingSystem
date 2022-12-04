@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "./LocalAdminProfile.module.scss";
 import MainContainer from "../../../components/layouts/MainContainer/MainContainer";
 import Container from "../../../components/layouts/Container/Container";
@@ -11,9 +11,11 @@ import Input from "../../../components/controls/Input/Input";
 import { useForm } from "react-hook-form";
 import plusSVG from "../../../assets/svg/plus.svg";
 import CheckBox from "../../../components/controls/CheckBox/CheckBox";
-import { postData } from "../../../utils/fetch";
+import {getData, postData} from "../../../utils/fetch";
 import { apiRoutes } from "../../../constants/apiRoutes";
 import jsCookie from "js-cookie";
+import {AuthContext} from "../../../context";
+import Cookies from "js-cookie";
 
 const LocalAdminProfile = ({ ...props }) => {
   const [tab, setTab] = useState("1");
@@ -66,10 +68,26 @@ const LocalAdminProfile = ({ ...props }) => {
       ],
     },
   });
+  const [profile, setProfile] = useState(null)
 
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
   };
+  const {userInfo, setUserInfo} = useContext(AuthContext);
+  //
+
+  useEffect(() => {
+    if (Cookies.get('token')){
+      getData(`/api/localadmin/getcampsinfolocal/123`, {id: Cookies.get('userId'), token: Cookies.get('token')})
+        .then(data => {
+          console.log(data)
+          Cookies.set('name', data.name)
+          setProfile(data)
+          console.log(profile)
+        })
+    }
+  },[userInfo])
+
 
   const post = async (data) => {
     data.token = jsCookie.get('token')
