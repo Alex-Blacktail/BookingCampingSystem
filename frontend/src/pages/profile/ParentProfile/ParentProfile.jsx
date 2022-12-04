@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import MainContainer from "../../../components/layouts/MainContainer/MainContainer";
 import Container from "../../../components/layouts/Container/Container";
 import Grid from "../../../components/layouts/Grid/Grid";
@@ -7,15 +7,25 @@ import styles from "./ParentProfile.module.scss";
 import Collapsible from "react-collapsible";
 import expandArrowSvg from "../../../assets/svg/expandArrow.svg";
 import Button from "../../../components/controls/Button/Button";
+import {AuthContext} from "../../../context";
+import {getData, postData} from "../../../utils/fetch";
+import {apiRoutes} from "../../../constants/apiRoutes";
 
 const ParentProfile = () => {
   const [collapseState, setCollapseState] = useState({
     info: false,
     children: false,
   });
-  useEffect(() => {
-    console.log(collapseState);
-  }, [collapseState]);
+
+  const {userInfo, setUserInfo} = useContext(AuthContext)
+  console.log(userInfo)
+  if (userInfo?.userId){
+    getData(apiRoutes.get.parentInfo, {id: userInfo.userId, token: userInfo.token})
+      .then(data => {
+        console.log(data)
+      })
+  }
+
   return (
     <MainContainer>
       <Container>

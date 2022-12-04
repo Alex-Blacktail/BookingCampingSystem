@@ -2,7 +2,8 @@ export const ROUTES = {
 	login: '/login',
 	register: '/register',
 	index: '/',
-	parentProfile: '/profile',
-	catalog: '/catalog'
+	profile: '/profile',
+	catalog: '/catalog',
+	campPage: '/camp/:id'
 
 }

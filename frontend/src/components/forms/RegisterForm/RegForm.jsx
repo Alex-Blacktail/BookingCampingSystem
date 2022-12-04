@@ -1,252 +1,339 @@
-import React, {useEffect, useState} from 'react';
-import {ROUTES} from "../../../constants/routes";
-import {useForm} from "react-hook-form";
-import {CONSTANTS} from "../../../constants/constants";
-import {kladrGetAddres, postData} from "../../../utils/fetch";
+import React, { useEffect, useState } from "react";
+import { ROUTES } from "../../../constants/routes";
+import { useForm } from "react-hook-form";
+import { CONSTANTS } from "../../../constants/constants";
+import { kladrGetAddres, postData } from "../../../utils/fetch";
 import styles from "../BaseForm.module.scss";
 import Input from "../../controls/Input/Input";
 import Button from "../../controls/Button/Button";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Select from "../../controls/Select/Select";
 
-const RegForm = ({...props}) => {
+const RegForm = ({ ...props }) => {
+  const [pageState, setPageState] = useState(1);
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      userName: "",
+      firstName: "",
+      lastName: "",
+      thirdName: "",
+      password: "",
+      email: "",
+      phoneNumber: "",
+      address: "",
+      country: "",
+      snils: "",
+      birthday: "",
+      passportSerial: "",
+      passportNumber: "",
+      passportDateOfIssue: "",
+      passportIssuedBy: "",
+      passportValidity: "",
+    },
+  });
 
-	const [pageState,setPageState] = useState(1)
-	const {register, watch, handleSubmit, formState: {errors}, setValue} = useForm({
-		defaultValues:{
-			userName: "",
-			firstName: "",
-			lastName: "",
-			thirdName: "",
-			password: "",
-			email: "",
-			phoneNumber: "",
-			address: "",
-			country: "",
-			snils: "",
-			birthday: "",
-			passportSerial: "",
-			passportNumber: "",
-			passportDateOfIssue: "",
-			passportIssuedBy: "",
-			passportValidity: ""
-		}
-	})
+  const onSubmitFormHandler = async (data) => {
+    if (pageState === 1) {
+      setPageState(2);
+      return;
+    }
+    // await postData('/api/authentication/register/superadmin', data)
+    // 	.then((data) => {
+    // 		console.log(data)
+    // 	})
+    console.log(data);
+  };
 
-	const onSubmitFormHandler = async data => {
-		if (pageState === 1){
-			setPageState(2)
-			return
-		}
-		// await postData('/api/authentication/register/superadmin', data)
-		// 	.then((data) => {
-		// 		console.log(data)
-		// 	})
-		console.log(data)
-	}
+  const onSelectValidateHandler = (value) => {
+    if (
+      value === "Выберете статус" ||
+      value === "Документ удостоверяющий личность"
+    ) {
+      return "Обязательное поле.";
+    }
+    return true;
+  };
 
-	return (
-		<>
-			{
-				pageState === 1 ?
-					<form id={'form-1'} className={styles['form-validate']} onSubmit={handleSubmit(data => onSubmitFormHandler(data))}>
-						<h3 className={styles['title']}>Регистрация</h3>
-						<div className={styles['form-validate__inputs']}>
-							<Input
-								register={register(`userName`, {required: true})}
-								placeholder={'Логин'}
-								name={'userName'}
-								type={'text'}
-								id={'userName'}
-								value={watch('userName')}
-							/>
-							<Input
-								register={register(`email`, {required: true})}
-								placeholder={'Эл. почта'}
-								name={'email'}
-								type={'email'}
-								id={'email'}
-								value={watch('email')}
-							/>
-							<Input
-								register={register(`firstName`, {required: true})}
-								placeholder={'Имя'}
-								name={'firstName'}
-								type={'text'}
-								id={'firstName'}
-								value={watch('firstName')}
-							/>
-							<Input
-								register={register(`lastName`, {required: true})}
-								placeholder={'Фамилия'}
-								name={'lastName'}
-								type={'text'}
-								id={'lastName'}
-								value={watch('lastName')}
-							/>
-							<Input
-								register={register(`thirdName`, {required: true})}
-								placeholder={'Отчество'}
-								name={'thirdName'}
-								type={'text'}
-								id={'thirdName'}
-								value={watch('thirdName')}
-							/>
-							<Input
-								register={register(`phoneNumber`, {required: true})}
-								placeholder={'Телефон'}
-								name={'phoneNumber'}
-								type={'tel'}
-								id={'phoneNumber'}
-								value={watch('phoneNumber')}
-							/>
-							<Input
-								register={register(`password`, {required: true})}
-								placeholder={'Пароль'}
-								name={'password'}
-								type={'password'}
-								id={'password'}
-								value={watch('password')}
-							/>
-							<Input
-								register={register(`passwordRepeat`, {required: true})}
-								placeholder={'Пароль (ещё раз)'}
-								name={'passwordRepeat'}
-								type={'password'}
-								id={'passwordRepeat'}
-								value={watch('passwordRepeat')}
-							/>
-						</div>
-						<div className={styles['form-validate__buttons']}>
-							<Button text={'Далее'}/>
-						</div>
-						<div className={styles['form-validate__links']}>
-							<Link to={ROUTES.login}>Войти</Link>
-						</div>
-					</form>
-					:
-					<form id={'form-2'} className={styles['form-validate']} onSubmit={handleSubmit(data => onSubmitFormHandler(data))}>
-						<h3 className={styles['title']}>Регистрация</h3>
-						<div className={styles['form-validate__inputs']}>
-							<Select
-								register={register('statusId', {required: true})}
-								title={'Выберете статус'}
-								value={[
-									{
-										value: 1,
-										title: 'Родитель'
-									},
-									{
-										value: 2,
-										title: 'Законный представитель'
-									}
-								]}
-							/>
-							<Input
-								register={register(`address`, {required: true})}
-								placeholder={'Адрес'}
-								name={'address'}
-								type={'text'}
-								id={'address'}
-								value={watch('address')}
-							/>
-							<Input
-								register={register(`country`, {required: true})}
-								placeholder={'Гражданство'}
-								name={'country'}
-								type={'text'}
-								id={'country'}
-								value={watch('country')}
-							/>
-							<Input
-								register={register(`snils`, {required: true})}
-								placeholder={'Снилс'}
-								name={'snils'}
-								type={'text'}
-								id={'snils'}
-								value={watch('snils')}
-							/>
-							<Input
-								label={'Дата рождения:'}
-								register={register(`birthday`, {required: true})}
-								placeholder={'Дата рождения'}
-								name={'birthday'}
-								type={'date'}
-								id={'birthday'}
-								value={watch('birthda')}
-							/>
-							<Select
-								register={register(`passportType`, {required: true})}
-								title={'Документ удостоверяющий личность'}
-								value={[
-									{
-										value: 'ru',
-										title: 'Паспорт гражданина РФ'
-									},
-									{
-										value: 'foreign',
-										title: 'Паспорт гражданина другой страны'
-									},
-								]}
-							/>
-							{
-								watch('passportType') === 'foreign' ?
-									<>
-										<Input
-											label={'Дата истечения паспорта:'}
-											register={register(`passportValidity`, {required: true})}
-											placeholder={'Дата истечения паспорта'}
-											name={'passportValidity'}
-											type={'date'}
-											id={'passportValidity'}
-										/>
-
-									</>
-									:
-									<></>
-							}
-							<Input
-								register={register(`passportSerial`, {required: true})}
-								placeholder={'Серия паспорта'}
-								name={'passportSerial'}
-								type={'text'}
-								id={'passportSerial'}
-							/>
-							<Input
-								register={register(`passportNumber`, {required: true})}
-								placeholder={'Номер паспорта'}
-								name={'passwordRepeat'}
-								type={'text'}
-								id={'passwordRepeat'}
-							/>
-							<Input
-								label={'Дата выдачи документа:'}
-								register={register(`passportDateOfIssue`, {required: true})}
-								placeholder={''}
-								name={'passwordRepeat'}
-								type={'date'}
-								id={'passwordRepeat'}
-							/>
-							<Input
-								register={register(`passportIssuedBy`, {required: true})}
-								placeholder={'Кем выдан'}
-								name={'passwordRepeat'}
-								type={'text'}
-								id={'passwordRepeat'}
-							/>
-
-						</div>
-						<div className={styles['form-validate__buttons']}>
-							<Button text={'Зарегистрироваться'} type={'submit'}/>
-							<Button text={'Назад'} click={() => setPageState(1)}/>
-						</div>
-						<div className={styles['form-validate__links']}>
-							<Link to={ROUTES.login}>Войти</Link>
-						</div>
-					</form>
-			}
-		</>
-	);
+  return (
+    <>
+      {pageState === 1 ? (
+        <form
+          id={"form-1"}
+          className={styles["form-validate"]}
+          onSubmit={handleSubmit((data) => onSubmitFormHandler(data))}
+        >
+          <h3 className={styles["title"]}>Регистрация</h3>
+          <div className={styles["form-validate__inputs"]}>
+            <Input
+              register={register(`userName`, {
+                required: "Обязательное поле.",
+                pattern: {
+                  value: /^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/i,
+                  message:
+                    '\'Начинается и кончается на букву и содержит не более двух "_"/"-" подряд.\'',
+                },
+              })}
+              placeholder={"Логин"}
+              name={"userName"}
+              type={"text"}
+              id={"userName"}
+              value={watch("userName")}
+              errMsg={errors?.userName?.message}
+            />
+            <Input
+              register={register(`email`, {
+                required: "Обязательное поле.",
+                pattern: {
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "Эл. почта введена неправильно",
+                },
+              })}
+              placeholder={"Эл. почта"}
+              name={"email"}
+              type={"email"}
+              id={"email"}
+              value={watch("email")}
+              errMsg={errors?.email?.message}
+            />
+            <Input
+              register={register(`firstName`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Имя"}
+              name={"firstName"}
+              type={"text"}
+              id={"firstName"}
+              value={watch("firstName")}
+              errMsg={errors?.firstName?.message}
+            />
+            <Input
+              register={register(`lastName`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Фамилия"}
+              name={"lastName"}
+              type={"text"}
+              id={"lastName"}
+              value={watch("lastName")}
+              errMsg={errors?.lastName?.message}
+            />
+            <Input
+              register={register(`thirdName`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Отчество"}
+              name={"thirdName"}
+              type={"text"}
+              id={"thirdName"}
+              value={watch("thirdName")}
+              errMsg={errors?.thirdName?.message}
+            />
+            <Input
+              register={register(`phoneNumber`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Телефон"}
+              name={"phoneNumber"}
+              type={"tel"}
+              id={"phoneNumber"}
+              value={watch("phoneNumber")}
+              errMsg={errors?.phoneNumber?.message}
+            />
+            <Input
+              register={register(`password`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Пароль"}
+              name={"password"}
+              type={"password"}
+              id={"password"}
+              value={watch("password")}
+              errMsg={errors?.password?.message}
+            />
+            <Input
+              register={register(`passwordRepeat`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Пароль (ещё раз)"}
+              name={"passwordRepeat"}
+              type={"password"}
+              id={"passwordRepeat"}
+              value={watch("passwordRepeat")}
+              errMsg={errors?.passwordRepeat?.message}
+            />
+          </div>
+          <div className={styles["form-validate__buttons"]}>
+            <Button text={"Далее"} />
+          </div>
+          <div className={styles["form-validate__links"]}>
+            <Link to={ROUTES.login}>Войти</Link>
+          </div>
+        </form>
+      ) : (
+        <form
+          id={"form-2"}
+          className={styles["form-validate"]}
+          onSubmit={handleSubmit((data) => onSubmitFormHandler(data))}
+        >
+          <h3 className={styles["title"]}>Регистрация</h3>
+          <div className={styles["form-validate__inputs"]}>
+            <Select
+              register={register("statusId", {
+                required: "Обязательное поле.",
+                validate: (value) => onSelectValidateHandler(value),
+              })}
+              title={"Выберете статус"}
+              value={[
+                {
+                  value: 1,
+                  title: "Родитель",
+                },
+                {
+                  value: 2,
+                  title: "Законный представитель",
+                },
+              ]}
+              errMsg={errors?.statusId?.message}
+            />
+            <Input
+              register={register(`address`, { required: "Обязательное поле." })}
+              placeholder={"Адрес"}
+              name={"address"}
+              type={"text"}
+              id={"address"}
+              value={watch("address")}
+              errMsg={errors?.address?.message}
+            />
+            <Input
+              register={register(`country`, { required: "Обязательное поле." })}
+              placeholder={"Гражданство"}
+              name={"country"}
+              type={"text"}
+              id={"country"}
+              value={watch("country")}
+              errMsg={errors?.country?.message}
+            />
+            <Input
+              register={register(`snils`, {
+                required: "Обязательное поле.",
+                pattern: {
+                  value: /^\d{3}-\d{3}-\d{3}-\d{2}$/,
+                  message: "Снилс в формате 132-155-455-45",
+                },
+              })}
+              placeholder={"Снилс"}
+              name={"snils"}
+              type={"text"}
+              id={"snils"}
+              value={watch("snils")}
+              errMsg={errors?.snils?.message}
+            />
+            <Input
+              label={"Дата рождения:"}
+              register={register(`birthday`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Дата рождения"}
+              name={"birthday"}
+              type={"date"}
+              id={"birthday"}
+              value={watch("birthda")}
+              errMsg={errors?.birthday?.message}
+            />
+            <Select
+              register={register(`passportType`, {
+                required: "Обязательное поле.",
+              })}
+              title={"Документ удостоверяющий личность"}
+              value={[
+                {
+                  value: "ru",
+                  title: "Паспорт гражданина РФ",
+                },
+                {
+                  value: "foreign",
+                  title: "Паспорт гражданина другой страны",
+                },
+              ]}
+              errMsg={errors?.passportType?.message}
+            />
+            {watch("passportType") === "foreign" ? (
+              <>
+                <Input
+                  label={"Дата истечения паспорта:"}
+                  register={register(`passportValidity`, {
+                    required: "Обязательное поле.",
+                  })}
+                  placeholder={"Дата истечения паспорта"}
+                  name={"passportValidity"}
+                  type={"date"}
+                  id={"passportValidity"}
+                  errMsg={errors?.passportValidity?.message}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+            <Input
+              register={register(`passportSerial`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Серия паспорта"}
+              name={"passportSerial"}
+              type={"text"}
+              id={"passportSerial"}
+              errMsg={errors?.passportSerial?.message}
+            />
+            <Input
+              register={register(`passportNumber`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Номер паспорта"}
+              name={"passportNumber"}
+              type={"text"}
+              id={"passportNumber"}
+              errMsg={errors?.passportNumber?.message}
+            />
+            <Input
+              label={"Дата выдачи документа:"}
+              register={register(`passportDateOfIssue`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={""}
+              name={"passportDateOfIssue"}
+              type={"date"}
+              id={"passportDateOfIssue"}
+              errMsg={errors?.passportDateOfIssue?.message}
+            />
+            <Input
+              register={register(`passportIssuedBy`, {
+                required: "Обязательное поле.",
+              })}
+              placeholder={"Кем выдан"}
+              name={"passportIssuedBy"}
+              type={"text"}
+              id={"passportIssuedBy"}
+              errMsg={errors?.passportIssuedBy?.message}
+            />
+          </div>
+          <div className={styles["form-validate__buttons"]}>
+            <Button text={"Зарегистрироваться"} type={"submit"} />
+            <Button text={"Назад"} click={() => setPageState(1)} />
+          </div>
+          <div className={styles["form-validate__links"]}>
+            <Link to={ROUTES.login}>Войти</Link>
+          </div>
+        </form>
+      )}
+    </>
+  );
 };
 
 export default RegForm;

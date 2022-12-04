@@ -16,3 +16,19 @@ export const postData = async (url, data = {}) => {
 	return await response.json();
 }
 
+export const getData = async (url, data = {}) => {
+	const response = await fetch(`${CONSTANTS.baseUrl}${CONSTANTS.basePort}${url}${data.id}`, {
+		method: 'GET',
+		mode: 'cors',
+		// cache: 'no-cache',
+		// credentials: 'same-origin',
+		// headers: {
+		// 	'authorization': `Bearer ${data.token}`,
+		// 	'cache-control': 'no-cache,no-store',
+		// 	'content-type': 'application/json',
+		// 	'pragma': 'no-cache'
+		// }
+	})
+	return await response.json();
+}
+

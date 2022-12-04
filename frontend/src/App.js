@@ -8,16 +8,22 @@ import {useEffect, useState} from "react";
 import Cookies from 'js-cookie'
 import ParentProfile from "./pages/profile/ParentProfile/ParentProfile";
 import Catalog from "./pages/Сatalog/Catalog";
+import CampCardPage from "./pages/CampCardPage/CampCardPage";
+import {SnackbarProvider} from "notistack";
 
 function App() {
 
   const [userInfo, setUserInfo] = useState()
 
   const token = Cookies.get('token')
+  const userId = Cookies.get('userId')
+  const role = Cookies.get('role')
 
   useEffect(() => {
-    if (token){
-      setUserInfo((prevState) => ({...prevState, token}))
+    if (token && userId && role){
+      setUserInfo({
+        token, userId, role
+      })
       console.log('logged')
     }
   },[])
@@ -28,25 +34,28 @@ function App() {
      setUserInfo
    }}
    >
-     <BrowserRouter>
-       <Routes>
-         {
-           userInfo ?
-             <>
+    <SnackbarProvider maxSnack={3}>
+      <BrowserRouter>
+        <Routes>
+          {
+            userInfo ?
+              <>
 
-             </>
-             :
-             <>
+              </>
+              :
+              <>
 
-             </>
-         }
-         <Route path={ROUTES.catalog} element={<Catalog/>}/>
-         <Route path={ROUTES.login} element={<LoginPage/>}/>
-         <Route path={ROUTES.register} element={<RegPage/>}/>
-         <Route path={ROUTES.parentProfile} element={<ParentProfile/>}/>
-         <Route path={ROUTES.index} element={<MainPage/>}/>
-       </Routes>
-     </BrowserRouter>
+              </>
+          }
+          <Route path={ROUTES.catalog} element={<Catalog/>}/>
+          <Route path={ROUTES.login} element={<LoginPage/>}/>
+          <Route path={ROUTES.register} element={<RegPage/>}/>
+          <Route path={ROUTES.profile} element={<ParentProfile/>}/>
+          <Route path={ROUTES.index} element={<MainPage/>}/>
+          <Route path={ROUTES.campPage} element={<CampCardPage/>}/>
+        </Routes>
+      </BrowserRouter>
+    </SnackbarProvider>
    </AuthContext.Provider>
   );
 }
