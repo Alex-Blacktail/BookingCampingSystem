@@ -142,6 +142,22 @@ const ParentProfile = () => {
               <h3 className={styles["tab-content__title"]}>
                 Информация о детях
               </h3>
+              {profile.childrens.map(elem => <div><div/>)}
+              <Grid style={{gridTemplateColumns: '1fr 1fr', alignItems: 'center'}}>
+                <h5>Фамилия: </h5><p>{profile?.lastName}</p>
+                <h5>Имя: </h5><p>{profile?.firstName}</p>
+                <h5>Отчетсво: </h5><p>{profile?.thirdName}</p>
+                <h5>Дата рождения: </h5><p>{profile?.birthday}</p>
+                <h5>Страна: </h5><p>{profile?.address}</p>
+                <h5>Снилс: </h5><p>{profile?.snils}</p>
+                <h5>Номер телефона: </h5><p>{profile?.snils}</p>
+                <h5>Тип документа: </h5><p>{profile?.passportType}</p>
+                <h5>Серия паспорта: </h5><p>{profile?.passportSerial}</p>
+                <h5>Номер паспорта: </h5><p>{profile?.passportNumber}</p>
+                <h5>Дата выдачи паспорта: </h5><p>{profile?.passportDateOfIssue}</p>
+                <h5>Кем выдан паспорта: </h5><p>{profile?.passportIssuedBy}</p>
+                <h5>Срок истечения паспорта: </h5><p>{profile?.passportIssuedBy ? profile?.passportIssuedBy : '-'}</p>
+              </Grid>
             </div>
           </TabPanel>
           <TabPanel value="3">
