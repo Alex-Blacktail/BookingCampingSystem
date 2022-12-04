@@ -93,9 +93,13 @@ namespace Booking.System.Application.Identity
 
             if (addedUser != null)
             {
-
+                string[] ValidityDates = new string[2];
                 string[] PassportDates = parentRegistrationDto.PassportDateOfIssue.Split("-");
-                string[] ValidityDates = parentRegistrationDto.PassportValidity.Split("-");
+                if (parentRegistrationDto.PassportValidity != null)
+                {
+                    ValidityDates = parentRegistrationDto.PassportValidity.Split("-");
+                }
+               
                 string[] BirthdayDates = parentRegistrationDto.Birthday.Split("-");
 
                 var status = new Status
