@@ -35,6 +35,10 @@ namespace Booking.System.WebApi.Controllers
             return Ok(cardsResult);
         }
 
+        /// <summary>
+        /// ѕолучить данные о всех сменах и их заполненности
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("all")]
         public async Task<ActionResult<AllShiftRequestsDto>> GetAllShiftRequests()
         {
@@ -42,6 +46,10 @@ namespace Booking.System.WebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// ѕолучить данные о действующих сменах и их заполненности
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("current")]
         public async Task<ActionResult<AllShiftRequestsDto>> GetCurrentShiftRequests()
         {
@@ -49,6 +57,10 @@ namespace Booking.System.WebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Ёкспорт в excel данных о всех сменах и их заполненности
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("excel/all")]
         public async Task<IActionResult> ExportAll()
         {
@@ -116,6 +128,10 @@ namespace Booking.System.WebApi.Controllers
             return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sFileName);
         }
 
+        /// <summary>
+        /// Ёкспорт в excel данных о действующих сменах и их заполненности
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("excel/today")]
         public async Task<IActionResult> ExportToday()
         {
@@ -144,7 +160,6 @@ namespace Booking.System.WebApi.Controllers
                 var result = await _repository.GetShiftsTodayDate();
 
                 IRow row = excelSheet.CreateRow(0);
-
                 row.CreateCell(0).SetCellValue("Ќомер");
                 row.CreateCell(1).SetCellValue("Ќаименование лагер€");
                 row.CreateCell(2).SetCellValue("Ќазвание смены");
@@ -170,6 +185,15 @@ namespace Booking.System.WebApi.Controllers
                     row.CreateCell(8)
                         .SetCellValue(result.ShortShiftRequests[i].PlacesCount - result.ShortShiftRequests[i].BusyPlacesCount);
                 }
+                excelSheet.AutoSizeColumn(0);
+                excelSheet.AutoSizeColumn(1);
+                excelSheet.AutoSizeColumn(2);
+                excelSheet.AutoSizeColumn(3);
+                excelSheet.AutoSizeColumn(4);
+                excelSheet.AutoSizeColumn(5);
+                excelSheet.AutoSizeColumn(6);
+                excelSheet.AutoSizeColumn(7);
+                excelSheet.AutoSizeColumn(8);
 
                 workbook.Write(fs, false);
             }
