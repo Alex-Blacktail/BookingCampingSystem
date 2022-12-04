@@ -61,7 +61,7 @@ namespace Booking.System.Application.Identity
                 dto.ChildrensHolidayCertificate = camp.ChildrensHolidayCertificate;
                 dto.EducationalLicense = camp.EducationalLicense;
                 dto.MedicalLicense = camp.MedicalLicense;
-
+                dto.Features = new List<FeatureDto>();
                 if (_campDbContext.Features.Where(f => f.CampId == camp.CampId).Count() > 0)
                 {
                     foreach (var feature in _campDbContext.Features.Where(f => f.CampId == camp.CampId))
@@ -73,6 +73,7 @@ namespace Booking.System.Application.Identity
                 // dto.WorkingModeDto = _mapper.Map<WorkingModeDto>(workingMode);
                 dto.WorkingModeDto = _campDbContext.WorkingModes.First(w => w.WorkingModeId == camp.WorkingModeId).WorkingModeString;
                 var shifts = await _campDbContext.Shifts.Where(x=>x.CampId==camp.CampId).ToListAsync();
+                dto.Shifts = new List<ShiftDto>();
                 foreach (var shift in shifts)
                 {
                     var shiftsTypes = new List<ShiftType>();
@@ -97,7 +98,7 @@ namespace Booking.System.Application.Identity
                         });
                     }
                     //shiftTypeDtos.Add(_mapper.Map<ShiftTypeDto>(shiftType));
-
+                 
                     dto.Shifts.Add(new ShiftDto
                     {
                         DateStart = shift.DateStart.Year.ToString() +"-"+shift.DateStart.Month.ToString() +"-"+ shift.DateStart.Day.ToString(),
